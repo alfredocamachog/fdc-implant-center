@@ -1,5 +1,4 @@
 ﻿import { useEffect, useState } from 'react'
-import type { ReactElement } from 'react'
 
 import './style.css'
 
@@ -36,84 +35,6 @@ const getInitialLanguage = (): Language => {
   return 'es'
 
 }
-
-
-
-const flagIcons = {
-
-  es: (
-
-    <svg viewBox="0 0 24 16" aria-hidden="true" className="flag-icon">
-
-      <rect width="24" height="16" rx="3" fill="#AA151B" />
-
-      <rect y="4" width="24" height="8" fill="#F1BF00" />
-
-      <rect y="5" x="4.5" width="3" height="5.5" rx="0.6" fill="#AA151B" />
-
-      <rect y="6" x="5.1" width="1.8" height="4" rx="0.4" fill="#F1BF00" />
-
-    </svg>
-
-  ),
-
-  en: (
-
-    <svg viewBox="0 0 24 16" aria-hidden="true" className="flag-icon">
-
-      <rect width="24" height="16" rx="3" fill="#B22234" />
-
-      <g fill="#fff">
-
-        <rect y="2" width="24" height="2" />
-
-        <rect y="6" width="24" height="2" />
-
-        <rect y="10" width="24" height="2" />
-
-        <rect y="14" width="24" height="2" />
-
-      </g>
-
-      <rect width="10" height="9" rx="2" fill="#3C3B6E" />
-
-      <g fill="#fff">
-
-        <circle cx="2" cy="2" r="0.5" />
-
-        <circle cx="4" cy="2" r="0.5" />
-
-        <circle cx="6" cy="2" r="0.5" />
-
-        <circle cx="8" cy="2" r="0.5" />
-
-        <circle cx="3" cy="3.5" r="0.5" />
-
-        <circle cx="5" cy="3.5" r="0.5" />
-
-        <circle cx="7" cy="3.5" r="0.5" />
-
-        <circle cx="2" cy="5" r="0.5" />
-
-        <circle cx="4" cy="5" r="0.5" />
-
-        <circle cx="6" cy="5" r="0.5" />
-
-        <circle cx="8" cy="5" r="0.5" />
-
-        <circle cx="3" cy="6.5" r="0.5" />
-
-        <circle cx="5" cy="6.5" r="0.5" />
-
-        <circle cx="7" cy="6.5" r="0.5" />
-
-      </g>
-
-    </svg>
-
-  )
-
-} satisfies Record<Language, ReactElement>
 
 
 
@@ -1019,7 +940,7 @@ function App() {
 
   const whatsappLink = `https://wa.me/526624554321?text=${encodeURIComponent(t.floatingCta.message)}`
 
-  const phoneHref = 'tel:+526624554321'
+  const phoneHref = 'tel:+526311440368'
 
   const emailHref = 'mailto:coordinacion@fdcprostho.com'
 
@@ -1028,100 +949,58 @@ function App() {
 
 
   return (
-
-    <div className="site">
-
+    <div className="page">
       <header className="site-header">
-
-        <a className="logo" href="#inicio" onClick={closeMenu}>
-
-          <span className="logo__title">{t.brand.title}</span>
-
-          <span className="logo__tagline">{t.brand.tagline}</span>
-
-        </a>
-
-        <div className="header-controls">
-
-          <div className="language-toggle" role="group" aria-label={t.languageToggle.ariaLabel}>
-
-            {languages.map((code) => (
-
-              <button
-
-                key={code}
-
-                type="button"
-
-                className={`language-toggle__btn ${language === code ? 'is-active' : ''}`}
-
-                aria-pressed={language === code}
-
-                onClick={() => setLanguage(code)}
-
-              >
-
-                {flagIcons[code]}
-
-                <span className="sr-only">{code === 'es' ? 'Español' : 'English'}</span>
-
-              </button>
-
-            ))}
-
-          </div>
-
-          <button
-
-            className="menu-toggle"
-
-            type="button"
-
-            aria-expanded={menuOpen}
-
-            aria-controls="site-navigation"
-
-            onClick={() => setMenuOpen((prev) => !prev)}
-
-          >
-
-            <span className="sr-only">{menuOpen ? t.navigation.close : t.navigation.open}</span>
-
-            <span></span>
-
-            <span></span>
-
-            <span></span>
-
-          </button>
-
-        </div>
-
-        <nav id="site-navigation" className={`nav ${menuOpen ? 'nav--open' : ''}`}>
-
-          {t.navLinks.map((link) => (
-
-            <a key={link.href} href={link.href} onClick={closeMenu}>
-
-              {link.label}
-
-            </a>
-
-          ))}
-
-          <a className="btn primary small" href="#contacto" onClick={closeMenu}>
-
-            {t.hero.primaryCta}
-
+        <div className="site-header__inner">
+          <a className="logo" href="#inicio" onClick={closeMenu}>
+            <span className="logo__badge">FD</span>
+            <span className="logo__text">
+              <span className="logo__title">{t.brand.title}</span>
+              <span className="logo__tagline">{t.brand.tagline}</span>
+            </span>
           </a>
-
-        </nav>
-
+          <nav id="site-navigation" className={`nav ${menuOpen ? 'nav--open' : ''}`}>
+            <div className="nav__links">
+              {t.navLinks.map((link) => (
+                <a key={link.href} href={link.href} onClick={closeMenu}>
+                  {link.label}
+                </a>
+              ))}
+            </div>
+            <a className="btn primary small nav__cta" href="#contacto" onClick={closeMenu}>
+              {t.hero.primaryCta}
+            </a>
+          </nav>
+          <div className="header-controls">
+            <div className="language-toggle" role="group" aria-label={t.languageToggle.ariaLabel}>
+              {languages.map((code) => (
+                <button
+                  key={code}
+                  type="button"
+                  className={`language-toggle__btn ${language === code ? 'is-active' : ''}`}
+                  aria-pressed={language === code}
+                  onClick={() => setLanguage(code)}
+                >
+                  <img src={code === 'es' ? 'https://flagcdn.com/w20/es.png' : 'https://flagcdn.com/w20/us.png'} alt={code} />
+                </button>
+              ))}
+            </div>
+            <button
+              className="menu-toggle"
+              type="button"
+              aria-expanded={menuOpen}
+              aria-controls="site-navigation"
+              onClick={() => setMenuOpen((prev) => !prev)}
+            >
+              <span className="sr-only">{menuOpen ? t.navigation.close : t.navigation.open}</span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
       </header>
-
-
-
-      <section className="hero" id="inicio">
+      <div className="site">      <section className="hero" id="inicio">
 
         <div className="hero__content">
 
@@ -1535,24 +1414,22 @@ function App() {
 
       </footer>
 
+    </div>
+
+
+
 
 
       <a className="floating-cta" href={whatsappLink} target="_blank" rel="noreferrer" aria-label={t.floatingCta.ariaLabel}>
-
-        <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true">
-
-          <path
-
-            d="M12 2a10 10 0 0 0-8.66 15.05L2 22l5.2-1.35A10 10 0 1 0 12 2zm0 2a8 8 0 0 1 6.79 12.31l-.27.4.77 3-3.1-.81-.4.24A8 8 0 1 1 12 4zm3.57 4.66c-.2-.5-.4-.51-.58-.52l-.5-.01c-.17 0-.45.06-.68.34s-.89.88-.89 2.15.91 2.49 1.04 2.66.78 1.24 1.92 1.7 1.15.54 1.56.46.77-.34.88-.68.11-.62.08-.68-.12-.2-.25-.24-.77-.38-.89-.43-.2-.07-.29.08-.33.43-.4.52-.15.12-.29.04a6.36 6.36 0 0 1-1.87-1.16 6.57 6.57 0 0 1-1.21-1.5c-.13-.22 0-.34.1-.46.08-.08.17-.2.25-.3s.11-.17.16-.28.03-.2 0-.28-.5-1.26-.7-1.72z"
-
-            fill="currentColor"
-
-          />
-
-        </svg>
-
-        <span>{t.floatingCta.label}</span>
-
+        <span className="floating-cta__icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" role="presentation" focusable="false">
+            <path
+              d="M16.004 3.003C9.38 3.003 4 8.385 4 15.006c0 2.668.768 5.184 2.222 7.374L4 28.997l7.06-2.197A11.946 11.946 0 0 0 16.004 27C22.627 27 28 21.617 28 15c0-6.627-5.373-11.997-11.996-11.997h0zm6.622 16.954c-.277.78-1.637 1.52-2.24 1.59-.602.07-1.155.332-3.865-.799-3.258-1.4-5.342-4.837-5.508-5.062-.166-.226-1.316-1.75-1.316-3.335s.833-2.365 1.128-2.695c.294-.33.648-.413.863-.413.215 0 .431.002.622.01.2.009.466-.075.73.555.277.666.946 2.295 1.03 2.46.083.165.138.357.03.582-.108.226-.162.357-.321.548-.16.19-.34.425-.486.571-.162.16-.33.334-.142.66.189.327.84 1.377 1.802 2.226 1.237 1.103 2.275 1.445 2.6 1.604.324.16.513.135.702-.08.189-.215.812-.95 1.028-1.276.215-.327.455-.274.76-.165.304.108 1.929.909 2.262 1.073.333.165.555.248.638.384.084.136.084.782-.193 1.563z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
+        <span className="floating-cta__label">{t.floatingCta.label}</span>
       </a>
 
     </div>
@@ -1564,6 +1441,15 @@ function App() {
 
 
 export default App
+
+
+
+
+
+
+
+
+
 
 
 
