@@ -1,7 +1,8 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap');
 
 :root {
   --bg: #ffffff;
+  --on-primary: #ffffff;
   --surface: #f1f5f9;
   --surface-alt: #e2e8f0;
   --ink: #023e8a;
@@ -85,7 +86,7 @@ img {
   height: 46px;
   border-radius: 16px;
   background: var(--primary);
-  color: #fff;
+  color: var(--on-primary);
   font-weight: 700;
   display: flex;
   justify-content: center;
@@ -134,7 +135,8 @@ img {
   transition: color 0.2s ease;
 }
 
-.nav a:hover {
+.nav a:hover,
+.nav a:focus-visible {
   color: var(--ink);
 }
 
@@ -154,7 +156,7 @@ img {
 .language-toggle {
   border: 1px solid var(--border);
   border-radius: 999px;
-  background: #fff;
+  background: var(--bg);
   display: inline-flex;
   gap: 0.3rem;
   padding: 0.25rem 0.35rem;
@@ -173,6 +175,11 @@ img {
   cursor: pointer;
 }
 
+.language-toggle__btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
 .language-toggle__btn.is-active {
   background: rgba(0, 180, 216, 0.15);
 }
@@ -189,9 +196,15 @@ img {
   flex-direction: column;
   gap: 0.3rem;
   border: 1px solid var(--border);
-  background: #fff;
+  background: var(--bg);
   padding: 0.55rem;
   border-radius: 0.7rem;
+  cursor: pointer;
+}
+
+.menu-toggle:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 .menu-toggle span {
@@ -209,16 +222,18 @@ img {
   justify-content: center;
   align-items: center;
   text-decoration: none;
+  cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border 0.2s ease;
 }
 
 .btn.primary {
   background: var(--cta);
-  color: #fff;
+  color: var(--on-primary);
   border-color: var(--cta);
 }
 
-.btn.primary:hover {
+.btn.primary:hover,
+.btn.primary:focus-visible {
   background: var(--cta-dark);
 }
 
@@ -228,8 +243,14 @@ img {
   background: transparent;
 }
 
-.btn.ghost:hover {
+.btn.ghost:hover,
+.btn.ghost:focus-visible {
   border-color: var(--ink);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 .btn.small {
@@ -248,6 +269,7 @@ img {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2.75rem;
   padding: 4rem 0 3rem;
+  scroll-margin-top: 5rem;
 }
 
 .hero__content h1 {
@@ -354,10 +376,6 @@ img {
   scroll-margin-top: 5rem;
 }
 
-.hero {
-  scroll-margin-top: 5rem;
-}
-
 .section--alt {
   background: var(--surface);
   border-radius: 1.5rem;
@@ -384,7 +402,7 @@ img {
 }
 
 .card {
-  background: #fff;
+  background: var(--bg);
   border-radius: 1.2rem;
   border: 1px solid var(--border);
   padding: 1.6rem;
@@ -413,6 +431,13 @@ img {
   color: var(--primary);
 }
 
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
 .gallery__item figcaption {
   color: var(--muted);
   font-weight: 600;
@@ -427,7 +452,7 @@ img {
 
 .profile__card {
   background: var(--ink);
-  color: #fff;
+  color: var(--on-primary);
   border-radius: 1.4rem;
   padding: 2rem;
   box-shadow: var(--shadow);
@@ -459,12 +484,13 @@ img {
   font-weight: 600;
 }
 
-.contact__details a:hover {
+.contact__details a:hover,
+.contact__details a:focus-visible {
   color: var(--primary);
 }
 
 .contact__form {
-  background: #fff;
+  background: var(--bg);
   border-radius: 1.2rem;
   border: 1px solid var(--border);
   box-shadow: 0 15px 35px rgba(2, 62, 138, 0.08);
@@ -503,7 +529,8 @@ img {
 .contact__form input:focus,
 .contact__form select:focus,
 .contact__form textarea:focus {
-  outline: none;
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
   border-color: var(--primary);
 }
 
@@ -566,7 +593,7 @@ img {
   position: fixed;
   right: 1.4rem;
   bottom: 1.4rem;
-  background: #fff;
+  background: var(--bg);
   color: var(--ink);
   border-radius: 999px;
   padding: 0.6rem 0.85rem;
@@ -585,7 +612,7 @@ img {
   min-width: 32px;
   border-radius: 50%;
   background: var(--whatsapp);
-  color: #fff;
+  color: var(--on-primary);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -616,7 +643,7 @@ img {
     position: absolute;
     top: calc(100% + 0.8rem);
     right: 1.5rem;
-    background: #fff;
+    background: var(--bg);
     border: 1px solid var(--border);
     border-radius: 1.2rem;
     padding: 1.5rem;
@@ -675,7 +702,7 @@ img {
     width: auto;
     padding: 0.5rem;
     border-radius: 50%;
-    background: #fff;
+    background: var(--bg);
     border: 0;
   }
 
@@ -683,6 +710,3 @@ img {
     display: none;
   }
 }
-
-
-
