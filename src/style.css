@@ -535,6 +535,27 @@ img {
   }
 }
 
+.contact__success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+  min-height: 300px;
+}
+
+.contact__success h3 {
+  color: var(--ink);
+  margin: 0;
+}
+
+.contact__success p {
+  color: var(--muted);
+  max-width: 360px;
+  margin: 0;
+}
+
 .footer {
   border-top: 1px solid var(--border);
   padding: 2rem 0 3rem;

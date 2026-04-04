@@ -196,6 +196,9 @@ export const esTranslations = {
       { value: 'evaluacion', label: 'Evaluación integral' },
     ],
     disclaimer: 'Nos pondremos en contacto únicamente con fines clínicos. Tus datos se protegen conforme a nuestra política de privacidad.',
+    successTitle: 'Solicitud enviada',
+    successMessage: 'Gracias por tu interés. Nuestro coordinador clínico se pondrá en contacto contigo en menos de 24 horas hábiles.',
+    successReset: 'Enviar otra solicitud',
   },
   footer: {
     rights: 'Todos los derechos reservados.',

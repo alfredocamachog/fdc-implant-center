@@ -196,6 +196,9 @@ export const enTranslations = {
       { value: 'comprehensive', label: 'Comprehensive evaluation' },
     ],
     disclaimer: 'We will contact you solely for clinical purposes. Your data is protected under our privacy policy.',
+    successTitle: 'Request sent',
+    successMessage: 'Thank you for your interest. Our clinical coordinator will contact you within one business day.',
+    successReset: 'Send another request',
   },
   footer: {
     rights: 'All rights reserved.',
