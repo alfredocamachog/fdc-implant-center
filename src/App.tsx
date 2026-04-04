@@ -134,7 +134,7 @@ const translations = {
 
       contactLabel: 'Coordinación clínica',
 
-      phone: 'Tel. +52 (662) 455 4321',
+      phone: 'Tel. +52 (631) 144 0368',
 
       email: 'coordinacion@fdcprostho.com',
 
@@ -402,7 +402,7 @@ const translations = {
 
       details: {
 
-        phone: 'Tel. +52 (662) 455 4321',
+        phone: 'Tel. +52 (631) 144 0368',
 
         email: 'coordinacion@fdcprostho.com',
 
@@ -570,7 +570,7 @@ const translations = {
 
       contactLabel: 'Clinical coordination',
 
-      phone: 'Phone +52 (662) 455 4321',
+      phone: 'Phone +52 (631) 144 0368',
 
       email: 'coordinacion@fdcprostho.com',
 
@@ -836,7 +836,7 @@ const translations = {
 
       details: {
 
-        phone: 'Phone +52 (662) 455 4321',
+        phone: 'Phone +52 (631) 144 0368',
 
         email: 'coordinacion@fdcprostho.com',
 
@@ -938,7 +938,7 @@ function App() {
 
   const t = translations[language]
 
-  const whatsappLink = `https://wa.me/526624554321?text=${encodeURIComponent(t.floatingCta.message)}`
+  const whatsappLink = `https://wa.me/526311440368?text=${encodeURIComponent(t.floatingCta.message)}`
 
   const phoneHref = 'tel:+526311440368'
 
@@ -986,7 +986,7 @@ function App() {
                   aria-pressed={language === code}
                   onClick={() => setLanguage(code)}
                 >
-                  <img src={code === 'es' ? 'https://flagcdn.com/w20/es.png' : 'https://flagcdn.com/w20/us.png'} alt={code} />
+                  <img src={code === 'es' ? 'https://flagcdn.com/w20/es.png' : 'https://flagcdn.com/w20/us.png'} alt={code === 'es' ? 'Español' : 'English'} />
                 </button>
               ))}
             </div>
