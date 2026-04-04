@@ -945,6 +945,11 @@ function App() {
   const emailHref = 'mailto:coordinacion@fdcprostho.com'
 
   const closeMenu = () => setMenuOpen(false)
+  const scrollTo = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault()
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    closeMenu()
+  }
 
 
 
@@ -952,7 +957,7 @@ function App() {
     <div className="page">
       <header className="site-header">
         <div className="site-header__inner">
-          <a className="logo" href="#inicio" onClick={closeMenu}>
+          <a className="logo" href="#" onClick={scrollTo('inicio')}>
             <span className="logo__badge">FD</span>
             <span className="logo__text">
               <span className="logo__title">{t.brand.title}</span>
@@ -962,12 +967,12 @@ function App() {
           <nav id="site-navigation" className={`nav ${menuOpen ? 'nav--open' : ''}`}>
             <div className="nav__links">
               {t.navLinks.map((link) => (
-                <a key={link.href} href={link.href} onClick={closeMenu}>
+                <a key={link.href} href="#" onClick={scrollTo(link.href.slice(1))}>
                   {link.label}
                 </a>
               ))}
             </div>
-            <a className="btn primary small nav__cta" href="#contacto" onClick={closeMenu}>
+            <a className="btn primary small nav__cta" href="#" onClick={scrollTo('contacto')}>
               {t.hero.primaryCta}
             </a>
           </nav>
@@ -1012,13 +1017,13 @@ function App() {
 
           <div className="hero__actions">
 
-            <a className="btn primary" href="#contacto">
+            <a className="btn primary" href="#" onClick={scrollTo('contacto')}>
 
               {t.hero.primaryCta}
 
             </a>
 
-            <a className="btn ghost" href="#servicios">
+            <a className="btn ghost" href="#" onClick={scrollTo('servicios')}>
 
               {t.hero.secondaryCta}
 
@@ -1378,7 +1383,7 @@ function App() {
 
             </label>
 
-            <label>
+            <label className="full-width">
 
               {t.contact.labels.message}
 
