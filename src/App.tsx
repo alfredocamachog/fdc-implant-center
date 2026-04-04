@@ -93,7 +93,7 @@ function App() {
               </a>
             </div>
             <div className="hero__stats">
-              {t.heroStats.map((stat: any) => (
+              {t.heroStats.map((stat) => (
                 <div key={stat.label}>
                   <p className="stat__value">{stat.value}</p>
                   <p className="stat__label">{stat.label}</p>
@@ -109,7 +109,7 @@ function App() {
             <p className="panel__title">{t.panel.title}</p>
             <p className="panel__subtitle">{t.panel.subtitle}</p>
             <ul>
-              {t.panel.bullets.map((bullet: string) => (
+              {t.panel.bullets.map((bullet) => (
                 <li key={bullet}>{bullet}</li>
               ))}
             </ul>
@@ -130,12 +130,12 @@ function App() {
               <p>{t.services.intro}</p>
             </div>
             <div className="grid services">
-              {t.services.items.map((service: any) => (
+              {t.services.items.map((service) => (
                 <article key={service.title} className="card service">
                   <h3>{service.title}</h3>
                   <p>{service.description}</p>
                   <ul>
-                    {service.points.map((point: string) => (
+                    {service.points.map((point) => (
                       <li key={point}>{point}</li>
                     ))}
                   </ul>
@@ -169,7 +169,7 @@ function App() {
               <p>{t.gallery.intro}</p>
             </div>
             <div className="gallery__grid">
-              {t.gallery.items.map((image: any) => (
+              {t.gallery.items.map((image) => (
                 <figure key={image.caption} className="gallery__item">
                   <img src={image.src} alt={image.caption} loading="lazy" />
                   <figcaption>{image.caption}</figcaption>
@@ -184,13 +184,13 @@ function App() {
               <h2>{t.cases.title}</h2>
             </div>
             <div className="grid cases">
-              {t.cases.cards.map((caseItem: any) => (
+              {t.cases.cards.map((caseItem) => (
                 <article key={caseItem.name} className="card case">
                   <p className="case__tag">{t.cases.tagline}</p>
                   <h3>{caseItem.name}</h3>
                   <p>{caseItem.result}</p>
                   <ul>
-                    {caseItem.metrics.map((metric: string) => (
+                    {caseItem.metrics.map((metric) => (
                       <li key={metric}>{metric}</li>
                     ))}
                   </ul>
@@ -205,7 +205,7 @@ function App() {
               <h2>{t.testimonials.title}</h2>
             </div>
             <div className="grid testimonials">
-              {t.testimonials.items.map((testimonial: any) => (
+              {t.testimonials.items.map((testimonial) => (
                 <blockquote key={testimonial.author} className="card testimonial">
                   <p>"{testimonial.quote}"</p>
                   <cite>{testimonial.author}</cite>
@@ -220,7 +220,7 @@ function App() {
               <h2>{t.profile.title}</h2>
               <p>{t.profile.description}</p>
               <ul>
-                {t.profile.bullets.map((item: string) => (
+                {t.profile.bullets.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
@@ -261,7 +261,7 @@ function App() {
                   <option value="" disabled>
                     {t.contact.placeholders.select}
                   </option>
-                  {t.contact.options.map((option: any) => (
+                  {t.contact.options.map((option) => (
                     <option key={option.value} value={option.value}>
                       {option.label}
                     </option>
