@@ -13,6 +13,7 @@ import Profile from './components/Profile'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import FloatingCta from './components/FloatingCta'
+import MobileDock from './components/MobileDock'
 import './style.css'
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
         <Footer t={t} />
       </div>
       <FloatingCta t={t} whatsappLink={whatsappLink} />
+      <MobileDock t={t} scrollTo={scrollTo} />
     </div>
   )
 }

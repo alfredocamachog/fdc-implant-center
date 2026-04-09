@@ -203,6 +203,8 @@ export const enTranslations = {
   footer: {
     rights: 'All rights reserved.',
     availability: 'We treat referred and direct patients by appointment only.',
+    rightsDev: 'Creado por Alfredo Camacho G.',
+    rightsFull: '© {year} Dr. Fernando Ari Del Corro Lopez. All rights reserved. Build by Alfredo Camacho G.',
   },
   floatingCta: {
     label: 'Chat on WhatsApp',
