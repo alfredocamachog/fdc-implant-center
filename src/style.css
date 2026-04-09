@@ -82,15 +82,21 @@ img {
 .logo__badge {
   width: 46px;
   height: 46px;
-  border-radius: 16px;
-  background: var(--primary);
+  border-radius: 12px;
+  background: transparent;
   color: var(--on-primary);
-  font-weight: 700;
   display: flex;
   justify-content: center;
   align-items: center;
-  letter-spacing: 0.05em;
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.16);
+  box-shadow: none;
+}
+
+.logo__badge-img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  border-radius: 10px;
+  filter: none;
 }
 
 .logo__text {
