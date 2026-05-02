@@ -16,7 +16,7 @@ export default function Header({ t, language, setLanguage, languages, menuOpen, 
       <div className="site-header__inner">
         <a className="logo" href="#" onClick={scrollTo('inicio')}>
           <span className="logo__badge">
-            <img src="/logo-badge.png" alt={t.brand.title} className="logo__badge-img" />
+            <img src="/favicon.png" alt={t.brand.title} className="logo__badge-img" />
           </span>
           <span className="logo__text">
             <span className="logo__title">{t.brand.title}</span>
