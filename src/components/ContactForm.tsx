@@ -7,11 +7,10 @@ export default function ContactForm({ t }: { t: Translations }) {
     nombre: '',
     email: '',
     telefono: '',
-    interes: '',
     mensaje: '',
   })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
@@ -22,7 +21,7 @@ export default function ContactForm({ t }: { t: Translations }) {
   }
 
   const handleReset = () => {
-    setFormData({ nombre: '', email: '', telefono: '', interes: '', mensaje: '' })
+    setFormData({ nombre: '', email: '', telefono: '', mensaje: '' })
     setSubmitted(false)
   }
 
@@ -71,19 +70,6 @@ export default function ContactForm({ t }: { t: Translations }) {
           onChange={handleChange}
           placeholder={t.contact.placeholders.phone}
         />
-      </label>
-      <label>
-        {t.contact.labels.interest}
-        <select name="interes" value={formData.interes} onChange={handleChange}>
-          <option value="" disabled>
-            {t.contact.placeholders.select}
-          </option>
-          {t.contact.options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
       </label>
       <label className="full-width">
         {t.contact.labels.message}

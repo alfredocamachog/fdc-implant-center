@@ -627,7 +627,12 @@ img {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-top: 1.2rem;
+  margin-top: 1.35rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(23, 62, 95, 0.14);
+  border-radius: 1rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.46));
+  box-shadow: 0 12px 28px rgba(23, 62, 95, 0.08);
 }
 
 .contact__details a,
@@ -642,11 +647,26 @@ img {
   color: var(--primary);
 }
 
+.contact__map {
+  margin-top: 1rem;
+  border-radius: 1.1rem;
+  overflow: hidden;
+  border: 1px solid rgba(23, 62, 95, 0.18);
+  box-shadow: 0 16px 30px rgba(23, 62, 95, 0.14);
+}
+
+.contact__map iframe {
+  width: 100%;
+  height: 300px;
+  border: 0;
+  display: block;
+}
+
 .contact__form {
-  background: var(--bg);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.56));
   border-radius: 1.2rem;
-  border: 1px solid var(--border);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(23, 62, 95, 0.18);
+  box-shadow: 0 20px 40px rgba(23, 62, 95, 0.1);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.1rem;
@@ -666,25 +686,24 @@ img {
 }
 
 .contact__form input,
-.contact__form select,
 .contact__form textarea {
   margin-top: 0.4rem;
   border-radius: 0.7rem;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(23, 62, 95, 0.2);
   padding: 0.9rem 1rem;
   font-size: 1rem;
   font-family: inherit;
   width: 100%;
-  background: var(--bg);
-  transition: border-color 0.2s ease;
+  background: rgba(255, 255, 255, 0.82);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .contact__form input:focus,
-.contact__form select:focus,
 .contact__form textarea:focus {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
   border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(17, 171, 200, 0.18);
+  background: #ffffff;
+  outline: none;
 }
 
 .contact__form .btn {
@@ -712,6 +731,14 @@ img {
 @media (max-width: 640px) {
   .contact__form {
     grid-template-columns: 1fr;
+  }
+
+  .contact__details {
+    padding: 0.9rem 1rem;
+  }
+
+  .contact__map iframe {
+    height: 240px;
   }
 }
 
