@@ -615,7 +615,7 @@ img {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2.5rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 .contact > .section__heading {
@@ -669,8 +669,10 @@ img {
   box-shadow: 0 20px 40px rgba(23, 62, 95, 0.1);
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-content: start;
   gap: 1.1rem;
   padding: 2rem;
+  height: 100%;
 }
 
 .contact__form label {
