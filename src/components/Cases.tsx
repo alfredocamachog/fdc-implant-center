@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import type { Translations } from '../translations'
 
 export default function Cases({ t }: { t: Translations }) {
   const [slideIndexByCase, setSlideIndexByCase] = useState<Record<string, number>>({})
   const [modalCaseId, setModalCaseId] = useState<string | null>(null)
+  const [modalTab, setModalTab] = useState<'overview' | 'results'>('overview')
   const [touchStartXByCase, setTouchStartXByCase] = useState<Record<string, number | null>>({})
   const [revealedSensitiveImages, setRevealedSensitiveImages] = useState<Record<string, boolean>>({})
 
@@ -44,10 +45,6 @@ export default function Cases({ t }: { t: Translations }) {
     })
   }
 
-  const setSlide = (caseId: string, index: number) => {
-    setSlideIndexByCase((prev) => ({ ...prev, [caseId]: index }))
-  }
-
   return (
     <section className="section" id="casos">
       <div className="section__heading">
@@ -63,7 +60,8 @@ export default function Cases({ t }: { t: Translations }) {
             <article key={caseItem.id} className="card case-showcase" role="listitem">
               <p className="case__tag">{t.cases.eyebrow}</p>
               <h3>{caseItem.name}</h3>
-              <p>{caseItem.result}</p>
+              <p className="case__meta">{caseItem.treatment}</p>
+              <p className="case__meta">{caseItem.location}</p>
 
               <div
                 className="case-slider"
@@ -89,7 +87,7 @@ export default function Cases({ t }: { t: Translations }) {
 
                         return (
                           <div className="case-image-wrap">
-                            <img src={imageData.src} alt={`${caseItem.name} ${t.cases.imageLabel} ${idx + 1}`} loading="lazy" className={shouldHide ? 'is-sensitive-hidden' : ''} />
+                            <img src={imageData.src} alt={`${caseItem.name} ${idx + 1}`} loading="lazy" className={shouldHide ? 'is-sensitive-hidden' : ''} />
                             {imageData.sensitive ? (
                               <div className={`case-sensitive-overlay ${shouldHide ? 'is-visible' : ''}`}>
                                 <p>{t.cases.sensitiveWarning}</p>
@@ -110,9 +108,6 @@ export default function Cases({ t }: { t: Translations }) {
                           </div>
                         )
                       })()}
-                      <figcaption>
-                        {t.cases.imageLabel} {idx + 1}
-                      </figcaption>
                     </figure>
                   ))}
                 </div>
@@ -120,25 +115,29 @@ export default function Cases({ t }: { t: Translations }) {
 
               <div className="case-carousel">
                 <button type="button" className="case-carousel__btn" onClick={() => changeSlide(caseItem.id, 'prev')} aria-label={t.cases.prevSlideLabel} disabled={totalSlides <= 1}>
-                  ‹
+                  {'<'}
                 </button>
-                <div className="case-carousel__dots" role="tablist" aria-label={`${caseItem.name} carousel`}>
-                  {caseItem.images.map((_, index) => (
-                    <button
-                      key={`${caseItem.id}-dot-${index}`}
-                      type="button"
-                      className={`case-carousel__dot ${currentSlideIndex === index ? 'is-active' : ''}`}
-                      onClick={() => setSlide(caseItem.id, index)}
-                      aria-label={`${index + 1}`}
-                    />
-                  ))}
+                <div className="case-carousel__status">
+                  <div className="case-carousel__progress" aria-hidden="true">
+                    <span className="case-carousel__progress-bar" style={{ width: `${((currentSlideIndex + 1) / totalSlides) * 100}%` }} />
+                  </div>
+                  <span className="case-carousel__counter">
+                    {currentSlideIndex + 1}/{totalSlides}
+                  </span>
                 </div>
                 <button type="button" className="case-carousel__btn" onClick={() => changeSlide(caseItem.id, 'next')} aria-label={t.cases.nextSlideLabel} disabled={totalSlides <= 1}>
-                  ›
+                  {'>'}
                 </button>
               </div>
 
-              <button type="button" className="case-note__toggle" onClick={() => setModalCaseId(caseItem.id)}>
+              <button
+                type="button"
+                className="case-note__toggle"
+                onClick={() => {
+                  setModalCaseId(caseItem.id)
+                  setModalTab('overview')
+                }}
+              >
                 {t.cases.readMoreLabel}
               </button>
             </article>
@@ -147,7 +146,7 @@ export default function Cases({ t }: { t: Translations }) {
       </div>
 
       {modalCaseId ? (
-        <div className="case-modal" role="dialog" aria-modal="true" aria-label={t.cases.modalTitle} onClick={() => setModalCaseId(null)}>
+        <div className="case-modal" role="dialog" aria-modal="true" aria-label={t.cases.title} onClick={() => setModalCaseId(null)}>
           <div className="case-modal__content" onClick={(e) => e.stopPropagation()}>
             {t.cases.cards
               .filter((card) => card.id === modalCaseId)
@@ -159,8 +158,57 @@ export default function Cases({ t }: { t: Translations }) {
                       {t.cases.closeModalLabel}
                     </button>
                   </div>
-                  <p className="case-modal__title">{t.cases.modalTitle}</p>
-                  <p className="case-note">{card.note}</p>
+                  <div className="case-modal__tabs" role="tablist" aria-label="Case details tabs">
+                    <button type="button" className={`case-modal__tab ${modalTab === 'overview' ? 'is-active' : ''}`} onClick={() => setModalTab('overview')}>
+                      {t.cases.overviewTabLabel}
+                    </button>
+                    <button type="button" className={`case-modal__tab ${modalTab === 'results' ? 'is-active' : ''}`} onClick={() => setModalTab('results')}>
+                      {t.cases.resultsTabLabel}
+                    </button>
+                  </div>
+
+                  {modalTab === 'overview' ? (
+                    <div className="case-modal__body">
+                      <p className="case-modal__title">{card.modal.overview.title}</p>
+                      {card.modal.overview.paragraphs.map((paragraph) => (
+                        <p className="case-note" key={paragraph}>
+                          {paragraph}
+                        </p>
+                      ))}
+
+                      <p className="case-modal__subtitle">{card.modal.overview.upperTitle}</p>
+                      <p className="case-note">{card.modal.overview.upperDescription}</p>
+                      <ul className="case-modal__list">
+                        {card.modal.overview.upperPoints.map((point) => (
+                          <li key={point}>{point}</li>
+                        ))}
+                      </ul>
+
+                      <p className="case-modal__subtitle">{card.modal.overview.lowerTitle}</p>
+                      <p className="case-note">{card.modal.overview.lowerDescription}</p>
+                      <ul className="case-modal__list">
+                        {card.modal.overview.lowerPoints.map((point) => (
+                          <li key={point}>{point}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <div className="case-modal__body">
+                      <p className="case-modal__title">{card.modal.results.title}</p>
+                      <p className="case-note">{card.modal.results.intro}</p>
+                      <ul className="case-modal__list">
+                        {card.modal.results.points.map((point) => (
+                          <li key={point}>{point}</li>
+                        ))}
+                      </ul>
+                      <p className="case-modal__subtitle">{card.modal.results.whyTitle}</p>
+                      <ul className="case-modal__list">
+                        {card.modal.results.whyPoints.map((point) => (
+                          <li key={point}>{point}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               ))}
           </div>
@@ -169,3 +217,4 @@ export default function Cases({ t }: { t: Translations }) {
     </section>
   )
 }
+

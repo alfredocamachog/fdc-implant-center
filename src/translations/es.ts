@@ -174,11 +174,10 @@ export const esTranslations = {
     eyebrow: 'Casos',
     title: 'Antes y después de tratamientos',
     intro: 'Sección demo con scroll horizontal, carrusel por caso y modal de notas.',
-    imageLabel: 'Imagen',
     readMoreLabel: 'Read more',
-    readLessLabel: 'Read less',
     closeModalLabel: 'Cerrar',
-    modalTitle: 'Nota del caso',
+    overviewTabLabel: 'Resumen',
+    resultsTabLabel: 'Resultados',
     prevSlideLabel: 'Anterior',
     nextSlideLabel: 'Siguiente',
     sensitiveWarning: 'Contenido sensible',
@@ -188,7 +187,8 @@ export const esTranslations = {
       {
         id: 'jose-santos-01',
         name: 'Paciente: Jose Santos',
-        result: 'Caso 1 renderizado con todas las fotos disponibles en el expediente.',
+        treatment: 'Tratamiento: Rehabilitación completa con implantes en toda la boca',
+        location: 'Ubicación: Nogales, México (a minutos de la frontera con EE. UU.)',
         images: [
           { src: '/cases/jose-santos/IMG_0242.JPG', sensitive: true },
           { src: '/cases/jose-santos/IMG_0278.JPG', sensitive: true },
@@ -207,7 +207,51 @@ export const esTranslations = {
           { src: '/cases/jose-santos/IMG_7996.JPG', sensitive: true },
           { src: '/cases/jose-santos/IMG_8021.JPG', sensitive: true },
         ],
-        note: 'Espacio listo para que agregues la nota clínica completa del caso 1 (diagnóstico, plan y evolución).',
+        modal: {
+          overview: {
+            title: 'Una solución que cambió su vida ante la pérdida dental',
+            paragraphs: [
+              'José llegó a nuestra clínica con pérdida dental severa, dificultad para masticar y falta de confianza al sonreír. Buscaba una solución permanente y de apariencia natural, no prótesis removibles.',
+              'Usando planeación digital avanzada y cirugía guiada de implantes, entregamos una restauración fija completa que transformó por completo su sonrisa y su calidad de vida.',
+            ],
+            upperTitle: 'Maxilar superior: All-on-X con Zirconia (estética premium)',
+            upperDescription:
+              'Para el arco superior, colocamos múltiples implantes estratégicamente posicionados (técnica All-on-X) para maximizar soporte y estabilidad a largo plazo.',
+            upperPoints: [
+              '✔️ Puente fijo de Zirconia de alta gama',
+              '✔️ Fuerza y durabilidad excepcionales',
+              '✔️ Estética y translucidez ultra naturales',
+              '✔️ Diseñado para verse y sentirse como dientes reales',
+            ],
+            lowerTitle: 'Maxilar inferior: All-on-4 híbrido (fuerza + eficiencia)',
+            lowerDescription:
+              'Para el arco inferior, utilizamos la técnica probada All-on-4, minimizando la cirugía y maximizando la función.',
+            lowerPoints: [
+              '✔️ Prótesis híbrida reforzada con titanio',
+              '✔️ Ligera y altamente funcional',
+              '✔️ Rentable sin comprometer la calidad',
+              '✔️ Mantenimiento sencillo y confiabilidad a largo plazo',
+            ],
+          },
+          results: {
+            title: 'Resultados:',
+            intro: 'José ahora disfruta de:',
+            points: [
+              '✔️ Una sonrisa completamente fija (sin prótesis removibles)',
+              '✔️ Capacidad de masticación fuerte y segura',
+              '✔️ Una apariencia natural y rejuvenecida',
+              '✔️ Confianza renovada en su vida diaria',
+            ],
+            whyTitle: 'Por qué pacientes de EE. UU. nos eligen',
+            whyPoints: [
+              '✔️ Planeación digital avanzada y cirugía guiada',
+              '✔️ Materiales premium (Zirconia y Titanio)',
+              '✔️ Tratamiento personalizado por un especialista en implantes',
+              '✔️ Ahorro significativo vs. clínicas de EE. UU.',
+              '✔️ Ubicación conveniente en Nogales, México',
+            ],
+          },
+        },
       },
     ],
   },
