@@ -14,10 +14,6 @@ export const esTranslations = {
   },
   navLinks: [
     { label: 'Inicio', href: '#inicio' },
-    { label: 'Servicios', href: '#servicios' },
-    { label: 'Metodología', href: '#metodologia' },
-    { label: 'Casos', href: '#casos' },
-    { label: 'Equipo', href: '#equipo' },
     { label: 'Contacto', href: '#contacto' },
   ],
   hero: {

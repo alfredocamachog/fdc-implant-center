@@ -19,7 +19,7 @@ export default function Hero({ t, scrollTo }: HeroProps) {
           <a className="btn primary" href="#" onClick={scrollTo('contacto')}>
             {t.hero.primaryCta}
           </a>
-          <a className="btn ghost" href="#" onClick={scrollTo('servicios')}>
+          <a className="btn ghost" href="#" onClick={scrollTo('contacto')}>
             {t.hero.secondaryCta}
           </a>
         </div>

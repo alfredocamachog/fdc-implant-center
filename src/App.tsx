@@ -4,12 +4,6 @@ import type { Language } from './translations'
 import { SITE_CONFIG } from './config'
 import Header from './components/Header'
 import Hero from './components/Hero'
-import Services from './components/Services'
-import Methodology from './components/Methodology'
-import Gallery from './components/Gallery'
-import Cases from './components/Cases'
-import Testimonials from './components/Testimonials'
-import Profile from './components/Profile'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import FloatingCta from './components/FloatingCta'
@@ -51,12 +45,6 @@ function App() {
       <div className="site">
         <Hero t={t} scrollTo={scrollTo} />
         <main>
-          <Services t={t} />
-          <Methodology t={t} />
-          <Gallery t={t} />
-          <Cases t={t} />
-          <Testimonials t={t} />
-          <Profile t={t} />
           <Contact t={t} phoneHref={phoneHref} emailHref={emailHref} />
         </main>
         <Footer t={t} />
