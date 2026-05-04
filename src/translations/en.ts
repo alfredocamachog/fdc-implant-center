@@ -256,8 +256,8 @@ export const enTranslations = {
       {
         id: 'marite-02',
         name: 'Patient: Marite',
-        treatment: '',
-        location: '',
+        treatment: 'Treatment: Full Mouth Rehabilitation with Bite Elevation',
+        location: 'Location: Nogales, Mexico (Minutes from the U.S. Border)',
         images: [
           { src: '/cases/marite/IMG_5113.JPG', sensitive: true },
           { src: '/cases/marite/IMG_8839.JPG', sensitive: true },
@@ -268,6 +268,60 @@ export const enTranslations = {
           { src: '/cases/marite/IMG_8877.JPG', sensitive: true },
           { src: '/cases/marite/IMG_8887.JPG', sensitive: true },
         ],
+        modal: {
+          overview: {
+            title: 'Look Younger. Feel Stronger. Smile With Confidence Again.',
+            paragraphs: [
+              "Worn, short, or flattened teeth don't just affect your smile - they age your entire face.",
+              'This patient came to us with advanced tooth wear from years of grinding (bruxism), resulting in a collapsed bite and a tired, aged appearance.',
+              'She wanted more than a dental fix-she wanted a complete transformation.',
+            ],
+            upperTitle: 'The Problem: More Than Just Worn Teeth',
+            upperDescription:
+              'When the bite collapses, the lower face loses support-making patients look older than they actually are.',
+            upperPoints: [
+              'Teeth worn down and uneven',
+              'Loss of vertical dimension (collapsed bite)',
+              'Thinning lips and reduced facial support',
+              'Jaw fatigue and discomfort',
+              'Aged, less confident appearance',
+            ],
+            lowerTitle: 'The Solution: Full Mouth Reconstruction (Bite Lift)',
+            lowerDescription:
+              'We designed a fully customized treatment to restore her bite, facial structure, and smile aesthetics. Every step was carefully planned to ensure comfort, function, and natural beauty.',
+            lowerPoints: [
+              'Precise bite elevation (VDO increase)',
+              'Advanced digital smile design',
+              'Functional analysis for long-term stability',
+              'Trial smile (mock-up) before final treatment',
+            ],
+          },
+          results: {
+            title: 'Results:',
+            intro: 'Using high-end ceramic restorations (crowns and veneers), we rebuilt her smile from the ground up:',
+            points: [
+              'Natural, youthful tooth proportions',
+              'Strong, stable bite for long-term function',
+              'Harmonized smile with facial features',
+              'Durable, high-performance materials',
+            ],
+            whyTitle: 'The Transformation',
+            whyPoints: [
+              'A visibly younger, more refreshed appearance',
+              'Restored facial support and lip fullness',
+              'Improved chewing strength and comfort',
+              'A confident, natural-looking smile',
+            ],
+            chooseUsTitle: 'Why U.S. Patients Choose Us',
+            chooseUsPoints: [
+              'Specialist-level full mouth rehabilitation',
+              'Advanced digital planning and precision',
+              'Premium materials at a fraction of U.S. cost',
+              'Personalized, high-end care',
+              'Convenient border location (Nogales, Mexico)',
+            ],
+          },
+        },
       },
     ],
   },

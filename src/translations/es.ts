@@ -257,8 +257,8 @@ export const esTranslations = {
       {
         id: 'marite-02',
         name: 'Paciente: Marite',
-        treatment: '',
-        location: '',
+        treatment: 'Tratamiento: Rehabilitación oral completa con elevación de mordida',
+        location: 'Ubicación: Nogales, México (a minutos de la frontera con EE. UU.)',
         images: [
           { src: '/cases/marite/IMG_5113.JPG', sensitive: true },
           { src: '/cases/marite/IMG_8839.JPG', sensitive: true },
@@ -269,6 +269,60 @@ export const esTranslations = {
           { src: '/cases/marite/IMG_8877.JPG', sensitive: true },
           { src: '/cases/marite/IMG_8887.JPG', sensitive: true },
         ],
+        modal: {
+          overview: {
+            title: 'Luce más joven. Siéntete más fuerte. Vuelve a sonreír con confianza.',
+            paragraphs: [
+              'Los dientes desgastados, cortos o aplanados no solo afectan tu sonrisa: envejecen todo tu rostro.',
+              'Esta paciente llegó a nuestra clínica con desgaste dental avanzado por años de bruxismo, lo que provocó una mordida colapsada y una apariencia cansada y envejecida.',
+              'Ella quería más que un arreglo dental: quería una transformación completa.',
+            ],
+            upperTitle: 'El problema: más que solo dientes desgastados',
+            upperDescription:
+              'Cuando la mordida colapsa, la parte inferior del rostro pierde soporte, haciendo que los pacientes se vean mayores de lo que realmente son.',
+            upperPoints: [
+              'Dientes desgastados y desiguales',
+              'Pérdida de dimensión vertical (mordida colapsada)',
+              'Labios más delgados y menor soporte facial',
+              'Fatiga y molestia mandibular',
+              'Apariencia envejecida y menor confianza',
+            ],
+            lowerTitle: 'La solución: reconstrucción oral completa (elevación de mordida)',
+            lowerDescription:
+              'Diseñamos un tratamiento completamente personalizado para restaurar su mordida, estructura facial y estética de sonrisa. Cada paso se planeó cuidadosamente para asegurar confort, función y belleza natural.',
+            lowerPoints: [
+              'Elevación precisa de mordida (aumento de DVO)',
+              'Diseño digital avanzado de sonrisa',
+              'Análisis funcional para estabilidad a largo plazo',
+              'Sonrisa de prueba (mock-up) antes del tratamiento final',
+            ],
+          },
+          results: {
+            title: 'Resultados:',
+            intro: 'Usando restauraciones cerámicas de alta gama (coronas y carillas), reconstruimos su sonrisa desde cero:',
+            points: [
+              'Proporciones dentales naturales y juveniles',
+              'Mordida fuerte y estable para función a largo plazo',
+              'Sonrisa armonizada con los rasgos faciales',
+              'Materiales durables y de alto rendimiento',
+            ],
+            whyTitle: 'La transformación',
+            whyPoints: [
+              'Apariencia visiblemente más joven y renovada',
+              'Soporte facial y volumen labial restaurados',
+              'Mejor fuerza y confort al masticar',
+              'Sonrisa segura y de aspecto natural',
+            ],
+            chooseUsTitle: 'Por qué pacientes de EE. UU. nos eligen',
+            chooseUsPoints: [
+              'Rehabilitación oral completa a nivel especialista',
+              'Planeación digital avanzada y alta precisión',
+              'Materiales premium por una fracción del costo en EE. UU.',
+              'Atención personalizada de alto nivel',
+              'Ubicación fronteriza conveniente (Nogales, México)',
+            ],
+          },
+        },
       },
     ],
   },

@@ -211,6 +211,16 @@ export default function Cases({ t }: { t: Translations }) {
                           <li key={point}>{point}</li>
                         ))}
                       </ul>
+                      {'chooseUsTitle' in card.modal.results && card.modal.results.chooseUsTitle ? (
+                        <>
+                          <p className="case-modal__subtitle">{card.modal.results.chooseUsTitle}</p>
+                          <ul className="case-modal__list">
+                            {card.modal.results.chooseUsPoints.map((point) => (
+                              <li key={point}>{point}</li>
+                            ))}
+                          </ul>
+                        </>
+                      ) : null}
                     </div>
                   )}
                     </>
