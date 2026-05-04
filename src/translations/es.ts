@@ -173,7 +173,8 @@ export const esTranslations = {
   cases: {
     eyebrow: 'Casos',
     title: 'Antes y después de tratamientos',
-    intro: 'Sección demo con scroll horizontal, carrusel por caso y modal de notas.',
+    intro: '',
+    caseTag: 'Caso',
     readMoreLabel: 'Ver más',
     closeModalLabel: 'Cerrar',
     overviewTabLabel: 'Resumen',

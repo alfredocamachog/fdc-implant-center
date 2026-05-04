@@ -50,7 +50,7 @@ export default function Cases({ t }: { t: Translations }) {
       <div className="section__heading">
         <p className="eyebrow">{t.cases.eyebrow}</p>
         <h2>{t.cases.title}</h2>
-        <p>{t.cases.intro}</p>
+        {t.cases.intro ? <p>{t.cases.intro}</p> : null}
       </div>
       <div className="cases-strip" role="list" aria-label={t.cases.title}>
         {t.cases.cards.map((caseItem) => {
@@ -58,7 +58,7 @@ export default function Cases({ t }: { t: Translations }) {
           const totalSlides = caseItem.images.length
           return (
             <article key={caseItem.id} className="card case-showcase" role="listitem">
-              <p className="case__tag">{t.cases.eyebrow}</p>
+              <p className="case__tag">{t.cases.caseTag}</p>
               <h3>{caseItem.name}</h3>
               {caseItem.treatment ? <p className="case__meta">{caseItem.treatment}</p> : null}
               {caseItem.location ? <p className="case__meta">{caseItem.location}</p> : null}
