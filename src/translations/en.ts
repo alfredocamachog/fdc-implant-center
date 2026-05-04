@@ -14,6 +14,7 @@ export const enTranslations = {
   },
   navLinks: [
     { label: 'Home', href: '#inicio' },
+    { label: 'Cases', href: '#casos' },
     { label: 'Contact', href: '#contacto' },
   ],
   hero: {
@@ -170,19 +171,21 @@ export const enTranslations = {
     ],
   },
   cases: {
-    eyebrow: 'Featured cases',
-    title: 'Measurable outcomes that restore function',
-    tagline: 'Tailored plan',
+    eyebrow: 'Cases',
+    title: 'Before and after treatments',
+    intro: 'Demo section with horizontal scroll. Each card includes Before/After images and an expandable note.',
+    beforeLabel: 'Before',
+    afterLabel: 'After',
+    readMoreLabel: 'Read more',
+    readLessLabel: 'Read less',
     cards: [
       {
-        name: 'Upper-arch full rejuvenation',
-        result: 'The patient reengaged in social commitments without phonetic limitations.',
-        metrics: ['5 implants + hybrid prosthesis', 'Clinical timeline: 10 weeks', 'Follow-up: 12 months'],
-      },
-      {
-        name: 'Functional-aesthetic hybrid rehab',
-        result: 'Remaining teeth and new implants were integrated while preserving proprioception.',
-        metrics: ['6 ceramic crowns', '3 guided implants', 'Total duration: 14 weeks'],
+        id: 'demo-01',
+        name: 'Demo Case · Upper rehabilitation',
+        result: 'Visual example to validate before/after flow on web and mobile.',
+        beforeImage: 'https://picsum.photos/seed/fdc-before-01/900/620',
+        afterImage: 'https://picsum.photos/seed/fdc-after-01/900/620',
+        note: 'Demo note: here you can add clinical history, executed plan, treatment timeline, and final observations for each case.',
       },
     ],
   },

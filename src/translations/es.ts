@@ -14,6 +14,7 @@ export const esTranslations = {
   },
   navLinks: [
     { label: 'Inicio', href: '#inicio' },
+    { label: 'Casos', href: '#casos' },
     { label: 'Contacto', href: '#contacto' },
   ],
   hero: {
@@ -170,19 +171,21 @@ export const esTranslations = {
     ],
   },
   cases: {
-    eyebrow: 'Casos destacados',
-    title: 'Resultados medibles que devuelven funcionalidad',
-    tagline: 'Plan personalizado',
+    eyebrow: 'Casos',
+    title: 'Antes y después de tratamientos',
+    intro: 'Sección demo con scroll horizontal. Cada tarjeta incluye fotos Before/After y nota expandible.',
+    beforeLabel: 'Before',
+    afterLabel: 'After',
+    readMoreLabel: 'Read more',
+    readLessLabel: 'Read less',
     cards: [
       {
-        name: 'Rejuvenecimiento completo Maxilar Superior',
-        result: 'Paciente retoma actividades sociales sin limitaciones fonéticas.',
-        metrics: ['5 implantes + prótesis híbrida', 'Tiempo clínico: 10 semanas', 'Control de seguimiento 12 meses'],
-      },
-      {
-        name: 'Rehabilitación combinada Funcional-Estética',
-        result: 'Se integran dientes remanentes y nuevos implantes manteniendo propriocepción.',
-        metrics: ['6 coronas cerámicas', '3 implantes guiados', 'Plazo total: 14 semanas'],
+        id: 'demo-01',
+        name: 'Caso Demo · Rehabilitación superior',
+        result: 'Ejemplo visual para validar flujo before/after en web y móvil.',
+        beforeImage: 'https://picsum.photos/seed/fdc-before-01/900/620',
+        afterImage: 'https://picsum.photos/seed/fdc-after-01/900/620',
+        note: 'Nota demo: aquí podrás agregar historia clínica, plan ejecutado, tiempos de tratamiento y observaciones finales de cada caso.',
       },
     ],
   },

@@ -4,6 +4,7 @@ import type { Language } from './translations'
 import { SITE_CONFIG } from './config'
 import Header from './components/Header'
 import Hero from './components/Hero'
+import Cases from './components/Cases'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import FloatingCta from './components/FloatingCta'
@@ -45,6 +46,7 @@ function App() {
       <div className="site">
         <Hero t={t} scrollTo={scrollTo} />
         <main>
+          <Cases t={t} />
           <Contact t={t} phoneHref={phoneHref} emailHref={emailHref} />
         </main>
         <Footer t={t} />
