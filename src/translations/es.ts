@@ -187,16 +187,8 @@ export const esTranslations = {
         id: 'demo-01',
         name: 'Caso Demo · Rehabilitación superior',
         result: 'Ejemplo visual para validar flujo before/after en web y móvil.',
-        slides: [
-          {
-            beforeImage: 'https://picsum.photos/seed/fdc-before-01/900/620',
-            afterImage: 'https://picsum.photos/seed/fdc-after-01/900/620',
-          },
-          {
-            beforeImage: 'https://picsum.photos/seed/fdc-before-02/900/620',
-            afterImage: 'https://picsum.photos/seed/fdc-after-02/900/620',
-          },
-        ],
+        beforeImage: 'https://picsum.photos/seed/fdc-before-01/900/620',
+        afterImage: 'https://picsum.photos/seed/fdc-after-01/900/620',
         note: 'Nota demo: aquí podrás agregar historia clínica, plan ejecutado, tiempos de tratamiento y observaciones finales de cada caso.',
       },
     ],

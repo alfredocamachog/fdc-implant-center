@@ -187,16 +187,8 @@ export const enTranslations = {
         id: 'demo-01',
         name: 'Demo Case · Upper rehabilitation',
         result: 'Visual example to validate before/after flow on web and mobile.',
-        slides: [
-          {
-            beforeImage: 'https://picsum.photos/seed/fdc-before-01/900/620',
-            afterImage: 'https://picsum.photos/seed/fdc-after-01/900/620',
-          },
-          {
-            beforeImage: 'https://picsum.photos/seed/fdc-before-02/900/620',
-            afterImage: 'https://picsum.photos/seed/fdc-after-02/900/620',
-          },
-        ],
+        beforeImage: 'https://picsum.photos/seed/fdc-before-01/900/620',
+        afterImage: 'https://picsum.photos/seed/fdc-after-01/900/620',
         note: 'Demo note: here you can add clinical history, executed plan, treatment timeline, and final observations for each case.',
       },
     ],

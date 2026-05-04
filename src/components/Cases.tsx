@@ -4,6 +4,7 @@ import type { Translations } from '../translations'
 export default function Cases({ t }: { t: Translations }) {
   const [slideIndexByCase, setSlideIndexByCase] = useState<Record<string, number>>({})
   const [modalCaseId, setModalCaseId] = useState<string | null>(null)
+  const [touchStartXByCase, setTouchStartXByCase] = useState<Record<string, number | null>>({})
 
   useEffect(() => {
     if (!modalCaseId) return
@@ -14,10 +15,24 @@ export default function Cases({ t }: { t: Translations }) {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [modalCaseId])
 
-  const changeSlide = (caseId: string, totalSlides: number, direction: 'prev' | 'next') => {
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setSlideIndexByCase((prev) => {
+        const nextState = { ...prev }
+        t.cases.cards.forEach((card) => {
+          const current = nextState[card.id] ?? 0
+          nextState[card.id] = current === 0 ? 1 : 0
+        })
+        return nextState
+      })
+    }, 4500)
+    return () => window.clearInterval(interval)
+  }, [t.cases.cards])
+
+  const changeSlide = (caseId: string, direction: 'prev' | 'next') => {
     setSlideIndexByCase((prev) => {
       const current = prev[caseId] ?? 0
-      const nextIndex = direction === 'next' ? (current + 1) % totalSlides : (current - 1 + totalSlides) % totalSlides
+      const nextIndex = direction === 'next' ? (current + 1) % 2 : (current - 1 + 2) % 2
       return { ...prev, [caseId]: nextIndex }
     })
   }
@@ -36,30 +51,43 @@ export default function Cases({ t }: { t: Translations }) {
       <div className="cases-strip" role="list" aria-label={t.cases.title}>
         {t.cases.cards.map((caseItem) => {
           const currentSlideIndex = slideIndexByCase[caseItem.id] ?? 0
-          const currentSlide = caseItem.slides[currentSlideIndex]
           return (
             <article key={caseItem.id} className="card case-showcase" role="listitem">
               <p className="case__tag">{t.cases.eyebrow}</p>
               <h3>{caseItem.name}</h3>
               <p>{caseItem.result}</p>
 
-              <div className="case-compare">
-                <figure className="case-compare__item">
-                  <img src={currentSlide.beforeImage} alt={`${caseItem.name} ${t.cases.beforeLabel}`} loading="lazy" />
-                  <figcaption>{t.cases.beforeLabel}</figcaption>
-                </figure>
-                <figure className="case-compare__item">
-                  <img src={currentSlide.afterImage} alt={`${caseItem.name} ${t.cases.afterLabel}`} loading="lazy" />
-                  <figcaption>{t.cases.afterLabel}</figcaption>
-                </figure>
+              <div
+                className="case-slider"
+                onTouchStart={(e) => setTouchStartXByCase((prev) => ({ ...prev, [caseItem.id]: e.touches[0].clientX }))}
+                onTouchEnd={(e) => {
+                  const startX = touchStartXByCase[caseItem.id]
+                  const endX = e.changedTouches[0].clientX
+                  if (startX == null) return
+                  const deltaX = endX - startX
+                  if (deltaX <= -40) changeSlide(caseItem.id, 'next')
+                  if (deltaX >= 40) changeSlide(caseItem.id, 'prev')
+                  setTouchStartXByCase((prev) => ({ ...prev, [caseItem.id]: null }))
+                }}
+              >
+                <div className="case-slider__track" style={{ transform: `translateX(-${currentSlideIndex * 100}%)` }}>
+                  <figure className="case-slider__item">
+                    <img src={caseItem.beforeImage} alt={`${caseItem.name} ${t.cases.beforeLabel}`} loading="lazy" />
+                    <figcaption>{t.cases.beforeLabel}</figcaption>
+                  </figure>
+                  <figure className="case-slider__item">
+                    <img src={caseItem.afterImage} alt={`${caseItem.name} ${t.cases.afterLabel}`} loading="lazy" />
+                    <figcaption>{t.cases.afterLabel}</figcaption>
+                  </figure>
+                </div>
               </div>
 
               <div className="case-carousel">
-                <button type="button" className="case-carousel__btn" onClick={() => changeSlide(caseItem.id, caseItem.slides.length, 'prev')} aria-label={t.cases.prevSlideLabel}>
+                <button type="button" className="case-carousel__btn" onClick={() => changeSlide(caseItem.id, 'prev')} aria-label={t.cases.prevSlideLabel}>
                   ‹
                 </button>
                 <div className="case-carousel__dots" role="tablist" aria-label={`${caseItem.name} carousel`}>
-                  {caseItem.slides.map((_, index) => (
+                  {[0, 1].map((index) => (
                     <button
                       key={`${caseItem.id}-dot-${index}`}
                       type="button"
@@ -69,7 +97,7 @@ export default function Cases({ t }: { t: Translations }) {
                     />
                   ))}
                 </div>
-                <button type="button" className="case-carousel__btn" onClick={() => changeSlide(caseItem.id, caseItem.slides.length, 'next')} aria-label={t.cases.nextSlideLabel}>
+                <button type="button" className="case-carousel__btn" onClick={() => changeSlide(caseItem.id, 'next')} aria-label={t.cases.nextSlideLabel}>
                   ›
                 </button>
               </div>
