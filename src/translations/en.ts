@@ -181,6 +181,7 @@ export const enTranslations = {
       interest: 'Treatment of interest',
       message: 'Tell us more about your case',
       submit: 'Send request',
+      submitting: 'Sending...',
     },
     placeholders: {
       name: 'Jane Smith',
@@ -212,5 +213,7 @@ export const enTranslations = {
     message: 'Hello, I am interested in a prosthodontic evaluation.',
   },
 }
+
+
 
 

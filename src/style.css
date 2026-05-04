@@ -718,6 +718,19 @@ img {
   grid-column: 1 / -1;
 }
 
+.contact__form .btn:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+
+.contact__error {
+  grid-column: 1 / -1;
+  margin: -0.25rem 0 0;
+  font-size: 0.9rem;
+  color: #a62828;
+  font-weight: 600;
+}
+
 .contact__form .disclaimer {
   grid-column: 1 / -1;
   text-align: center;

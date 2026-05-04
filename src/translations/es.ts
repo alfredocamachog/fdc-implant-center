@@ -181,6 +181,7 @@ export const esTranslations = {
       interest: 'Tipo de tratamiento de interés',
       message: 'Cuéntanos más sobre tu caso',
       submit: 'Enviar solicitud',
+      submitting: 'Enviando...',
     },
     placeholders: {
       name: 'María López',
@@ -212,5 +213,7 @@ export const esTranslations = {
     message: 'Hola, soy paciente interesado en una valoración de prostodoncia.',
   },
 }
+
+
 
 

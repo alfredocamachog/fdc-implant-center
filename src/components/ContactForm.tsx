@@ -3,6 +3,8 @@ import type { Translations } from '../translations'
 
 export default function ContactForm({ t }: { t: Translations }) {
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
@@ -14,10 +16,30 @@ export default function ContactForm({ t }: { t: Translations }) {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!formData.nombre.trim() || !formData.email.trim()) return
-    setSubmitted(true)
+    setSubmitError('')
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+      if (!response.ok || !result?.ok) {
+        throw new Error(result?.error || 'No se pudo enviar la solicitud')
+      }
+
+      setSubmitted(true)
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'No se pudo enviar la solicitud')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleReset = () => {
@@ -81,9 +103,10 @@ export default function ContactForm({ t }: { t: Translations }) {
           placeholder={t.contact.placeholders.message}
         ></textarea>
       </label>
-      <button type="submit" className="btn primary">
-        {t.contact.labels.submit}
+      <button type="submit" className="btn primary" disabled={isSubmitting}>
+        {isSubmitting ? t.contact.labels.submitting : t.contact.labels.submit}
       </button>
+      {submitError ? <p className="contact__error">{submitError}</p> : null}
       <p className="disclaimer">{t.contact.disclaimer}</p>
     </form>
   )
