@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 const TO_EMAIL = 'drfernandoadelcorro@gmail.com'
-const SUBJECT_PREFIX = process.env.RESEND_SUBJECT_PREFIX || 'Nueva solicitud | Prime Dental Nogales'
+const SUBJECT_PREFIX = process.env.RESEND_SUBJECT_PREFIX || 'Nueva solicitud'
 const execFileAsync = promisify(execFile)
 
 const sendJson = (res, statusCode, payload) => {
