@@ -5,6 +5,7 @@ export default function Cases({ t }: { t: Translations }) {
   const [slideIndexByCase, setSlideIndexByCase] = useState<Record<string, number>>({})
   const [modalCaseId, setModalCaseId] = useState<string | null>(null)
   const [touchStartXByCase, setTouchStartXByCase] = useState<Record<string, number | null>>({})
+  const [revealedSensitiveImages, setRevealedSensitiveImages] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
     if (!modalCaseId) return
@@ -80,7 +81,35 @@ export default function Cases({ t }: { t: Translations }) {
                 <div className="case-slider__track" style={{ width: `${totalSlides * 100}%`, transform: `translateX(-${currentSlideIndex * (100 / totalSlides)}%)` }}>
                   {caseItem.images.map((imageSrc, idx) => (
                     <figure className="case-slider__item" style={{ width: `${100 / totalSlides}%` }} key={`${caseItem.id}-img-${idx}`}>
-                      <img src={imageSrc} alt={`${caseItem.name} ${t.cases.imageLabel} ${idx + 1}`} loading="lazy" />
+                      {(() => {
+                        const imageData = typeof imageSrc === 'string' ? { src: imageSrc, sensitive: false } : imageSrc
+                        const imageKey = `${caseItem.id}-${idx}`
+                        const isRevealed = !!revealedSensitiveImages[imageKey]
+                        const shouldHide = imageData.sensitive && !isRevealed
+
+                        return (
+                          <div className="case-image-wrap">
+                            <img src={imageData.src} alt={`${caseItem.name} ${t.cases.imageLabel} ${idx + 1}`} loading="lazy" className={shouldHide ? 'is-sensitive-hidden' : ''} />
+                            {imageData.sensitive ? (
+                              <div className={`case-sensitive-overlay ${shouldHide ? 'is-visible' : ''}`}>
+                                <p>{t.cases.sensitiveWarning}</p>
+                                <button
+                                  type="button"
+                                  className="case-sensitive-btn"
+                                  onClick={() =>
+                                    setRevealedSensitiveImages((prev) => ({
+                                      ...prev,
+                                      [imageKey]: !isRevealed,
+                                    }))
+                                  }
+                                >
+                                  {isRevealed ? t.cases.hideSensitiveLabel : t.cases.showSensitiveLabel}
+                                </button>
+                              </div>
+                            ) : null}
+                          </div>
+                        )
+                      })()}
                       <figcaption>
                         {t.cases.imageLabel} {idx + 1}
                       </figcaption>

@@ -742,7 +742,49 @@ img {
 .case-slider__item img {
   width: 100%;
   aspect-ratio: 4 / 3;
-  object-fit: cover;
+  object-fit: contain;
+  background: #ffffff;
+}
+
+.case-image-wrap {
+  position: relative;
+}
+
+.case-slider__item img.is-sensitive-hidden {
+  filter: blur(20px) brightness(0.78);
+}
+
+.case-sensitive-overlay {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.6rem;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  text-align: center;
+  padding: 0.9rem;
+}
+
+.case-sensitive-overlay.is-visible {
+  display: flex;
+}
+
+.case-sensitive-overlay p {
+  margin: 0;
+  font-weight: 700;
+}
+
+.case-sensitive-btn {
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.4rem 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .case-slider__item figcaption {
