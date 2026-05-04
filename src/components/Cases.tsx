@@ -60,8 +60,8 @@ export default function Cases({ t }: { t: Translations }) {
             <article key={caseItem.id} className="card case-showcase" role="listitem">
               <p className="case__tag">{t.cases.eyebrow}</p>
               <h3>{caseItem.name}</h3>
-              <p className="case__meta">{caseItem.treatment}</p>
-              <p className="case__meta">{caseItem.location}</p>
+              {caseItem.treatment ? <p className="case__meta">{caseItem.treatment}</p> : null}
+              {caseItem.location ? <p className="case__meta">{caseItem.location}</p> : null}
 
               <div
                 className="case-slider"
@@ -130,16 +130,18 @@ export default function Cases({ t }: { t: Translations }) {
                 </button>
               </div>
 
-              <button
-                type="button"
-                className="case-note__toggle"
-                onClick={() => {
-                  setModalCaseId(caseItem.id)
-                  setModalTab('overview')
-                }}
-              >
-                {t.cases.readMoreLabel}
-              </button>
+              {caseItem.modal ? (
+                <button
+                  type="button"
+                  className="case-note__toggle"
+                  onClick={() => {
+                    setModalCaseId(caseItem.id)
+                    setModalTab('overview')
+                  }}
+                >
+                  {t.cases.readMoreLabel}
+                </button>
+              ) : null}
             </article>
           )
         })}
@@ -152,6 +154,8 @@ export default function Cases({ t }: { t: Translations }) {
               .filter((card) => card.id === modalCaseId)
               .map((card) => (
                 <div key={card.id}>
+                  {!card.modal ? null : (
+                    <>
                   <div className="case-modal__header">
                     <h3>{card.name}</h3>
                     <button type="button" className="case-modal__close" onClick={() => setModalCaseId(null)}>
@@ -208,6 +212,8 @@ export default function Cases({ t }: { t: Translations }) {
                         ))}
                       </ul>
                     </div>
+                  )}
+                    </>
                   )}
                 </div>
               ))}
