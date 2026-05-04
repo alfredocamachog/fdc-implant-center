@@ -46,7 +46,7 @@ export const esTranslations = {
       'Laboratorio digital integrado en clínica',
     ],
     contactLabel: 'Coordinación clínica',
-    phone: 'Tel. +52 (631) 144 0368',
+    phone: 'Tel. +52 (841) 684 2009',
     email: SITE_CONFIG.email,
     address: 'Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son.',
   },
@@ -170,7 +170,7 @@ export const esTranslations = {
     title: 'Coordinamos casos de manera presencial y virtual',
     intro: 'Comparte tu caso, radiografías o expectativas y recibirás una llamada de nuestro coordinador clínico en menos de 24 horas hábiles.',
     details: {
-      phone: 'Tel. +52 (631) 144 0368',
+      phone: 'Tel. +52 (841) 684 2009',
       email: SITE_CONFIG.email,
       address: SITE_CONFIG.address.es,
     },
@@ -186,7 +186,7 @@ export const esTranslations = {
     placeholders: {
       name: 'María López',
       email: 'tu@correo.com',
-      phone: '(631) 000 0000',
+      phone: '(841) 684 2009',
       select: 'Selecciona una opción',
       message: 'Incluye antecedentes, expectativas y disponibilidad',
     },
@@ -213,6 +213,7 @@ export const esTranslations = {
     message: 'Hola, soy paciente interesado en una valoración de prostodoncia.',
   },
 }
+
 
 
 

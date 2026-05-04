@@ -46,7 +46,7 @@ export const enTranslations = {
       'Fully integrated digital laboratory',
     ],
     contactLabel: 'Clinical coordination',
-    phone: 'Phone +52 (631) 144 0368',
+    phone: 'Phone +52 (841) 684 2009',
     email: SITE_CONFIG.email,
     address: 'Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son.',
   },
@@ -170,7 +170,7 @@ export const enTranslations = {
     title: 'In-person and virtual case coordination',
     intro: 'Share your case, radiographs, or expectations and our clinical coordinator will call you within one business day.',
     details: {
-      phone: 'Phone +52 (631) 144 0368',
+      phone: 'Phone +52 (841) 684 2009',
       email: SITE_CONFIG.email,
       address: SITE_CONFIG.address.en,
     },
@@ -186,7 +186,7 @@ export const enTranslations = {
     placeholders: {
       name: 'Jane Smith',
       email: 'you@email.com',
-      phone: '(631) 000 0000',
+      phone: '(841) 684 2009',
       select: 'Select an option',
       message: 'Share background, expectations, and availability',
     },
@@ -213,6 +213,7 @@ export const enTranslations = {
     message: 'Hello, I am interested in a prosthodontic evaluation.',
   },
 }
+
 
 
 
