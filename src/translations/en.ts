@@ -173,18 +173,30 @@ export const enTranslations = {
   cases: {
     eyebrow: 'Cases',
     title: 'Before and after treatments',
-    intro: 'Demo section with horizontal scroll. Each card includes Before/After images and an expandable note.',
+    intro: 'Demo section with horizontal scroll, per-case carousel, and note modal.',
     beforeLabel: 'Before',
     afterLabel: 'After',
     readMoreLabel: 'Read more',
     readLessLabel: 'Read less',
+    closeModalLabel: 'Close',
+    modalTitle: 'Case note',
+    prevSlideLabel: 'Previous',
+    nextSlideLabel: 'Next',
     cards: [
       {
         id: 'demo-01',
         name: 'Demo Case · Upper rehabilitation',
         result: 'Visual example to validate before/after flow on web and mobile.',
-        beforeImage: 'https://picsum.photos/seed/fdc-before-01/900/620',
-        afterImage: 'https://picsum.photos/seed/fdc-after-01/900/620',
+        slides: [
+          {
+            beforeImage: 'https://picsum.photos/seed/fdc-before-01/900/620',
+            afterImage: 'https://picsum.photos/seed/fdc-after-01/900/620',
+          },
+          {
+            beforeImage: 'https://picsum.photos/seed/fdc-before-02/900/620',
+            afterImage: 'https://picsum.photos/seed/fdc-after-02/900/620',
+          },
+        ],
         note: 'Demo note: here you can add clinical history, executed plan, treatment timeline, and final observations for each case.',
       },
     ],

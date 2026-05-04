@@ -173,18 +173,30 @@ export const esTranslations = {
   cases: {
     eyebrow: 'Casos',
     title: 'Antes y después de tratamientos',
-    intro: 'Sección demo con scroll horizontal. Cada tarjeta incluye fotos Before/After y nota expandible.',
+    intro: 'Sección demo con scroll horizontal, carrusel por caso y modal de notas.',
     beforeLabel: 'Before',
     afterLabel: 'After',
     readMoreLabel: 'Read more',
     readLessLabel: 'Read less',
+    closeModalLabel: 'Cerrar',
+    modalTitle: 'Nota del caso',
+    prevSlideLabel: 'Anterior',
+    nextSlideLabel: 'Siguiente',
     cards: [
       {
         id: 'demo-01',
         name: 'Caso Demo · Rehabilitación superior',
         result: 'Ejemplo visual para validar flujo before/after en web y móvil.',
-        beforeImage: 'https://picsum.photos/seed/fdc-before-01/900/620',
-        afterImage: 'https://picsum.photos/seed/fdc-after-01/900/620',
+        slides: [
+          {
+            beforeImage: 'https://picsum.photos/seed/fdc-before-01/900/620',
+            afterImage: 'https://picsum.photos/seed/fdc-after-01/900/620',
+          },
+          {
+            beforeImage: 'https://picsum.photos/seed/fdc-before-02/900/620',
+            afterImage: 'https://picsum.photos/seed/fdc-after-02/900/620',
+          },
+        ],
         note: 'Nota demo: aquí podrás agregar historia clínica, plan ejecutado, tiempos de tratamiento y observaciones finales de cada caso.',
       },
     ],
