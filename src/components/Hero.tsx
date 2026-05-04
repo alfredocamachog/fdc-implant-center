@@ -1,14 +1,12 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import type { Translations } from '../translations'
 
 interface HeroProps {
   t: Translations
   scrollTo: (id: string) => (e: React.MouseEvent) => void
-  phoneHref: string
-  emailHref: string
 }
 
-export default function Hero({ t, scrollTo, phoneHref, emailHref }: HeroProps) {
+export default function Hero({ t, scrollTo }: HeroProps) {
   const [activeTab, setActiveTab] = useState<'general' | 'higherEducation' | 'coursesAndTalks' | 'workExperience'>('general')
 
   return (
@@ -37,7 +35,6 @@ export default function Hero({ t, scrollTo, phoneHref, emailHref }: HeroProps) {
       <div className="hero__panel">
         <div className="hero__photo-wrapper">
           <img src={t.heroPhoto.src} alt={t.heroPhoto.alt} />
-          <p>{t.heroPhoto.caption}</p>
         </div>
         <div className="panel__tabs" role="tablist" aria-label={t.panel.tabs.ariaLabel}>
           <button className={`panel__tab ${activeTab === 'general' ? 'is-active' : ''}`} type="button" role="tab" aria-selected={activeTab === 'general'} onClick={() => setActiveTab('general')}>
@@ -81,6 +78,11 @@ export default function Hero({ t, scrollTo, phoneHref, emailHref }: HeroProps) {
                   {role}
                 </p>
               ))}
+              <div className="panel__general-contact">
+                {t.panel.general.contactLines.map((line) => (
+                  <p key={line}>{line}</p>
+                ))}
+              </div>
             </div>
           ) : null}
 
@@ -121,13 +123,8 @@ export default function Hero({ t, scrollTo, phoneHref, emailHref }: HeroProps) {
             </ul>
           ) : null}
         </div>
-        <div className="panel__contact">
-          <p>{t.panel.contactLabel}</p>
-          <a href={phoneHref}>{t.panel.phone}</a>
-          <a href={emailHref}>{t.panel.email}</a>
-          <span>{t.panel.address}</span>
-        </div>
       </div>
     </section>
   )
 }
+

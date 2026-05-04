@@ -49,7 +49,7 @@ function App() {
         scrollTo={scrollTo}
       />
       <div className="site">
-        <Hero t={t} scrollTo={scrollTo} phoneHref={phoneHref} emailHref={emailHref} />
+        <Hero t={t} scrollTo={scrollTo} />
         <main>
           <Services t={t} />
           <Methodology t={t} />

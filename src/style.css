@@ -416,6 +416,18 @@ img {
   color: var(--text);
 }
 
+.panel__general-contact {
+  margin-top: 0.85rem;
+  padding-top: 0.7rem;
+  border-top: 1px dashed rgba(23, 62, 95, 0.18);
+}
+
+.panel__general-contact p {
+  margin: 0.2rem 0;
+  color: var(--ink);
+  font-weight: 600;
+}
+
 .panel__tabs {
   margin-top: 0.85rem;
   display: grid;

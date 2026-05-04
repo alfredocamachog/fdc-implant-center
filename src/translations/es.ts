@@ -35,7 +35,6 @@ export const esTranslations = {
   heroPhoto: {
     src: '/hero-dr-fernando-v2.png',
     alt: 'Paciente en clínica de implantología recibiendo atención personalizada',
-    caption: 'Laboratorio digital in-house para cada rehabilitación.',
   },
   panel: {
     tabs: {
@@ -50,6 +49,7 @@ export const esTranslations = {
       name: 'Dr. Fernando Ari del Corro López',
       license: 'Cédula: 12952774',
       roles: ['Cirujano dentista', 'Especialista en prostodoncia e implantología oral'],
+      contactLines: ['Phone +52 (81) 1684 2009', 'drfernandoadelcorro@gmail.com', 'Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son.'],
     },
     sections: {
       higherEducation: {
@@ -104,10 +104,6 @@ export const esTranslations = {
         ],
       },
     },
-    contactLabel: 'Coordinación clínica',
-    phone: 'Tel. +52 (81) 1684 2009',
-    email: SITE_CONFIG.email,
-    address: 'Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son.',
   },
   services: {
     eyebrow: 'Protocolos clínicos',
@@ -272,6 +268,7 @@ export const esTranslations = {
     message: 'Hola, soy paciente interesado en una valoración de prostodoncia.',
   },
 }
+
 
 
 

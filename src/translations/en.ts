@@ -35,7 +35,6 @@ export const enTranslations = {
   heroPhoto: {
     src: '/hero-dr-fernando-v2.png',
     alt: 'Patient receiving personalized implant care inside the operatory',
-    caption: 'Digital lab integrated into every treatment plan.',
   },
   panel: {
     tabs: {
@@ -50,6 +49,7 @@ export const enTranslations = {
       name: 'Dr. Fernando Ari del Corro López',
       license: 'Professional License: 12952774',
       roles: ['Dental surgeon', 'Specialist in prosthodontics and oral implantology'],
+      contactLines: ['Phone +52 (81) 1684 2009', 'drfernandoadelcorro@gmail.com', 'Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son.'],
     },
     sections: {
       higherEducation: {
@@ -104,10 +104,6 @@ export const enTranslations = {
         ],
       },
     },
-    contactLabel: 'Clinical coordination',
-    phone: 'Phone +52 (81) 1684 2009',
-    email: SITE_CONFIG.email,
-    address: 'Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son.',
   },
   services: {
     eyebrow: 'Clinical protocols',
@@ -272,6 +268,7 @@ export const enTranslations = {
     message: 'Hello, I am interested in a prosthodontic evaluation.',
   },
 }
+
 
 
 
