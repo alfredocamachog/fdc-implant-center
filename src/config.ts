@@ -1,4 +1,4 @@
-export const SITE_CONFIG = {
+﻿export const SITE_CONFIG = {
   phone: '526311440368',
   email: 'drfernandoadelcorro@gmail.com',
   maps: {
@@ -13,3 +13,4 @@ export const SITE_CONFIG = {
   brand: 'Dr. Fernando Del Corro',
   tagline: 'Prosthodontics & Implants',
 }
+

@@ -367,6 +367,13 @@ img {
   margin-bottom: 1.2rem;
 }
 
+.hero__photo-wrapper img {
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+  object-position: center 14%;
+}
+
 .hero__photo-wrapper p {
   margin: 0.7rem 0 0;
   font-size: 0.85rem;
@@ -672,7 +679,6 @@ img {
   align-content: start;
   gap: 1.1rem;
   padding: 2rem;
-  height: 100%;
 }
 
 .contact__form label {
@@ -933,6 +939,11 @@ img {
 @media (max-width: 640px) {
   .hero {
     padding-top: 2.2rem;
+  }
+
+  .hero__photo-wrapper img {
+    aspect-ratio: 4 / 5;
+    object-position: center 12%;
   }
 
   .btn {

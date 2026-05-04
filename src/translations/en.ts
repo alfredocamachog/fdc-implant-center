@@ -1,4 +1,4 @@
-import { SITE_CONFIG } from '../config'
+﻿import { SITE_CONFIG } from '../config'
 
 export const enTranslations = {
   brand: {
@@ -33,7 +33,7 @@ export const enTranslations = {
     { label: 'Annual satisfaction index', value: '98%' },
   ],
   heroPhoto: {
-    src: 'https://images.unsplash.com/photo-1504439468489-c8920d796a29?auto=format&fit=crop&w=900&q=70',
+    src: '/hero-dr-fernando.jpeg',
     alt: 'Patient receiving personalized implant care inside the operatory',
     caption: 'Digital lab integrated into every treatment plan.',
   },
@@ -212,3 +212,5 @@ export const enTranslations = {
     message: 'Hello, I am interested in a prosthodontic evaluation.',
   },
 }
+
+

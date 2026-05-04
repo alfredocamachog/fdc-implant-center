@@ -1,4 +1,4 @@
-import { SITE_CONFIG } from '../config'
+﻿import { SITE_CONFIG } from '../config'
 
 export const esTranslations = {
   brand: {
@@ -33,7 +33,7 @@ export const esTranslations = {
     { label: 'Índice de satisfacción anual', value: '98%' },
   ],
   heroPhoto: {
-    src: 'https://images.unsplash.com/photo-1504439468489-c8920d796a29?auto=format&fit=crop&w=900&q=70',
+    src: '/hero-dr-fernando.jpeg',
     alt: 'Paciente en clínica de implantología recibiendo atención personalizada',
     caption: 'Laboratorio digital in-house para cada rehabilitación.',
   },
@@ -212,3 +212,5 @@ export const esTranslations = {
     message: 'Hola, soy paciente interesado en una valoración de prostodoncia.',
   },
 }
+
+
