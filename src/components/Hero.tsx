@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { Translations } from '../translations'
 
 interface HeroProps {
@@ -8,6 +9,8 @@ interface HeroProps {
 }
 
 export default function Hero({ t, scrollTo, phoneHref, emailHref }: HeroProps) {
+  const [activeTab, setActiveTab] = useState<'general' | 'higherEducation' | 'coursesAndTalks' | 'workExperience'>('general')
+
   return (
     <section className="hero" id="inicio">
       <div className="hero__content">
@@ -36,19 +39,52 @@ export default function Hero({ t, scrollTo, phoneHref, emailHref }: HeroProps) {
           <img src={t.heroPhoto.src} alt={t.heroPhoto.alt} />
           <p>{t.heroPhoto.caption}</p>
         </div>
-        <div className="panel__general">
-          <p className="panel__title">{t.panel.general.title}</p>
-          <h3 className="panel__doctor-name">{t.panel.general.name}</h3>
-          <p className="panel__license">{t.panel.general.license}</p>
-          {t.panel.general.roles.map((role) => (
-            <p className="panel__role" key={role}>
-              {role}
-            </p>
-          ))}
+        <div className="panel__tabs" role="tablist" aria-label={t.panel.tabs.ariaLabel}>
+          <button className={`panel__tab ${activeTab === 'general' ? 'is-active' : ''}`} type="button" role="tab" aria-selected={activeTab === 'general'} onClick={() => setActiveTab('general')}>
+            {t.panel.tabs.general}
+          </button>
+          <button
+            className={`panel__tab ${activeTab === 'higherEducation' ? 'is-active' : ''}`}
+            type="button"
+            role="tab"
+            aria-selected={activeTab === 'higherEducation'}
+            onClick={() => setActiveTab('higherEducation')}
+          >
+            {t.panel.tabs.higherEducation}
+          </button>
+          <button
+            className={`panel__tab ${activeTab === 'coursesAndTalks' ? 'is-active' : ''}`}
+            type="button"
+            role="tab"
+            aria-selected={activeTab === 'coursesAndTalks'}
+            onClick={() => setActiveTab('coursesAndTalks')}
+          >
+            {t.panel.tabs.coursesAndTalks}
+          </button>
+          <button
+            className={`panel__tab ${activeTab === 'workExperience' ? 'is-active' : ''}`}
+            type="button"
+            role="tab"
+            aria-selected={activeTab === 'workExperience'}
+            onClick={() => setActiveTab('workExperience')}
+          >
+            {t.panel.tabs.workExperience}
+          </button>
         </div>
-        <div className="panel__sections">
-          <details className="panel__section" open>
-            <summary>{t.panel.sections.higherEducation.title}</summary>
+        <div className="panel__tab-card" role="tabpanel">
+          {activeTab === 'general' ? (
+            <div className="panel__general">
+              <h3 className="panel__doctor-name">{t.panel.general.name}</h3>
+              <p className="panel__license">{t.panel.general.license}</p>
+              {t.panel.general.roles.map((role) => (
+                <p className="panel__role" key={role}>
+                  {role}
+                </p>
+              ))}
+            </div>
+          ) : null}
+
+          {activeTab === 'higherEducation' ? (
             <ul className="panel__study-list">
               {t.panel.sections.higherEducation.items.map((item) => (
                 <li className="panel__study-item" key={`${item.title}-${item.period}`}>
@@ -60,19 +96,17 @@ export default function Hero({ t, scrollTo, phoneHref, emailHref }: HeroProps) {
                 </li>
               ))}
             </ul>
-          </details>
+          ) : null}
 
-          <details className="panel__section">
-            <summary>{t.panel.sections.coursesAndTalks.title}</summary>
+          {activeTab === 'coursesAndTalks' ? (
             <ul className="panel__course-list">
               {t.panel.sections.coursesAndTalks.items.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
-          </details>
+          ) : null}
 
-          <details className="panel__section">
-            <summary>{t.panel.sections.workExperience.title}</summary>
+          {activeTab === 'workExperience' ? (
             <ul className="panel__experience-list">
               {t.panel.sections.workExperience.items.map((item) => (
                 <li className="panel__experience-item" key={`${item.clinic}-${item.period}`}>
@@ -85,7 +119,7 @@ export default function Hero({ t, scrollTo, phoneHref, emailHref }: HeroProps) {
                 </li>
               ))}
             </ul>
-          </details>
+          ) : null}
         </div>
         <div className="panel__contact">
           <p>{t.panel.contactLabel}</p>

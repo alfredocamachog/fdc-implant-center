@@ -306,6 +306,7 @@ img {
   gap: 2.75rem;
   padding: 4rem 0 3rem;
   scroll-margin-top: 5rem;
+  align-items: start;
 }
 
 .hero__content h1 {
@@ -413,6 +414,52 @@ img {
 .panel__role {
   margin: 0.28rem 0 0;
   color: var(--text);
+}
+
+.panel__tabs {
+  margin-top: 0.85rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.panel__tab {
+  border: 1px solid rgba(23, 62, 95, 0.16);
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 0.55rem 0.72rem;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.panel__tab:hover,
+.panel__tab:focus-visible {
+  border-color: var(--primary-dark);
+}
+
+.panel__tab.is-active {
+  background: var(--ink);
+  color: var(--on-primary);
+  border-color: var(--ink);
+}
+
+.panel__tab-card {
+  margin-top: 0.75rem;
+  border: 1px solid rgba(23, 62, 95, 0.14);
+  border-radius: 0.95rem;
+  background: rgba(255, 255, 255, 0.58);
+  min-height: 185px;
+  max-height: 300px;
+  overflow: auto;
+}
+
+.panel__tab-card .panel__general {
+  border: 0;
+  background: transparent;
+  padding: 0.95rem;
 }
 
 .panel__sections {

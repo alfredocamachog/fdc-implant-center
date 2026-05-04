@@ -38,6 +38,13 @@ export const enTranslations = {
     caption: 'Digital lab integrated into every treatment plan.',
   },
   panel: {
+    tabs: {
+      ariaLabel: 'Professional profile sections',
+      general: 'General Information',
+      higherEducation: 'Higher Education',
+      coursesAndTalks: 'Courses and Lectures',
+      workExperience: 'Work Experience',
+    },
     general: {
       title: 'General Information',
       name: 'Dr. Fernando Ari del Corro López',
@@ -265,6 +272,7 @@ export const enTranslations = {
     message: 'Hello, I am interested in a prosthodontic evaluation.',
   },
 }
+
 
 
 

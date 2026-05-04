@@ -38,6 +38,13 @@ export const esTranslations = {
     caption: 'Laboratorio digital in-house para cada rehabilitación.',
   },
   panel: {
+    tabs: {
+      ariaLabel: 'Secciones del perfil profesional',
+      general: 'Información General',
+      higherEducation: 'Estudios Superiores',
+      coursesAndTalks: 'Cursos y Ponencias',
+      workExperience: 'Experiencia Laboral',
+    },
     general: {
       title: 'Información General',
       name: 'Dr. Fernando Ari del Corro López',
@@ -265,6 +272,7 @@ export const esTranslations = {
     message: 'Hola, soy paciente interesado en una valoración de prostodoncia.',
   },
 }
+
 
 
 
