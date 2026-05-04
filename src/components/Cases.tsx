@@ -158,7 +158,7 @@ export default function Cases({ t }: { t: Translations }) {
                       {t.cases.closeModalLabel}
                     </button>
                   </div>
-                  <div className="case-modal__tabs" role="tablist" aria-label="Case details tabs">
+                  <div className="case-modal__tabs" role="tablist" aria-label={t.cases.detailsTabsAriaLabel}>
                     <button type="button" className={`case-modal__tab ${modalTab === 'overview' ? 'is-active' : ''}`} onClick={() => setModalTab('overview')}>
                       {t.cases.overviewTabLabel}
                     </button>
