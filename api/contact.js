@@ -49,6 +49,7 @@ const buildTemplate = ({ nombre, email, telefono, mensaje }) => {
         </td>
       </tr>
       <tr>
+      
         <td style="padding:20px 24px;">
           <p style="margin:0 0 14px;font-size:14px;color:#476985;">Se recibió un nuevo formulario desde el sitio web.</p>
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:separate;border-spacing:0 10px;">

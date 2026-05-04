@@ -1,5 +1,5 @@
 ﻿export const SITE_CONFIG = {
-  phone: '528416842009',
+  phone: '528116842009',
   email: 'drfernandoadelcorro@gmail.com',
   maps: {
     query: 'Prime Dental Nogales, Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son., Mexico',
@@ -14,4 +14,5 @@
   brand: 'Dr. Fernando Del Corro',
   tagline: 'Prosthodontics & Implants',
 }
+
 

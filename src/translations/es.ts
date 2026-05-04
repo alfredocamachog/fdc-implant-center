@@ -33,20 +33,72 @@ export const esTranslations = {
     { label: 'Índice de satisfacción anual', value: '98%' },
   ],
   heroPhoto: {
-    src: '/hero-dr-fernando.jpeg',
+    src: '/hero-dr-fernando-v2.png',
     alt: 'Paciente en clínica de implantología recibiendo atención personalizada',
     caption: 'Laboratorio digital in-house para cada rehabilitación.',
   },
   panel: {
-    title: SITE_CONFIG.brand,
-    subtitle: 'Prostodoncista certificado · UANL',
-    bullets: [
-      'Fellow del American College of Prosthodontists',
-      'Docente invitado en protocolos All-on-X',
-      'Laboratorio digital integrado en clínica',
-    ],
+    general: {
+      title: 'Información General',
+      name: 'Dr. Fernando Ari del Corro López',
+      license: 'Cédula: 12952774',
+      roles: ['Cirujano dentista', 'Especialista en prostodoncia e implantología oral'],
+    },
+    sections: {
+      higherEducation: {
+        title: 'Estudios Superiores',
+        items: [
+          { title: 'Cirujano Dentista', institution: 'Universidad Autónoma de Nuevo León.', period: '2015-2020' },
+          { title: 'Hospital Militar Regional de Especialidades', institution: 'Universidad Autónoma de Nuevo León.', period: '2020-2021' },
+          { title: 'Especialidad en Prostodoncia e Implantología Oral', institution: 'Universidad La Salle Bajío.', period: '2020-2021' },
+        ],
+      },
+      coursesAndTalks: {
+        title: 'Cursos y Ponencias',
+        items: [
+          'Masterclass en Peri-Implantitis. Alberto Monje. 2022',
+          'Fotografía Dental Behind the Scenes. Luis Quintero. 2023',
+          'Rehabilitación Oral Adhesiva. Roberto Tello. 2023',
+          'Estancia y ponencia en Universidad de Berna, Suiza. “Prosthetically Directed Bimaxillary Surgical Planning”. 2024',
+          'Estancia en compañía Bredent, Alemania. 2024',
+          'Estancia en compañía Zirkonzahn, Campo Tures, Italia; y ponente con el tema “Prosthetically Directed Bimaxillary Surgical Planning”. The European Association for Osseointegration, Milán 2024',
+          'Ponencia en Asociación Dental Mexicana: “De la Planeación a la Ejecución en Implantes”',
+          'Ponencia en Colegio de Cirujanos Dentistas de Aguascalientes: “De la Planeación a la Ejecución en Implantes”',
+          'Ponencia en el Colegio de Cirujanos Dentistas de Ixtapa-Zihuatanejo: “De la Planeación a la Ejecución en Implantes”',
+          'Live en vivo con el Dr. Roberto Tello mostrando casos de rehabilitación oral adhesiva.',
+          'Cuarto lugar en concurso de carteles de congreso ITI México 2025: “Reconstrucción bimaxilar implantosoportada guiada por flujos digitales”',
+          'Ponencia en congreso AMIC: “De la Planeación a la Ejecución en Implantes”',
+        ],
+      },
+      workExperience: {
+        title: 'Experiencia Laboral',
+        items: [
+          {
+            clinic: 'Dental Advanced',
+            role: 'Asistente dental',
+            supervisor: 'Jefe inmediato: Dr. Víctor Manuel Pérez',
+            period: '2015-2020',
+            location: 'Nogales, Sonora',
+          },
+          {
+            clinic: 'Althaia Dental Clinic',
+            role: 'Asistente dental en el departamento de rehabilitación e implantología',
+            supervisor: 'Dr. Jonathan Balderas',
+            period: '2020-2021',
+            location: 'Monterrey, Nuevo León',
+          },
+          {
+            clinic: 'Dental Laser',
+            role: 'Dentista general',
+            supervisor: '',
+            period: '2021-2022',
+            location: 'Nogales, Sonora',
+          },
+        ],
+      },
+    },
     contactLabel: 'Coordinación clínica',
-    phone: 'Tel. +52 (841) 684 2009',
+    phone: 'Tel. +52 (81) 1684 2009',
     email: SITE_CONFIG.email,
     address: 'Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son.',
   },
@@ -170,7 +222,7 @@ export const esTranslations = {
     title: 'Coordinamos casos de manera presencial y virtual',
     intro: 'Comparte tu caso, radiografías o expectativas y recibirás una llamada de nuestro coordinador clínico en menos de 24 horas hábiles.',
     details: {
-      phone: 'Tel. +52 (841) 684 2009',
+      phone: 'Tel. +52 (81) 1684 2009',
       email: SITE_CONFIG.email,
       address: SITE_CONFIG.address.es,
     },
@@ -186,7 +238,7 @@ export const esTranslations = {
     placeholders: {
       name: 'María López',
       email: 'tu@correo.com',
-      phone: '(841) 684 2009',
+      phone: '(81) 1684 2009',
       select: 'Selecciona una opción',
       message: 'Incluye antecedentes, expectativas y disponibilidad',
     },
@@ -213,6 +265,10 @@ export const esTranslations = {
     message: 'Hola, soy paciente interesado en una valoración de prostodoncia.',
   },
 }
+
+
+
+
 
 
 

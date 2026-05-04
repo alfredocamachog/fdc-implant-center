@@ -33,20 +33,72 @@ export const enTranslations = {
     { label: 'Annual satisfaction index', value: '98%' },
   ],
   heroPhoto: {
-    src: '/hero-dr-fernando.jpeg',
+    src: '/hero-dr-fernando-v2.png',
     alt: 'Patient receiving personalized implant care inside the operatory',
     caption: 'Digital lab integrated into every treatment plan.',
   },
   panel: {
-    title: SITE_CONFIG.brand,
-    subtitle: 'Board-certified Prosthodontist · UANL',
-    bullets: [
-      'Fellow of the American College of Prosthodontists',
-      'Guest lecturer for All-on-X protocols',
-      'Fully integrated digital laboratory',
-    ],
+    general: {
+      title: 'General Information',
+      name: 'Dr. Fernando Ari del Corro López',
+      license: 'Professional License: 12952774',
+      roles: ['Dental surgeon', 'Specialist in prosthodontics and oral implantology'],
+    },
+    sections: {
+      higherEducation: {
+        title: 'Higher Education',
+        items: [
+          { title: 'Dental Surgeon', institution: 'Autonomous University of Nuevo León.', period: '2015-2020' },
+          { title: 'Regional Military Specialty Hospital', institution: 'Autonomous University of Nuevo León.', period: '2020-2021' },
+          { title: 'Specialty in Prosthodontics and Oral Implantology', institution: 'La Salle Bajío University.', period: '2020-2021' },
+        ],
+      },
+      coursesAndTalks: {
+        title: 'Courses and Lectures',
+        items: [
+          'Masterclass in Peri-Implantitis. Alberto Monje. 2022',
+          'Dental Photography Behind the Scenes. Luis Quintero. 2023',
+          'Adhesive Oral Rehabilitation. Roberto Tello. 2023',
+          'Academic stay and lecture at the University of Bern, Switzerland. “Prosthetically Directed Bimaxillary Surgical Planning”. 2024',
+          'Academic stay at Bredent company, Germany. 2024',
+          'Academic stay at Zirkonzahn company, Campo Tures, Italy; and speaker on “Prosthetically Directed Bimaxillary Surgical Planning”. The European Association for Osseointegration, Milan 2024',
+          'Lecture at the Mexican Dental Association: “From Planning to Execution in Implants”',
+          'Lecture at the College of Dental Surgeons of Aguascalientes: “From Planning to Execution in Implants”',
+          'Lecture at the College of Dental Surgeons of Ixtapa-Zihuatanejo: “From Planning to Execution in Implants”',
+          'Live session with Dr. Roberto Tello showing adhesive oral rehabilitation cases.',
+          'Fourth place in the ITI Mexico 2025 congress poster contest: “Implant-supported bimaxillary reconstruction guided by digital workflows”',
+          'Lecture at AMIC congress: “From Planning to Execution in Implants”',
+        ],
+      },
+      workExperience: {
+        title: 'Work Experience',
+        items: [
+          {
+            clinic: 'Dental Advanced',
+            role: 'Dental assistant',
+            supervisor: 'Direct supervisor: Dr. Víctor Manuel Pérez',
+            period: '2015-2020',
+            location: 'Nogales, Sonora',
+          },
+          {
+            clinic: 'Althaia Dental Clinic',
+            role: 'Dental assistant in the rehabilitation and implantology department',
+            supervisor: 'Dr. Jonathan Balderas',
+            period: '2020-2021',
+            location: 'Monterrey, Nuevo León',
+          },
+          {
+            clinic: 'Dental Laser',
+            role: 'General dentist',
+            supervisor: '',
+            period: '2021-2022',
+            location: 'Nogales, Sonora',
+          },
+        ],
+      },
+    },
     contactLabel: 'Clinical coordination',
-    phone: 'Phone +52 (841) 684 2009',
+    phone: 'Phone +52 (81) 1684 2009',
     email: SITE_CONFIG.email,
     address: 'Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son.',
   },
@@ -170,7 +222,7 @@ export const enTranslations = {
     title: 'In-person and virtual case coordination',
     intro: 'Share your case, radiographs, or expectations and our clinical coordinator will call you within one business day.',
     details: {
-      phone: 'Phone +52 (841) 684 2009',
+      phone: 'Phone +52 (81) 1684 2009',
       email: SITE_CONFIG.email,
       address: SITE_CONFIG.address.en,
     },
@@ -186,7 +238,7 @@ export const enTranslations = {
     placeholders: {
       name: 'Jane Smith',
       email: 'you@email.com',
-      phone: '(841) 684 2009',
+      phone: '(81) 1684 2009',
       select: 'Select an option',
       message: 'Share background, expectations, and availability',
     },
@@ -213,6 +265,10 @@ export const enTranslations = {
     message: 'Hello, I am interested in a prosthodontic evaluation.',
   },
 }
+
+
+
+
 
 
 
