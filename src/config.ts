@@ -2,15 +2,15 @@
   phone: '526311440368',
   email: 'drfernandoadelcorro@gmail.com',
   maps: {
-    query: 'Cto. Los Mayos 17, Luis Donaldo Colosio Murrieta, 84066 Heroica Nogales, Son., Mexico',
-    zoom: 17,
-    placeId: 'ChIJXRwy_AhT0YYRBBIX_v2FHJE',
+    query: 'Prime Dental Nogales, Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son., Mexico',
+    coordinates: '',
+    zoom: 18,
+    placeId: 'ChIJd_9Nxamt1oYRWI2AhhHHD90',
   },
   address: {
-    es: 'Blvd. Hidalgo 102, Consultorio 504 · Hermosillo, Sonora',
-    en: 'Blvd. Hidalgo 102, Suite 504 · Hermosillo, Sonora',
+    es: 'Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son.',
+    en: 'Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son.',
   },
   brand: 'Dr. Fernando Del Corro',
   tagline: 'Prosthodontics & Implants',
 }
-

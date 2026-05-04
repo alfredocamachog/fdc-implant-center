@@ -48,7 +48,7 @@ export const enTranslations = {
     contactLabel: 'Clinical coordination',
     phone: 'Phone +52 (631) 144 0368',
     email: SITE_CONFIG.email,
-    address: 'Blvd. Hidalgo 102, Hermosillo · Suite 504',
+    address: 'Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son.',
   },
   services: {
     eyebrow: 'Clinical protocols',

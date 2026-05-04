@@ -12,10 +12,11 @@ export default function Contact({ t, phoneHref, emailHref }: ContactProps) {
   const mapsApiKey = (import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string | undefined)?.trim()
   const hasApiKey = Boolean(mapsApiKey)
   const placeId = SITE_CONFIG.maps.placeId?.trim()
-  const mapsQuery = encodeURIComponent(SITE_CONFIG.maps.query)
+  const mapsLocation = SITE_CONFIG.maps.coordinates?.trim() || SITE_CONFIG.maps.query
+  const mapsQuery = encodeURIComponent(mapsLocation)
   const mapZoom = SITE_CONFIG.maps.zoom ?? 17
   const mapSrc = hasApiKey
-    ? `https://www.google.com/maps/embed/v1/place?key=${mapsApiKey}&q=${encodeURIComponent(placeId ? `place_id:${placeId}` : SITE_CONFIG.maps.query)}&zoom=${mapZoom}`
+    ? `https://www.google.com/maps/embed/v1/place?key=${mapsApiKey}&q=${encodeURIComponent(placeId ? `place_id:${placeId}` : mapsLocation)}&zoom=${mapZoom}`
     : `https://www.google.com/maps?q=${mapsQuery}&z=${mapZoom}&output=embed`
 
   return (

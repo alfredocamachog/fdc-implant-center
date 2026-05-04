@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 const TO_EMAIL = 'drfernandoadelcorro@gmail.com'
+const SUBJECT_PREFIX = process.env.RESEND_SUBJECT_PREFIX || 'Nueva solicitud | Prime Dental Nogales'
 const execFileAsync = promisify(execFile)
 
 const sendJson = (res, statusCode, payload) => {
@@ -142,7 +143,7 @@ export default async function handler(req, res) {
     const basePayload = {
       from: email,
       to: [TO_EMAIL],
-      subject: `Nuevo contacto web: ${nombre}`,
+      subject: `${SUBJECT_PREFIX}: ${nombre}`,
       html: buildTemplate({ nombre, email, telefono, mensaje }),
       reply_to: email,
     }
