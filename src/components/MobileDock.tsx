@@ -1,5 +1,5 @@
 import type { Translations } from '../translations'
-import type { ReactElement } from 'react'
+import type { CSSProperties, ReactElement } from 'react'
 
 const icons: Record<string, ReactElement> = {
   '#inicio': (
@@ -39,8 +39,10 @@ const icons: Record<string, ReactElement> = {
 }
 
 export default function MobileDock({ t, scrollTo }: { t: Translations; scrollTo: (id: string) => (e: React.MouseEvent) => void }) {
+  const dockStyle = { '--dock-items': t.navLinks.length } as CSSProperties
+
   return (
-    <div className="mobile-dock" role="navigation" aria-label="Site sections">
+    <div className="mobile-dock" style={dockStyle} role="navigation" aria-label="Site sections">
       {t.navLinks.map((link) => (
         <button key={link.href} type="button" className="mobile-dock__item" onClick={scrollTo(link.href.slice(1))}>
           <span className="mobile-dock__icon" aria-hidden="true">
