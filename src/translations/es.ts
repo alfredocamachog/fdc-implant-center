@@ -396,8 +396,8 @@ export const esTranslations = {
   footer: {
     rights: 'Todos los derechos reservados.',
     availability: 'Atendemos a pacientes referidos y casos directos con previa cita.',
-    rightsDev: 'Creado por Alfredo Camacho G.',
-    rightsFull: '© {year} Dr. Fernando Ari Del Corro Lopez. Todos los Derechos reservados. Creado por Alfredo Camacho G.'
+    rightsDev: 'Desertia Tech',
+    rightsFull: '© {year} Dr. Fernando Ari Del Corro Lopez. Todos los Derechos reservados. Creado por {company}.'
   },
   floatingCta: {
     label: 'Agenda por WhatsApp',
