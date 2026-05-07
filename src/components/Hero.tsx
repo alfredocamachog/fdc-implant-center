@@ -23,14 +23,6 @@ export default function Hero({ t, scrollTo }: HeroProps) {
             {t.hero.secondaryCta}
           </a>
         </div>
-        <div className="hero__stats">
-          {t.heroStats.map((stat) => (
-            <div key={stat.label}>
-              <p className="stat__value">{stat.value}</p>
-              <p className="stat__label">{stat.label}</p>
-            </div>
-          ))}
-        </div>
       </div>
       <div className="hero__panel">
         <div className="hero__photo-wrapper">
