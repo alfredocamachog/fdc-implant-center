@@ -1,7 +1,8 @@
-﻿import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Translations } from '../translations'
 
 export default function Cases({ t }: { t: Translations }) {
+  const casesStripRef = useRef<HTMLDivElement | null>(null)
   const [slideIndexByCase, setSlideIndexByCase] = useState<Record<string, number>>({})
   const [modalCaseId, setModalCaseId] = useState<string | null>(null)
   const [modalTab, setModalTab] = useState<'overview' | 'results'>('overview')
@@ -33,6 +34,36 @@ export default function Cases({ t }: { t: Translations }) {
       })
     }, 4500)
     return () => window.clearInterval(interval)
+    }, [t.cases.cards])
+
+  useEffect(() => {
+    const strip = casesStripRef.current
+    if (!strip) return
+    if (window.matchMedia('(max-width: 900px)').matches) return
+
+    const cards = strip.querySelectorAll<HTMLElement>(':scope > .case-showcase')
+    const totalCards = cards.length
+    const visibleCards = 3
+    if (totalCards <= visibleCards) return
+
+    let startIndex = 0
+    const maxStartIndex = totalCards - visibleCards
+
+    const autoplayInterval = window.setInterval(() => {
+      const firstCard = cards[0]
+      if (!firstCard) return
+
+      const cardWidth = firstCard.getBoundingClientRect().width
+      const gap = parseFloat(window.getComputedStyle(strip).columnGap || '0')
+
+      startIndex = startIndex >= maxStartIndex ? 0 : startIndex + 1
+      strip.scrollTo({
+        left: startIndex * (cardWidth + gap),
+        behavior: 'smooth',
+      })
+    }, 4500)
+
+    return () => window.clearInterval(autoplayInterval)
   }, [t.cases.cards])
 
   const changeSlide = (caseId: string, direction: 'prev' | 'next') => {
@@ -51,7 +82,7 @@ export default function Cases({ t }: { t: Translations }) {
         <h2>{t.cases.title}</h2>
         {t.cases.intro ? <p>{t.cases.intro}</p> : null}
       </div>
-      <div className="cases-strip" role="list" aria-label={t.cases.title}>
+      <div className="cases-strip" role="list" aria-label={t.cases.title} ref={casesStripRef}>
         {t.cases.cards.map((caseItem) => {
           const currentSlideIndex = slideIndexByCase[caseItem.id] ?? 0
           const totalSlides = caseItem.images.length
@@ -212,3 +243,4 @@ export default function Cases({ t }: { t: Translations }) {
     </section>
   )
 }
+

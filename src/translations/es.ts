@@ -310,6 +310,64 @@ export const esTranslations = {
           },
         },
       },
+      {
+        id: 'miguel-padilla-03',
+        name: 'Paciente: Miguel Padilla',
+        treatment: 'Tratamiento: TBD',
+        location: 'Ubicación: Nogales, México (a minutos de la frontera con EE. UU.)',
+        images: [
+          { src: '/cases/miguel-padilla/1.jpg', sensitive: true },
+          { src: '/cases/miguel-padilla/2.jpg', sensitive: true },
+        ],
+        modal: {
+          overview: {
+            title: '',
+            paragraphs: [],
+            upperTitle: '',
+            upperDescription: '',
+            upperPoints: [],
+            lowerTitle: '',
+            lowerDescription: '',
+            lowerPoints: [],
+          },
+          results: {
+            title: '',
+            intro: '',
+            points: [],
+            whyTitle: '',
+            whyPoints: [],
+          },
+        },
+      },
+      {
+        id: 'martha-04',
+        name: 'Paciente: Martha',
+        treatment: 'Tratamiento: TBD',
+        location: 'Ubicación: Nogales, México (a minutos de la frontera con EE. UU.)',
+        images: [
+          { src: '/cases/martha/1.jpg', sensitive: true },
+          { src: '/cases/martha/2.jpg', sensitive: true },
+        ],
+        modal: {
+          overview: {
+            title: '',
+            paragraphs: [],
+            upperTitle: '',
+            upperDescription: '',
+            upperPoints: [],
+            lowerTitle: '',
+            lowerDescription: '',
+            lowerPoints: [],
+          },
+          results: {
+            title: '',
+            intro: '',
+            points: [],
+            whyTitle: '',
+            whyPoints: [],
+          },
+        },
+      },
     ],
   },
   testimonials: {
@@ -390,8 +448,6 @@ export const esTranslations = {
     message: 'Hola, soy paciente interesado en una valoración de prostodoncia.',
   },
 }
-
-
 
 
 

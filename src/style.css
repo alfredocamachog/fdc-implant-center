@@ -701,7 +701,7 @@ img {
 .cases-strip {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(300px, 42%);
+  grid-auto-columns: calc((100% - 2rem) / 3);
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
@@ -718,12 +718,20 @@ img {
 
 .case-showcase {
   scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
 }
 
 .case__meta {
   margin: 0.25rem 0 0;
   color: var(--text);
   font-weight: 600;
+  line-height: 1.35;
+  min-height: 2.7em;
+}
+
+.case-showcase h3 {
+  min-height: 2.3rem;
 }
 
 .case-slider {

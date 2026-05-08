@@ -309,6 +309,64 @@ export const enTranslations = {
           },
         },
       },
+      {
+        id: 'miguel-padilla-03',
+        name: 'Patient: Miguel Padilla',
+        treatment: 'Treatment: TBD',
+        location: 'Location: Nogales, Mexico (Minutes from the U.S. Border)',
+        images: [
+          { src: '/cases/miguel-padilla/1.jpg', sensitive: true },
+          { src: '/cases/miguel-padilla/2.jpg', sensitive: true },
+        ],
+        modal: {
+          overview: {
+            title: '',
+            paragraphs: [],
+            upperTitle: '',
+            upperDescription: '',
+            upperPoints: [],
+            lowerTitle: '',
+            lowerDescription: '',
+            lowerPoints: [],
+          },
+          results: {
+            title: '',
+            intro: '',
+            points: [],
+            whyTitle: '',
+            whyPoints: [],
+          },
+        },
+      },
+      {
+        id: 'martha-04',
+        name: 'Patient: Martha',
+        treatment: 'Treatment: TBD',
+        location: 'Location: Nogales, Mexico (Minutes from the U.S. Border)',
+        images: [
+          { src: '/cases/martha/1.jpg', sensitive: true },
+          { src: '/cases/martha/2.jpg', sensitive: true },
+        ],
+        modal: {
+          overview: {
+            title: '',
+            paragraphs: [],
+            upperTitle: '',
+            upperDescription: '',
+            upperPoints: [],
+            lowerTitle: '',
+            lowerDescription: '',
+            lowerPoints: [],
+          },
+          results: {
+            title: '',
+            intro: '',
+            points: [],
+            whyTitle: '',
+            whyPoints: [],
+          },
+        },
+      },
     ],
   },
   testimonials: {
@@ -389,8 +447,6 @@ export const enTranslations = {
     message: 'Hello, I am interested in a prosthodontic evaluation.',
   },
 }
-
-
 
 
 
