@@ -192,22 +192,11 @@ export const esTranslations = {
         treatment: 'Tratamiento: Rehabilitación completa con implantes en toda la boca',
         location: 'Ubicación: Nogales, México (a minutos de la frontera con EE. UU.)',
         images: [
-          { src: '/cases/jose-santos/IMG_0242.JPG', sensitive: true },
-          { src: '/cases/jose-santos/IMG_0278.JPG', sensitive: true },
-          { src: '/cases/jose-santos/IMG_0280.JPG', sensitive: true },
-          { src: '/cases/jose-santos/IMG_0537.JPG', sensitive: true },
-          { src: '/cases/jose-santos/IMG_2794.JPG', sensitive: true },
-          { src: '/cases/jose-santos/IMG_2994.JPG', sensitive: true },
-          { src: '/cases/jose-santos/IMG_4684.JPG', sensitive: true },
-          { src: '/cases/jose-santos/IMG_4691.JPG', sensitive: true },
-          { src: '/cases/jose-santos/IMG_4704.JPG', sensitive: true },
-          { src: '/cases/jose-santos/IMG_6695.JPG', sensitive: true },
-          { src: '/cases/jose-santos/IMG_7804.JPG', sensitive: true },
-          { src: '/cases/jose-santos/IMG_7868.JPG', sensitive: true },
-          { src: '/cases/jose-santos/IMG_7877.JPG', sensitive: true },
-          { src: '/cases/jose-santos/IMG_7903.JPG', sensitive: true },
-          { src: '/cases/jose-santos/IMG_7996.JPG', sensitive: true },
-          { src: '/cases/jose-santos/IMG_8021.JPG', sensitive: true },
+          { src: '/cases/jose-santos/1.jpg', sensitive: true },
+          { src: '/cases/jose-santos/2.jpg', sensitive: true },
+          { src: '/cases/jose-santos/3.jpg', sensitive: true },
+          { src: '/cases/jose-santos/4.jpg', sensitive: true },
+          { src: '/cases/jose-santos/5.jpg', sensitive: true },
         ],
         modal: {
           overview: {
@@ -261,14 +250,10 @@ export const esTranslations = {
         treatment: 'Tratamiento: Rehabilitación oral completa con elevación de mordida',
         location: 'Ubicación: Nogales, México (a minutos de la frontera con EE. UU.)',
         images: [
-          { src: '/cases/marite/IMG_5113.JPG', sensitive: true },
-          { src: '/cases/marite/IMG_8839.JPG', sensitive: true },
-          { src: '/cases/marite/IMG_8844.JPG', sensitive: true },
-          { src: '/cases/marite/IMG_8849.JPG', sensitive: true },
-          { src: '/cases/marite/IMG_8857.JPG', sensitive: true },
-          { src: '/cases/marite/IMG_8873.JPG', sensitive: true },
-          { src: '/cases/marite/IMG_8877.JPG', sensitive: true },
-          { src: '/cases/marite/IMG_8887.JPG', sensitive: true },
+          { src: '/cases/marite/1.jpg', sensitive: true },
+          { src: '/cases/marite/2.jpg', sensitive: true },
+          { src: '/cases/marite/3.jpg', sensitive: true },
+          { src: '/cases/marite/4.jpg', sensitive: true },
         ],
         modal: {
           overview: {
@@ -405,9 +390,6 @@ export const esTranslations = {
     message: 'Hola, soy paciente interesado en una valoración de prostodoncia.',
   },
 }
-
-
-
 
 
 

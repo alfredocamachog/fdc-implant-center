@@ -6,7 +6,6 @@ export default function Cases({ t }: { t: Translations }) {
   const [modalCaseId, setModalCaseId] = useState<string | null>(null)
   const [modalTab, setModalTab] = useState<'overview' | 'results'>('overview')
   const [touchStartXByCase, setTouchStartXByCase] = useState<Record<string, number | null>>({})
-  const [revealedSensitiveImages, setRevealedSensitiveImages] = useState<Record<string, boolean>>({})
 
   useEffect(() => {
     if (!modalCaseId) return
@@ -80,31 +79,11 @@ export default function Cases({ t }: { t: Translations }) {
                   {caseItem.images.map((imageSrc, idx) => (
                     <figure className="case-slider__item" style={{ width: `${100 / totalSlides}%` }} key={`${caseItem.id}-img-${idx}`}>
                       {(() => {
-                        const imageData = typeof imageSrc === 'string' ? { src: imageSrc, sensitive: false } : imageSrc
-                        const imageKey = `${caseItem.id}-${idx}`
-                        const isRevealed = !!revealedSensitiveImages[imageKey]
-                        const shouldHide = imageData.sensitive && !isRevealed
+                        const imageData = typeof imageSrc === 'string' ? { src: imageSrc } : imageSrc
 
                         return (
                           <div className="case-image-wrap">
-                            <img src={imageData.src} alt={`${caseItem.name} ${idx + 1}`} loading="lazy" className={shouldHide ? 'is-sensitive-hidden' : ''} />
-                            {imageData.sensitive ? (
-                              <div className={`case-sensitive-overlay ${shouldHide ? 'is-visible' : ''}`}>
-                                <p>{t.cases.sensitiveWarning}</p>
-                                <button
-                                  type="button"
-                                  className="case-sensitive-btn"
-                                  onClick={() =>
-                                    setRevealedSensitiveImages((prev) => ({
-                                      ...prev,
-                                      [imageKey]: !isRevealed,
-                                    }))
-                                  }
-                                >
-                                  {isRevealed ? t.cases.hideSensitiveLabel : t.cases.showSensitiveLabel}
-                                </button>
-                              </div>
-                            ) : null}
+                            <img src={imageData.src} alt={`${caseItem.name} ${idx + 1}`} loading="lazy" />
                           </div>
                         )
                       })()}
@@ -233,4 +212,3 @@ export default function Cases({ t }: { t: Translations }) {
     </section>
   )
 }
-

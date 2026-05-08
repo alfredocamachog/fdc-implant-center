@@ -747,9 +747,8 @@ img {
 
 .case-slider__item img {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: contain;
-  background: #ffffff;
+  height: auto;
+  display: block;
 }
 
 .case-image-wrap {
