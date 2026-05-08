@@ -980,7 +980,8 @@ img {
   }
 
   .case-slider__item img {
-    aspect-ratio: 3 / 4;
+    aspect-ratio: auto;
+    height: auto;
   }
 
   .case-carousel {
