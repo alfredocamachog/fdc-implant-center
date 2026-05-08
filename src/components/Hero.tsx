@@ -25,6 +25,18 @@ export default function Hero({ t, scrollTo }: HeroProps) {
         </div>
       </div>
       <div className="hero__panel">
+        <div className="panel__social" aria-label="Social links">
+          <a className="panel__social-link" href="https://www.facebook.com/share/17ioeU77PE/?mibextid=wwXIfr" target="_blank" rel="noreferrer" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M13.7 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5h1.7V4.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2V11H8v3h2.5v8h3.2z" />
+            </svg>
+          </a>
+          <a className="panel__social-link" href="https://www.instagram.com/aridelcorro?igsh=MTl6ZHczemFnbnppMQ==" target="_blank" rel="noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7.2 2h9.6A5.2 5.2 0 0 1 22 7.2v9.6a5.2 5.2 0 0 1-5.2 5.2H7.2A5.2 5.2 0 0 1 2 16.8V7.2A5.2 5.2 0 0 1 7.2 2zm0 1.9A3.3 3.3 0 0 0 3.9 7.2v9.6a3.3 3.3 0 0 0 3.3 3.3h9.6a3.3 3.3 0 0 0 3.3-3.3V7.2a3.3 3.3 0 0 0-3.3-3.3H7.2zm10.3 1.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.9A3.1 3.1 0 1 0 12 15a3.1 3.1 0 0 0 0-6.2z" />
+            </svg>
+          </a>
+        </div>
         <div className="hero__photo-wrapper">
           <img src={t.heroPhoto.src} alt={t.heroPhoto.alt} />
         </div>
@@ -119,4 +131,3 @@ export default function Hero({ t, scrollTo }: HeroProps) {
     </section>
   )
 }
-
