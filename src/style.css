@@ -592,15 +592,53 @@ img {
 }
 
 .panel__course-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
   padding: 0.56rem 0;
   border-top: 1px dashed rgba(23, 62, 95, 0.12);
   color: var(--text);
+}
+
+.panel__course-list li.is-europe {
+  margin-top: 0.35rem;
+  padding: 0.6rem 0.65rem;
+  border: 1px solid rgba(17, 171, 200, 0.35);
+  border-left: 4px solid var(--primary);
+  border-radius: 0.7rem;
+  background: rgba(17, 171, 200, 0.08);
+}
+
+.panel__course-eu-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+  border-radius: 999px;
+  border: 1px solid rgba(13, 137, 161, 0.5);
+  background: rgba(13, 137, 161, 0.12);
+  color: var(--primary-dark);
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.05rem;
+  line-height: 1;
+  padding: 0.22rem 0.4rem;
+}
+
+.panel__course-eu-icon {
+  font-size: 0.62rem;
 }
 
 .panel__study-list li:first-child,
 .panel__course-list li:first-child,
 .panel__experience-list li:first-child {
   border-top: 1px dashed rgba(23, 62, 95, 0.12);
+}
+
+.panel__course-list li.is-europe,
+.panel__course-list li.is-europe:first-child {
+  border-top: 1px solid rgba(17, 171, 200, 0.35);
 }
 
 .panel__contact {
@@ -773,7 +811,6 @@ img {
   overflow: hidden;
   border-radius: 0.8rem;
   border: 1px solid rgba(23, 62, 95, 0.16);
-  touch-action: pan-y;
 }
 
 .case-slider__track {

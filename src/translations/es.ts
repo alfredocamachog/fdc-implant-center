@@ -19,8 +19,8 @@ export const esTranslations = {
   ],
   hero: {
     eyebrow: 'Prostodoncia avanzada',
-    title: 'Rehabilitación oral de alta precisión para sonrisas funcionales y elegantes',
-    lead: 'Diseñamos planes integrales en prostodoncia avanzada, implantes y estética dental que priorizan biomecánica, fonética y mantenimiento a largo plazo. Cada decisión se respalda con diagnóstico digital y laboratorio propio.',
+    title: 'Rehabilitación oral sobre dientes e implantes',
+    lead: 'Funcionalidad, estética y resultados de alta precisión.',
     primaryCta: 'Agenda una valoración',
     secondaryCta: 'Conoce nuestros protocolos',
   },
@@ -188,8 +188,8 @@ export const esTranslations = {
     cards: [
       {
         id: 'jose-santos-01',
-        name: 'Paciente: Jose Santos',
-        treatment: 'Tratamiento: Rehabilitación completa con implantes en toda la boca',
+        name: 'Paciente: Jose',
+        treatment: 'Tratamiento: Rehabilitación completa con implantes',
         location: 'Ubicación: Nogales, México (a minutos de la frontera con EE. UU.)',
         images: [
           { src: '/cases/jose-santos/1.jpg', sensitive: true },
@@ -247,7 +247,7 @@ export const esTranslations = {
       {
         id: 'marite-02',
         name: 'Paciente: Marite',
-        treatment: 'Tratamiento: Rehabilitación oral completa con elevación de mordida',
+        treatment: 'Tratamiento: Rehabilitación completa sobre dientes (carillas y coronas)',
         location: 'Ubicación: Nogales, México (a minutos de la frontera con EE. UU.)',
         images: [
           { src: '/cases/marite/1.jpg', sensitive: true },
@@ -312,8 +312,8 @@ export const esTranslations = {
       },
       {
         id: 'miguel-padilla-03',
-        name: 'Paciente: Miguel Padilla',
-        treatment: 'Tratamiento: TBD',
+        name: 'Paciente: Miguel',
+        treatment: 'Tratamiento: Rehabilitación completa sobre dientes (carillas y coronas)',
         location: 'Ubicación: Nogales, México (a minutos de la frontera con EE. UU.)',
         images: [
           { src: '/cases/miguel-padilla/1.jpg', sensitive: true },
@@ -342,7 +342,7 @@ export const esTranslations = {
       {
         id: 'martha-04',
         name: 'Paciente: Martha',
-        treatment: 'Tratamiento: TBD',
+        treatment: 'Tratamiento: Prótesis total y removible inferior con coronas',
         location: 'Ubicación: Nogales, México (a minutos de la frontera con EE. UU.)',
         images: [
           { src: '/cases/martha/1.jpg', sensitive: true },
@@ -448,9 +448,5 @@ export const esTranslations = {
     message: 'Hola, soy paciente interesado en una valoración de prostodoncia.',
   },
 }
-
-
-
-
 
 

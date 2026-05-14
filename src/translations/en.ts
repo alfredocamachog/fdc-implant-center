@@ -19,8 +19,8 @@ export const enTranslations = {
   ],
   hero: {
     eyebrow: 'Advanced prosthodontics',
-    title: 'High-precision oral rehabilitation for functional, elegant smiles',
-    lead: 'We design comprehensive plans in advanced prosthodontics, implants, and dental aesthetics that prioritize biomechanics, phonetics, and long-term maintenance. Every decision is backed by digital diagnostics and an in-house laboratory.',
+    title: 'Oral rehabilitation on teeth and implants',
+    lead: 'Functionality, aesthetics, and high-precision results.',
     primaryCta: 'Book a consultation',
     secondaryCta: 'Explore our protocols',
   },
@@ -188,8 +188,8 @@ export const enTranslations = {
     cards: [
       {
         id: 'jose-santos-01',
-        name: 'Patient: Jose Santos',
-        treatment: 'Treatment: Full mouth implant rehabilitation',
+        name: 'Patient: Jose',
+        treatment: 'Treatment: Full rehabilitation with implants',
         location: 'Location: Nogales, Mexico (minutes from the U.S. border)',
         images: [
           { src: '/cases/jose-santos/1.jpg', sensitive: true },
@@ -246,7 +246,7 @@ export const enTranslations = {
       {
         id: 'marite-02',
         name: 'Patient: Marite',
-        treatment: 'Treatment: Full Mouth Rehabilitation with Bite Elevation',
+        treatment: 'Treatment: Full rehabilitation on teeth (veneers and crowns)',
         location: 'Location: Nogales, Mexico (Minutes from the U.S. Border)',
         images: [
           { src: '/cases/marite/1.jpg', sensitive: true },
@@ -311,8 +311,8 @@ export const enTranslations = {
       },
       {
         id: 'miguel-padilla-03',
-        name: 'Patient: Miguel Padilla',
-        treatment: 'Treatment: TBD',
+        name: 'Patient: Miguel',
+        treatment: 'Treatment: Full rehabilitation on teeth (veneers and crowns)',
         location: 'Location: Nogales, Mexico (Minutes from the U.S. Border)',
         images: [
           { src: '/cases/miguel-padilla/1.jpg', sensitive: true },
@@ -341,7 +341,7 @@ export const enTranslations = {
       {
         id: 'martha-04',
         name: 'Patient: Martha',
-        treatment: 'Treatment: TBD',
+        treatment: 'Treatment: Full and removable lower prosthesis with crowns',
         location: 'Location: Nogales, Mexico (Minutes from the U.S. Border)',
         images: [
           { src: '/cases/martha/1.jpg', sensitive: true },
@@ -447,9 +447,5 @@ export const enTranslations = {
     message: 'Hello, I am interested in a prosthodontic evaluation.',
   },
 }
-
-
-
-
 
 

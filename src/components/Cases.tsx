@@ -3,10 +3,11 @@ import type { Translations } from '../translations'
 
 export default function Cases({ t }: { t: Translations }) {
   const casesStripRef = useRef<HTMLDivElement | null>(null)
+  const swipeStartXRef = useRef<number | null>(null)
+  const swipeStartYRef = useRef<number | null>(null)
   const [slideIndexByCase, setSlideIndexByCase] = useState<Record<string, number>>({})
   const [modalCaseId, setModalCaseId] = useState<string | null>(null)
   const [modalTab, setModalTab] = useState<'overview' | 'results'>('overview')
-  const [touchStartXByCase, setTouchStartXByCase] = useState<Record<string, number | null>>({})
 
   useEffect(() => {
     if (!modalCaseId) return
@@ -32,38 +33,9 @@ export default function Cases({ t }: { t: Translations }) {
         })
         return nextState
       })
-    }, 4500)
+    }, 60000)
+
     return () => window.clearInterval(interval)
-    }, [t.cases.cards])
-
-  useEffect(() => {
-    const strip = casesStripRef.current
-    if (!strip) return
-    if (window.matchMedia('(max-width: 900px)').matches) return
-
-    const cards = strip.querySelectorAll<HTMLElement>(':scope > .case-showcase')
-    const totalCards = cards.length
-    const visibleCards = 3
-    if (totalCards <= visibleCards) return
-
-    let startIndex = 0
-    const maxStartIndex = totalCards - visibleCards
-
-    const autoplayInterval = window.setInterval(() => {
-      const firstCard = cards[0]
-      if (!firstCard) return
-
-      const cardWidth = firstCard.getBoundingClientRect().width
-      const gap = parseFloat(window.getComputedStyle(strip).columnGap || '0')
-
-      startIndex = startIndex >= maxStartIndex ? 0 : startIndex + 1
-      strip.scrollTo({
-        left: startIndex * (cardWidth + gap),
-        behavior: 'smooth',
-      })
-    }, 4500)
-
-    return () => window.clearInterval(autoplayInterval)
   }, [t.cases.cards])
 
   const changeSlide = (caseId: string, direction: 'prev' | 'next') => {
@@ -75,6 +47,23 @@ export default function Cases({ t }: { t: Translations }) {
     })
   }
 
+  const scrollCasesBySwipe = (direction: 'next' | 'prev') => {
+    const strip = casesStripRef.current
+    if (!strip) return
+
+    const firstCard = strip.querySelector<HTMLElement>(':scope > .case-showcase')
+    if (!firstCard) return
+
+    const cardWidth = firstCard.getBoundingClientRect().width
+    const gap = parseFloat(window.getComputedStyle(strip).columnGap || window.getComputedStyle(strip).gap || '0')
+    const amount = cardWidth + gap
+
+    strip.scrollBy({
+      left: direction === 'next' ? amount : -amount,
+      behavior: 'smooth',
+    })
+  }
+
   return (
     <section className="section" id="casos">
       <div className="section__heading">
@@ -82,7 +71,36 @@ export default function Cases({ t }: { t: Translations }) {
         <h2>{t.cases.title}</h2>
         {t.cases.intro ? <p>{t.cases.intro}</p> : null}
       </div>
-      <div className="cases-strip" role="list" aria-label={t.cases.title} ref={casesStripRef}>
+      <div
+        className="cases-strip"
+        role="list"
+        aria-label={t.cases.title}
+        ref={casesStripRef}
+        onTouchStart={(e) => {
+          swipeStartXRef.current = e.touches[0]?.clientX ?? null
+          swipeStartYRef.current = e.touches[0]?.clientY ?? null
+        }}
+        onTouchEnd={(e) => {
+          const startX = swipeStartXRef.current
+          const startY = swipeStartYRef.current
+          const endX = e.changedTouches[0]?.clientX
+          const endY = e.changedTouches[0]?.clientY
+
+          swipeStartXRef.current = null
+          swipeStartYRef.current = null
+
+          if (startX == null || startY == null || endX == null || endY == null) return
+
+          const deltaX = endX - startX
+          const deltaY = endY - startY
+
+          if (Math.abs(deltaX) < 45) return
+          if (Math.abs(deltaX) <= Math.abs(deltaY)) return
+
+          if (deltaX < 0) scrollCasesBySwipe('next')
+          if (deltaX > 0) scrollCasesBySwipe('prev')
+        }}
+      >
         {t.cases.cards.map((caseItem) => {
           const currentSlideIndex = slideIndexByCase[caseItem.id] ?? 0
           const totalSlides = caseItem.images.length
@@ -93,19 +111,7 @@ export default function Cases({ t }: { t: Translations }) {
               {caseItem.treatment ? <p className="case__meta">{caseItem.treatment}</p> : null}
               {caseItem.location ? <p className="case__meta">{caseItem.location}</p> : null}
 
-              <div
-                className="case-slider"
-                onTouchStart={(e) => setTouchStartXByCase((prev) => ({ ...prev, [caseItem.id]: e.touches[0].clientX }))}
-                onTouchEnd={(e) => {
-                  const startX = touchStartXByCase[caseItem.id]
-                  const endX = e.changedTouches[0].clientX
-                  if (startX == null) return
-                  const deltaX = endX - startX
-                  if (deltaX <= -40 && totalSlides > 1) changeSlide(caseItem.id, 'next')
-                  if (deltaX >= 40 && totalSlides > 1) changeSlide(caseItem.id, 'prev')
-                  setTouchStartXByCase((prev) => ({ ...prev, [caseItem.id]: null }))
-                }}
-              >
+              <div className="case-slider">
                 <div className="case-slider__track" style={{ width: `${totalSlides * 100}%`, transform: `translateX(-${currentSlideIndex * (100 / totalSlides)}%)` }}>
                   {caseItem.images.map((imageSrc, idx) => (
                     <figure className="case-slider__item" style={{ width: `${100 / totalSlides}%` }} key={`${caseItem.id}-img-${idx}`}>
