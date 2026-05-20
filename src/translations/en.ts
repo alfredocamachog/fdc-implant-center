@@ -192,11 +192,12 @@ export const enTranslations = {
         treatment: 'Treatment: Full rehabilitation with implants',
         location: 'Location: Nogales, Mexico (minutes from the U.S. border)',
         images: [
-          { src: '/cases/jose-santos/1.jpg', sensitive: true },
-          { src: '/cases/jose-santos/2.jpg', sensitive: true },
-          { src: '/cases/jose-santos/3.jpg', sensitive: true },
-          { src: '/cases/jose-santos/4.jpg', sensitive: true },
-          { src: '/cases/jose-santos/5.jpg', sensitive: true },
+          { src: '/cases/jose-santos/1.png', sensitive: true },
+          { src: '/cases/jose-santos/2.png', sensitive: true },
+          { src: '/cases/jose-santos/3.png', sensitive: true },
+          { src: '/cases/jose-santos/4.png', sensitive: true },
+          { src: '/cases/jose-santos/5.png', sensitive: true },
+          { src: '/cases/jose-santos/6.png', sensitive: true },
         ],
         modal: {
           overview: {
@@ -249,10 +250,11 @@ export const enTranslations = {
         treatment: 'Treatment: Full rehabilitation on teeth (veneers and crowns)',
         location: 'Location: Nogales, Mexico (Minutes from the U.S. Border)',
         images: [
-          { src: '/cases/marite/1.jpg', sensitive: true },
-          { src: '/cases/marite/2.jpg', sensitive: true },
-          { src: '/cases/marite/3.jpg', sensitive: true },
-          { src: '/cases/marite/4.jpg', sensitive: true },
+          { src: '/cases/marite/1.png', sensitive: true },
+          { src: '/cases/marite/2.png', sensitive: true },
+          { src: '/cases/marite/3.png', sensitive: true },
+          { src: '/cases/marite/4.png', sensitive: true },
+          { src: '/cases/marite/5.png', sensitive: true },
         ],
         modal: {
           overview: {
@@ -315,8 +317,15 @@ export const enTranslations = {
         treatment: 'Treatment: Full rehabilitation on teeth (veneers and crowns)',
         location: 'Location: Nogales, Mexico (Minutes from the U.S. Border)',
         images: [
-          { src: '/cases/miguel-padilla/1.jpg', sensitive: true },
-          { src: '/cases/miguel-padilla/2.jpg', sensitive: true },
+          { src: '/cases/miguel-padilla/1.png', sensitive: true },
+          { src: '/cases/miguel-padilla/2.png', sensitive: true },
+          { src: '/cases/miguel-padilla/3.png', sensitive: true },
+          { src: '/cases/miguel-padilla/4.png', sensitive: true },
+          { src: '/cases/miguel-padilla/5.png', sensitive: true },
+          { src: '/cases/miguel-padilla/6.png', sensitive: true },
+          { src: '/cases/miguel-padilla/7.png', sensitive: true },
+          { src: '/cases/miguel-padilla/8.png', sensitive: true },
+          { src: '/cases/miguel-padilla/9.png', sensitive: true },
         ],
         modal: {
           overview: {
@@ -344,8 +353,10 @@ export const enTranslations = {
         treatment: 'Treatment: Full and removable lower prosthesis with crowns',
         location: 'Location: Nogales, Mexico (Minutes from the U.S. Border)',
         images: [
-          { src: '/cases/martha/1.jpg', sensitive: true },
-          { src: '/cases/martha/2.jpg', sensitive: true },
+          { src: '/cases/martha/1.png', sensitive: true },
+          { src: '/cases/martha/2.png', sensitive: true },
+          { src: '/cases/martha/3.png', sensitive: true },
+          { src: '/cases/martha/4.png', sensitive: true },
         ],
         modal: {
           overview: {
@@ -447,5 +458,3 @@ export const enTranslations = {
     message: 'Hello, I am interested in a prosthodontic evaluation.',
   },
 }
-
-
