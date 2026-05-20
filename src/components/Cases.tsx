@@ -57,9 +57,17 @@ export default function Cases({ t }: { t: Translations }) {
     const cardWidth = firstCard.getBoundingClientRect().width
     const gap = parseFloat(window.getComputedStyle(strip).columnGap || window.getComputedStyle(strip).gap || '0')
     const amount = cardWidth + gap
+    if (!Number.isFinite(amount) || amount <= 0) return
 
-    strip.scrollBy({
-      left: direction === 'next' ? amount : -amount,
+    const totalCards = strip.querySelectorAll(':scope > .case-showcase').length
+    if (totalCards <= 0) return
+
+    const currentIndex = Math.round(strip.scrollLeft / amount)
+    const nextIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1
+    const targetIndex = Math.max(0, Math.min(totalCards - 1, nextIndex))
+
+    strip.scrollTo({
+      left: targetIndex * amount,
       behavior: 'smooth',
     })
   }
