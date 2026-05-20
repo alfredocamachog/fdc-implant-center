@@ -192,7 +192,6 @@ export const esTranslations = {
         treatment: 'Tratamiento: Rehabilitación completa con implantes',
         location: 'Ubicación: Nogales, México (a minutos de la frontera con EE. UU.)',
         images: [
-          { src: '/cases/jose-santos/1.png', sensitive: true },
           { src: '/cases/jose-santos/2.png', sensitive: true },
           { src: '/cases/jose-santos/3.png', sensitive: true },
           { src: '/cases/jose-santos/4.png', sensitive: true },
@@ -251,7 +250,6 @@ export const esTranslations = {
         treatment: 'Tratamiento: Rehabilitación completa sobre dientes (carillas y coronas)',
         location: 'Ubicación: Nogales, México (a minutos de la frontera con EE. UU.)',
         images: [
-          { src: '/cases/marite/1.png', sensitive: true },
           { src: '/cases/marite/2.png', sensitive: true },
           { src: '/cases/marite/3.png', sensitive: true },
           { src: '/cases/marite/4.png', sensitive: true },
