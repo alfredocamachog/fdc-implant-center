@@ -7,7 +7,6 @@ import Hero from './components/Hero'
 import Cases from './components/Cases'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import FloatingCta from './components/FloatingCta'
 import MobileDock from './components/MobileDock'
 import './style.css'
 
@@ -21,8 +20,12 @@ function App() {
   }, [language])
 
   const t = translations[language]
-  const whatsappLink = `https://wa.me/${SITE_CONFIG.phone}?text=${encodeURIComponent(t.floatingCta.message)}`
-  const phoneHref = `tel:+${SITE_CONFIG.phone}`
+  const phoneContacts = SITE_CONFIG.phones.map((phone) => ({
+    id: phone.id,
+    countryName: phone.countryLabel[language],
+    display: phone.display,
+    whatsappHref: `https://wa.me/${phone.waNumber}?text=${encodeURIComponent(t.floatingCta.message)}`,
+  }))
   const emailHref = `mailto:${SITE_CONFIG.email}`
 
   const closeMenu = () => setMenuOpen(false)
@@ -47,11 +50,10 @@ function App() {
         <Hero t={t} scrollTo={scrollTo} />
         <main>
           <Cases t={t} />
-          <Contact t={t} phoneHref={phoneHref} emailHref={emailHref} />
+          <Contact t={t} phoneContacts={phoneContacts} emailHref={emailHref} />
         </main>
         <Footer t={t} />
       </div>
-      <FloatingCta t={t} whatsappLink={whatsappLink} />
       <MobileDock t={t} scrollTo={scrollTo} />
     </div>
   )

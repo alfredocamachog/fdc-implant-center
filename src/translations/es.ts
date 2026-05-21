@@ -46,7 +46,7 @@ export const esTranslations = {
       name: 'Dr. Fernando Ari del Corro López',
       license: 'Cédula: 12952774',
       roles: ['Cirujano dentista', 'Especialista en prostodoncia e implantología oral'],
-      contactLines: ['Phone +52 (81) 1684 2009', 'drfernandoadelcorro@gmail.com', 'Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son.'],
+      contactLines: [],
     },
     sections: {
       higherEducation: {
@@ -438,7 +438,9 @@ export const esTranslations = {
     title: 'Coordinamos casos de manera presencial y virtual',
     intro: 'Comparte tu caso, radiografías o expectativas y recibirás una llamada de nuestro coordinador clínico en menos de 24 horas hábiles.',
     details: {
-      phone: 'Tel. +52 (81) 1684 2009',
+      phonesHeading: 'Celulares',
+      callCta: 'Llamar',
+      whatsappCta: 'Enviar WhatsApp',
       email: SITE_CONFIG.email,
       address: SITE_CONFIG.address.es,
     },
@@ -454,7 +456,7 @@ export const esTranslations = {
     placeholders: {
       name: 'María López',
       email: 'tu@correo.com',
-      phone: '(81) 1684 2009',
+      phone: '+52 631 186 7780',
       select: 'Selecciona una opción',
       message: 'Incluye antecedentes, expectativas y disponibilidad',
     },

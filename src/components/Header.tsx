@@ -45,7 +45,7 @@ export default function Header({ t, language, setLanguage, languages, menuOpen, 
                 aria-pressed={language === code}
                 onClick={() => setLanguage(code)}
               >
-                <img src={code === 'es' ? 'https://flagcdn.com/w20/es.png' : 'https://flagcdn.com/w20/us.png'} alt={code === 'es' ? 'Español' : 'English'} />
+                <img src={code === 'es' ? '/flags/mx-flag.png' : 'https://flagcdn.com/w20/us.png'} alt={code === 'es' ? 'Espanol' : 'English'} />
               </button>
             ))}
           </div>

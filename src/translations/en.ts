@@ -46,7 +46,7 @@ export const enTranslations = {
       name: 'Dr. Fernando Ari del Corro López',
       license: 'Professional License: 12952774',
       roles: ['Dental surgeon', 'Specialist in prosthodontics and oral implantology'],
-      contactLines: ['Phone +52 (81) 1684 2009', 'drfernandoadelcorro@gmail.com', 'Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son.'],
+      contactLines: [],
     },
     sections: {
       higherEducation: {
@@ -437,7 +437,9 @@ export const enTranslations = {
     title: 'In-person and virtual case coordination',
     intro: 'Share your case, radiographs, or expectations and our clinical coordinator will call you within one business day.',
     details: {
-      phone: 'Phone +52 (81) 1684 2009',
+      phonesHeading: 'Mobile numbers',
+      callCta: 'Call',
+      whatsappCta: 'Message on WhatsApp',
       email: SITE_CONFIG.email,
       address: SITE_CONFIG.address.en,
     },
@@ -453,7 +455,7 @@ export const enTranslations = {
     placeholders: {
       name: 'Jane Smith',
       email: 'you@email.com',
-      phone: '(81) 1684 2009',
+      phone: '+52 631 186 7780',
       select: 'Select an option',
       message: 'Share background, expectations, and availability',
     },

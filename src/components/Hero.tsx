@@ -75,11 +75,13 @@ export default function Hero({ t, scrollTo }: HeroProps) {
                   {role}
                 </p>
               ))}
-              <div className="panel__general-contact">
-                {t.panel.general.contactLines.map((line) => (
-                  <p key={line}>{line}</p>
-                ))}
-              </div>
+              {t.panel.general.contactLines.length > 0 ? (
+                <div className="panel__general-contact">
+                  {t.panel.general.contactLines.map((line) => (
+                    <p key={line}>{line}</p>
+                  ))}
+                </div>
+              ) : null}
             </div>
           ) : null}
 
