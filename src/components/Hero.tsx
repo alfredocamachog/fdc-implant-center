@@ -31,7 +31,7 @@ export default function Hero({ t, scrollTo }: HeroProps) {
       </div>
       <div className="hero__panel">
         <div className="hero__photo-wrapper">
-          <img src={t.heroPhoto.src} alt={t.heroPhoto.alt} />
+          <img src={t.heroPhoto.src} alt={t.heroPhoto.alt} width={623} height={642} fetchPriority="high" />
         </div>
         <div className="panel__tabs" role="tablist" aria-label={t.panel.tabs.ariaLabel}>
           <button className={`panel__tab ${activeTab === 'general' ? 'is-active' : ''}`} type="button" role="tab" aria-selected={activeTab === 'general'} onClick={() => setActiveTab('general')}>

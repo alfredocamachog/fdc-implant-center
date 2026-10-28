@@ -128,7 +128,16 @@ export default function Cases({ t }: { t: Translations }) {
 
                         return (
                           <div className="case-image-wrap">
-                            <img src={imageData.src} alt={`${caseItem.name} ${idx + 1}`} loading="lazy" />
+                            <img
+                              src={imageData.src}
+                              srcSet={`${imageData.src.replace(/\.webp$/, '-600.webp')} 600w, ${imageData.src} 1200w`}
+                              sizes="(max-width: 900px) 92vw, 33vw"
+                              width={1200}
+                              height={1200}
+                              alt={`${caseItem.name} ${idx + 1}`}
+                              loading="lazy"
+                              decoding="async"
+                            />
                           </div>
                         )
                       })()}
