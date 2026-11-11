@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import { translations, getInitialLanguage, languages } from './translations'
 import type { Language } from './translations'
 import { SITE_CONFIG } from './config'
@@ -55,6 +56,7 @@ function App() {
         <Footer t={t} />
       </div>
       <MobileDock t={t} scrollTo={scrollTo} />
+      <Analytics />
     </div>
   )
 }
