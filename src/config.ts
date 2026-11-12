@@ -32,7 +32,6 @@ export const SITE_CONFIG = {
       waNumber: '15206813640',
     },
   ] as const satisfies readonly SitePhone[],
-  defaultWhatsAppPhoneId: 'mx' as const,
   email: 'drfernandoadelcorro@gmail.com',
   maps: {
     query: 'Prime Dental Nogales, Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son., Mexico',
@@ -43,6 +42,12 @@ export const SITE_CONFIG = {
   address: {
     es: 'Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son.',
     en: 'Campillo 110, Fundó Legal, Centro, 84030 Heroica Nogales, Son.',
+  },
+  social: {
+    instagram: {
+      handle: '@drfernandodelcorro',
+      url: 'https://www.instagram.com/drfernandodelcorro?exln=OW90Ymx5NnN3OXZs',
+    },
   },
   brand: 'Dr. Fernando Del Corro',
   tagline: 'Prosthodontics & Implants',

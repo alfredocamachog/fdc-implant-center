@@ -1,51 +1,73 @@
-import type { Translations, Language } from '../translations'
+import { useEffect, useState } from 'react'
+import { languages, type Language, type Translations } from '../translations'
 
 interface HeaderProps {
   t: Translations
   language: Language
   setLanguage: (lang: Language) => void
-  languages: Language[]
   menuOpen: boolean
   setMenuOpen: (open: boolean | ((prev: boolean) => boolean)) => void
   scrollTo: (id: string) => (e: React.MouseEvent) => void
 }
 
-export default function Header({ t, language, setLanguage, languages, menuOpen, setMenuOpen, scrollTo }: HeaderProps) {
+// Distance scrolled before the header switches from transparent (over the video) to solid.
+const SOLID_AFTER_PX = 24
+
+export default function Header({ t, language, setLanguage, menuOpen, setMenuOpen, scrollTo }: HeaderProps) {
+  const [solid, setSolid] = useState(false)
+
+  // Passive listener + rAF so the check never blocks scrolling.
+  useEffect(() => {
+    let frame = 0
+    const update = () => {
+      frame = 0
+      setSolid(window.scrollY > SOLID_AFTER_PX)
+    }
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (frame) cancelAnimationFrame(frame)
+    }
+  }, [])
+
   return (
-    <header className="site-header">
+    <header className={`site-header ${solid || menuOpen ? 'is-solid' : 'is-overlay'}`}>
       <div className="site-header__inner">
-        <a className="logo" href="#" onClick={scrollTo('inicio')}>
+        <a className="logo" href="#inicio" onClick={scrollTo('inicio')}>
           <span className="logo__badge">
-            <img src="/logo-header.webp" alt={t.brand.title} className="logo__badge-img" width={160} height={160} />
+            <img src="/logo-header.webp" alt="" className="logo__badge-img" width={160} height={160} />
           </span>
           <span className="logo__text">
             <span className="logo__title">{t.brand.title}</span>
             <span className="logo__tagline">{t.brand.tagline}</span>
           </span>
         </a>
-        <nav id="site-navigation" className={`nav ${menuOpen ? 'nav--open' : ''}`}>
+        <nav id="site-navigation" className={`nav ${menuOpen ? 'nav--open' : ''}`} aria-label={t.navigation.mainLabel}>
           <div className="nav__links">
             {t.navLinks.map((link) => (
-              <a key={link.href} href="#" onClick={scrollTo(link.href.slice(1))}>
+              <a key={link.href} href={link.href} onClick={scrollTo(link.href.slice(1))}>
                 {link.label}
               </a>
             ))}
           </div>
-          <a className="btn primary small nav__cta" href="#" onClick={scrollTo('contacto')}>
-            {t.hero.primaryCta}
-          </a>
         </nav>
         <div className="header-controls">
-          <div className="language-toggle" role="group" aria-label={t.languageToggle.ariaLabel}>
+          <div className="lang-switch" role="group" aria-label={t.languageToggle.ariaLabel}>
             {languages.map((code) => (
               <button
                 key={code}
                 type="button"
-                className={`language-toggle__btn ${language === code ? 'is-active' : ''}`}
+                lang={code}
+                className={`lang-switch__btn ${language === code ? 'is-active' : ''}`}
                 aria-pressed={language === code}
+                aria-label={code === 'es' ? 'Español' : 'English'}
                 onClick={() => setLanguage(code)}
               >
-                <img src={code === 'es' ? '/flags/mx-flag.png' : 'https://flagcdn.com/w20/us.png'} alt={code === 'es' ? 'Espanol' : 'English'} />
+                {code.toUpperCase()}
               </button>
             ))}
           </div>

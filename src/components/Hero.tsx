@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Translations } from '../translations'
 
 interface HeroProps {
@@ -6,134 +6,116 @@ interface HeroProps {
   scrollTo: (id: string) => (e: React.MouseEvent) => void
 }
 
-const isEuropeanCourse = (item: string) => {
-  const normalized = item.toLowerCase()
-  return /(switzerland|suiza|germany|alemania|italy|italia|bern|berna|milan|mil[aá]n|campo tures|european)/i.test(normalized)
+const VIDEO_SRC = '/video/hero.mp4'
+
+const POSTER_SRC = '/video/hero-poster.webp'
+
+// Skip the background video only for users who asked to save data.
+const shouldLoadVideo = () => {
+  const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection
+  if (connection?.saveData) return false
+  if (connection?.effectiveType && /(^|-)2g$/.test(connection.effectiveType)) return false
+  return true
 }
 
 export default function Hero({ t, scrollTo }: HeroProps) {
-  const [activeTab, setActiveTab] = useState<'general' | 'higherEducation' | 'coursesAndTalks' | 'workExperience'>('general')
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+  const [videoEnabled, setVideoEnabled] = useState(false)
+  const [videoReady, setVideoReady] = useState(false)
+
+  // Attach the source once the page has loaded and the browser is idle,
+  // so the video never competes with the poster (LCP), fonts or app code.
+  useEffect(() => {
+    if (!shouldLoadVideo()) return
+    const video = videoRef.current
+    if (!video) return
+
+    let idleId: number | undefined
+    let timeoutId: number | undefined
+    const attach = () => {
+      video.src = VIDEO_SRC
+      setVideoEnabled(true)
+    }
+    const schedule = () => {
+      if (typeof window.requestIdleCallback === 'function') idleId = window.requestIdleCallback(attach, { timeout: 1500 })
+      else timeoutId = setTimeout(attach, 300) as unknown as number
+    }
+
+    if (document.readyState === 'complete') schedule()
+    else window.addEventListener('load', schedule, { once: true })
+
+    return () => {
+      window.removeEventListener('load', schedule)
+      if (idleId !== undefined) window.cancelIdleCallback(idleId)
+      if (timeoutId !== undefined) clearTimeout(timeoutId)
+    }
+  }, [])
+
+  // The video loops continuously; it is only suspended while the hero is scrolled
+  // out of view or the tab is hidden, where nobody can see it anyway.
+  useEffect(() => {
+    const video = videoRef.current
+    const section = sectionRef.current
+    if (!videoEnabled || !video || !section) return
+
+    let inView = true
+    const sync = () => {
+      if (inView && document.visibilityState === 'visible') video.play().catch(() => undefined)
+      else video.pause()
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting
+        sync()
+      },
+      { threshold: 0 }
+    )
+    observer.observe(section)
+    document.addEventListener('visibilitychange', sync)
+    sync()
+    return () => {
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', sync)
+    }
+  }, [videoEnabled])
 
   return (
-    <section className="hero" id="inicio">
-      <div className="hero__content">
-        <p className="eyebrow">{t.hero.eyebrow}</p>
-        <h1>{t.hero.title}</h1>
-        <p className="lead">{t.hero.lead}</p>
-        <div className="hero__actions">
-          <a className="btn primary" href="#" onClick={scrollTo('contacto')}>
-            {t.hero.primaryCta}
-          </a>
-          <a className="btn ghost" href="#" onClick={scrollTo('casos')}>
-            {t.hero.secondaryCta}
-          </a>
-        </div>
+    <section className="hero" id="inicio" ref={sectionRef}>
+      <div className="hero__media" aria-hidden="true">
+        <img className="hero__poster" src={POSTER_SRC} alt="" width={1024} height={576} fetchPriority="high" />
+        <video
+          ref={videoRef}
+          className={`hero__video ${videoReady ? 'is-ready' : ''}`}
+          muted
+          autoPlay
+          loop
+          playsInline
+          preload="none"
+          disablePictureInPicture
+          onPlaying={() => setVideoReady(true)}
+        />
+        <div className="hero__scrim" />
       </div>
-      <div className="hero__panel">
-        <div className="hero__photo-wrapper">
-          <img src={t.heroPhoto.src} alt={t.heroPhoto.alt} width={623} height={642} fetchPriority="high" />
-        </div>
-        <div className="panel__tabs" role="tablist" aria-label={t.panel.tabs.ariaLabel}>
-          <button className={`panel__tab ${activeTab === 'general' ? 'is-active' : ''}`} type="button" role="tab" aria-selected={activeTab === 'general'} onClick={() => setActiveTab('general')}>
-            {t.panel.tabs.general}
-          </button>
-          <button
-            className={`panel__tab ${activeTab === 'higherEducation' ? 'is-active' : ''}`}
-            type="button"
-            role="tab"
-            aria-selected={activeTab === 'higherEducation'}
-            onClick={() => setActiveTab('higherEducation')}
-          >
-            {t.panel.tabs.higherEducation}
-          </button>
-          <button
-            className={`panel__tab ${activeTab === 'coursesAndTalks' ? 'is-active' : ''}`}
-            type="button"
-            role="tab"
-            aria-selected={activeTab === 'coursesAndTalks'}
-            onClick={() => setActiveTab('coursesAndTalks')}
-          >
-            {t.panel.tabs.coursesAndTalks}
-          </button>
-          <button
-            className={`panel__tab ${activeTab === 'workExperience' ? 'is-active' : ''}`}
-            type="button"
-            role="tab"
-            aria-selected={activeTab === 'workExperience'}
-            onClick={() => setActiveTab('workExperience')}
-          >
-            {t.panel.tabs.workExperience}
-          </button>
-        </div>
-        <div className="panel__tab-card" role="tabpanel">
-          {activeTab === 'general' ? (
-            <div className="panel__general">
-              <h3 className="panel__doctor-name">{t.panel.general.name}</h3>
-              <p className="panel__license">{t.panel.general.license}</p>
-              {t.panel.general.roles.map((role) => (
-                <p className="panel__role" key={role}>
-                  {role}
-                </p>
-              ))}
-              {t.panel.general.contactLines.length > 0 ? (
-                <div className="panel__general-contact">
-                  {t.panel.general.contactLines.map((line) => (
-                    <p key={line}>{line}</p>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-          ) : null}
 
-          {activeTab === 'higherEducation' ? (
-            <ul className="panel__study-list">
-              {t.panel.sections.higherEducation.items.map((item) => (
-                <li className="panel__study-item" key={`${item.title}-${item.period}`}>
-                  <div>
-                    <p className="panel__entry-title">{item.title}</p>
-                    <p className="panel__entry-subtitle">{item.institution}</p>
-                  </div>
-                  <span className="panel__entry-period">{item.period}</span>
-                </li>
-              ))}
-            </ul>
-          ) : null}
-
-          {activeTab === 'coursesAndTalks' ? (
-            <ul className="panel__course-list">
-              {t.panel.sections.coursesAndTalks.items.map((item, idx) => {
-                const isEurope = isEuropeanCourse(item)
-                return (
-                  <li className={isEurope ? 'is-europe' : ''} key={`${item}-${idx}`}>
-                    {isEurope ? (
-                      <span className="panel__course-eu-tag">
-                        <span className="panel__course-eu-icon" aria-hidden="true">
-                          ★
-                        </span>
-                        EU
-                      </span>
-                    ) : null}
-                    <span>{item}</span>
-                  </li>
-                )
-              })}
-            </ul>
-          ) : null}
-
-          {activeTab === 'workExperience' ? (
-            <ul className="panel__experience-list">
-              {t.panel.sections.workExperience.items.map((item) => (
-                <li className="panel__experience-item" key={`${item.clinic}-${item.period}`}>
-                  <p className="panel__entry-title">{item.clinic}</p>
-                  <p className="panel__entry-subtitle">{item.role}</p>
-                  {item.supervisor ? <p className="panel__entry-meta">{item.supervisor}</p> : null}
-                  <p className="panel__entry-meta">
-                    {item.period} · {item.location}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          ) : null}
+      <div className="hero__inner">
+        <div className="hero__content">
+          <p className="eyebrow">{t.hero.eyebrow}</p>
+          <h1>{t.hero.title}</h1>
+          <p className="lead">{t.hero.lead}</p>
+          <div className="hero__actions">
+            <a className="btn primary" href="#contacto" onClick={scrollTo('contacto')}>
+              {t.hero.primaryCta}
+            </a>
+            <a className="btn ghost" href="#casos" onClick={scrollTo('casos')}>
+              {t.hero.secondaryCta}
+            </a>
+          </div>
+          <ul className="hero__highlights">
+            {t.hero.highlights.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

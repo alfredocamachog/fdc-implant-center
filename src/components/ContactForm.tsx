@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Translations } from '../translations'
+import { SERVICE_SELECT_EVENT } from '../events'
 
 export default function ContactForm({ t }: { t: Translations }) {
   const [submitted, setSubmitted] = useState(false)
@@ -11,6 +12,20 @@ export default function ContactForm({ t }: { t: Translations }) {
     telefono: '',
     mensaje: '',
   })
+
+  // A service card click pre-fills the message, unless the visitor already wrote their own.
+  const prefills = useRef(new Set<string>())
+  useEffect(() => {
+    const onSelect = (e: Event) => {
+      const text = (e as CustomEvent<string>).detail
+      prefills.current.add(text)
+      setFormData((prev) =>
+        !prev.mensaje.trim() || prefills.current.has(prev.mensaje) ? { ...prev, mensaje: text } : prev,
+      )
+    }
+    window.addEventListener(SERVICE_SELECT_EVENT, onSelect)
+    return () => window.removeEventListener(SERVICE_SELECT_EVENT, onSelect)
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -49,7 +64,7 @@ export default function ContactForm({ t }: { t: Translations }) {
 
   if (submitted) {
     return (
-      <div className="contact__form contact__success">
+      <div className="contact__form contact__success" role="status">
         <h3>{t.contact.successTitle}</h3>
         <p>{t.contact.successMessage}</p>
         <button type="button" className="btn ghost" onClick={handleReset}>
@@ -66,6 +81,7 @@ export default function ContactForm({ t }: { t: Translations }) {
         <input
           type="text"
           name="nombre"
+          autoComplete="name"
           value={formData.nombre}
           onChange={handleChange}
           placeholder={t.contact.placeholders.name}
@@ -77,6 +93,7 @@ export default function ContactForm({ t }: { t: Translations }) {
         <input
           type="email"
           name="email"
+          autoComplete="email"
           value={formData.email}
           onChange={handleChange}
           placeholder={t.contact.placeholders.email}
@@ -88,6 +105,7 @@ export default function ContactForm({ t }: { t: Translations }) {
         <input
           type="tel"
           name="telefono"
+          autoComplete="tel"
           value={formData.telefono}
           onChange={handleChange}
           placeholder={t.contact.placeholders.phone}
@@ -106,7 +124,7 @@ export default function ContactForm({ t }: { t: Translations }) {
       <button type="submit" className="btn primary" disabled={isSubmitting}>
         {isSubmitting ? t.contact.labels.submitting : t.contact.labels.submit}
       </button>
-      {submitError ? <p className="contact__error">{submitError}</p> : null}
+      {submitError ? <p className="contact__error" role="alert">{submitError}</p> : null}
       <p className="disclaimer">{t.contact.disclaimer}</p>
     </form>
   )

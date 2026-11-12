@@ -1,269 +1,336 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import type { Translations } from '../translations'
+import { trackEvent } from '../analytics'
 
-export default function Cases({ t }: { t: Translations }) {
-  const casesStripRef = useRef<HTMLDivElement | null>(null)
-  const swipeStartXRef = useRef<number | null>(null)
-  const swipeStartYRef = useRef<number | null>(null)
-  const [slideIndexByCase, setSlideIndexByCase] = useState<Record<string, number>>({})
-  const [modalCaseId, setModalCaseId] = useState<string | null>(null)
-  const [modalTab, setModalTab] = useState<'overview' | 'results'>('overview')
+type Case = Translations['cases']['cards'][number]
 
-  useEffect(() => {
-    if (!modalCaseId) return
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setModalCaseId(null)
-    }
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [modalCaseId])
+interface CasesProps {
+  t: Translations
+  scrollTo: (id: string) => (e: React.MouseEvent) => void
+}
 
-  useEffect(() => {
-    const interval = window.setInterval(() => {
-      setSlideIndexByCase((prev) => {
-        const nextState = { ...prev }
-        t.cases.cards.forEach((card) => {
-          const total = card.images.length
-          if (total <= 1) {
-            nextState[card.id] = 0
-            return
-          }
-          const current = nextState[card.id] ?? 0
-          nextState[card.id] = (current + 1) % total
-        })
-        return nextState
-      })
-    }, 60000)
+const fill = (template: string, values: Record<string, string | number>) =>
+  template.replace(/\{(\w+)\}/g, (match, key: string) => (key in values ? String(values[key]) : match))
 
-    return () => window.clearInterval(interval)
-  }, [t.cases.cards])
+// Data keeps labels like "Patient: Jose"; the collage shows just the value.
+const stripLabel = (text: string) => text.replace(/^[^:]{1,20}:\s*/, '')
+const stripCheck = (text: string) => text.replace(/^✔️\s*/, '')
 
-  const changeSlide = (caseId: string, direction: 'prev' | 'next') => {
-    setSlideIndexByCase((prev) => {
-      const current = prev[caseId] ?? 0
-      const total = t.cases.cards.find((card) => card.id === caseId)?.images.length ?? 1
-      const nextIndex = direction === 'next' ? (current + 1) % total : (current - 1 + total) % total
-      return { ...prev, [caseId]: nextIndex }
-    })
-  }
+const small = (src: string) => src.replace(/\.webp$/, '-600.webp')
+const srcSet = (src: string) => `${small(src)} 600w, ${src} 1200w`
 
-  const scrollCasesBySwipe = (direction: 'next' | 'prev') => {
-    const strip = casesStripRef.current
-    if (!strip) return
+const Icon = ({ d, className }: { d: string; className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d={d} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+const ICON = {
+  left: 'M15 5l-7 7 7 7',
+  right: 'M9 5l7 7-7 7',
+  close: 'M6 6l12 12M18 6L6 18',
+  arrow: 'M4 12h15m-5-5 5 5-5 5',
+  photos: 'M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5zM4.5 16l4.5-4 3.5 3 3-2.5 4 3.5',
+}
 
-    const firstCard = strip.querySelector<HTMLElement>(':scope > .case-showcase')
-    if (!firstCard) return
+const CheckList = ({ items }: { items: readonly string[] }) =>
+  items.length ? (
+    <ul className="case-review__list">
+      {items.map((item) => (
+        <li key={item}>{stripCheck(item)}</li>
+      ))}
+    </ul>
+  ) : null
 
-    const cardWidth = firstCard.getBoundingClientRect().width
-    const gap = parseFloat(window.getComputedStyle(strip).columnGap || window.getComputedStyle(strip).gap || '0')
-    const amount = cardWidth + gap
-    if (!Number.isFinite(amount) || amount <= 0) return
-
-    const totalCards = strip.querySelectorAll(':scope > .case-showcase').length
-    if (totalCards <= 0) return
-
-    const currentIndex = Math.round(strip.scrollLeft / amount)
-    const nextIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1
-    const targetIndex = Math.max(0, Math.min(totalCards - 1, nextIndex))
-
-    strip.scrollTo({
-      left: targetIndex * amount,
-      behavior: 'smooth',
-    })
-  }
-
+const CaseStory = ({ card }: { card: Case }) => {
+  const { overview, results } = card.modal
   return (
-    <section className="section" id="casos">
-      <div className="section__heading">
-        <p className="eyebrow">{t.cases.eyebrow}</p>
-        <h2>{t.cases.title}</h2>
-        {t.cases.intro ? <p>{t.cases.intro}</p> : null}
-      </div>
-      <div
-        className="cases-strip"
-        role="list"
-        aria-label={t.cases.title}
-        ref={casesStripRef}
-        onTouchStart={(e) => {
-          swipeStartXRef.current = e.touches[0]?.clientX ?? null
-          swipeStartYRef.current = e.touches[0]?.clientY ?? null
-        }}
-        onTouchEnd={(e) => {
-          const startX = swipeStartXRef.current
-          const startY = swipeStartYRef.current
-          const endX = e.changedTouches[0]?.clientX
-          const endY = e.changedTouches[0]?.clientY
+    <>
+      <h4 className="case-review__lead">{overview.title}</h4>
+      {overview.paragraphs.map((p) => (
+        <p key={p}>{p}</p>
+      ))}
 
-          swipeStartXRef.current = null
-          swipeStartYRef.current = null
+      <h5>{overview.upperTitle}</h5>
+      {overview.upperDescription ? <p>{overview.upperDescription}</p> : null}
+      <CheckList items={overview.upperPoints} />
 
-          if (startX == null || startY == null || endX == null || endY == null) return
+      <h5>{overview.lowerTitle}</h5>
+      {overview.lowerDescription ? <p>{overview.lowerDescription}</p> : null}
+      <CheckList items={overview.lowerPoints} />
 
-          const deltaX = endX - startX
-          const deltaY = endY - startY
-
-          if (Math.abs(deltaX) < 45) return
-          if (Math.abs(deltaX) <= Math.abs(deltaY)) return
-
-          if (deltaX < 0) scrollCasesBySwipe('next')
-          if (deltaX > 0) scrollCasesBySwipe('prev')
-        }}
-      >
-        {t.cases.cards.map((caseItem) => {
-          const currentSlideIndex = slideIndexByCase[caseItem.id] ?? 0
-          const totalSlides = caseItem.images.length
-          return (
-            <article key={caseItem.id} className="card case-showcase" role="listitem">
-              <p className="case__tag">{t.cases.caseTag}</p>
-              <h3>{caseItem.name}</h3>
-              {caseItem.treatment ? <p className="case__meta">{caseItem.treatment}</p> : null}
-              {caseItem.location ? <p className="case__meta">{caseItem.location}</p> : null}
-
-              <div className="case-slider">
-                <div className="case-slider__track" style={{ width: `${totalSlides * 100}%`, transform: `translateX(-${currentSlideIndex * (100 / totalSlides)}%)` }}>
-                  {caseItem.images.map((imageSrc, idx) => (
-                    <figure className="case-slider__item" style={{ width: `${100 / totalSlides}%` }} key={`${caseItem.id}-img-${idx}`}>
-                      {(() => {
-                        const imageData = typeof imageSrc === 'string' ? { src: imageSrc } : imageSrc
-
-                        return (
-                          <div className="case-image-wrap">
-                            <img
-                              src={imageData.src}
-                              srcSet={`${imageData.src.replace(/\.webp$/, '-600.webp')} 600w, ${imageData.src} 1200w`}
-                              sizes="(max-width: 900px) 92vw, 33vw"
-                              width={1200}
-                              height={1200}
-                              alt={`${caseItem.name} ${idx + 1}`}
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          </div>
-                        )
-                      })()}
-                    </figure>
-                  ))}
-                </div>
-              </div>
-
-              <div className="case-carousel">
-                <button type="button" className="case-carousel__btn" onClick={() => changeSlide(caseItem.id, 'prev')} aria-label={t.cases.prevSlideLabel} disabled={totalSlides <= 1}>
-                  {'<'}
-                </button>
-                <div className="case-carousel__status">
-                  <div className="case-carousel__progress" aria-hidden="true">
-                    <span className="case-carousel__progress-bar" style={{ width: `${((currentSlideIndex + 1) / totalSlides) * 100}%` }} />
-                  </div>
-                  <span className="case-carousel__counter">
-                    {currentSlideIndex + 1}/{totalSlides}
-                  </span>
-                </div>
-                <button type="button" className="case-carousel__btn" onClick={() => changeSlide(caseItem.id, 'next')} aria-label={t.cases.nextSlideLabel} disabled={totalSlides <= 1}>
-                  {'>'}
-                </button>
-              </div>
-
-              {caseItem.modal ? (
-                <button
-                  type="button"
-                  className="case-note__toggle"
-                  onClick={() => {
-                    setModalCaseId(caseItem.id)
-                    setModalTab('overview')
-                  }}
-                >
-                  {t.cases.readMoreLabel}
-                </button>
-              ) : null}
-            </article>
-          )
-        })}
+      <div className="case-review__results">
+        <h5>{results.title.replace(/:$/, '')}</h5>
+        {results.intro ? <p>{results.intro}</p> : null}
+        <CheckList items={results.points} />
       </div>
 
-      {modalCaseId ? (
-        <div className="case-modal" role="dialog" aria-modal="true" aria-label={t.cases.title} onClick={() => setModalCaseId(null)}>
-          <div className="case-modal__content" onClick={(e) => e.stopPropagation()}>
-            {t.cases.cards
-              .filter((card) => card.id === modalCaseId)
-              .map((card) => (
-                <div key={card.id}>
-                  {!card.modal ? null : (
-                    <>
-                  <div className="case-modal__header">
-                    <h3>{card.name}</h3>
-                    <button type="button" className="case-modal__close" onClick={() => setModalCaseId(null)}>
-                      {t.cases.closeModalLabel}
-                    </button>
-                  </div>
-                  <div className="case-modal__tabs" role="tablist" aria-label={t.cases.detailsTabsAriaLabel}>
-                    <button type="button" className={`case-modal__tab ${modalTab === 'overview' ? 'is-active' : ''}`} onClick={() => setModalTab('overview')}>
-                      {t.cases.overviewTabLabel}
-                    </button>
-                    <button type="button" className={`case-modal__tab ${modalTab === 'results' ? 'is-active' : ''}`} onClick={() => setModalTab('results')}>
-                      {t.cases.resultsTabLabel}
-                    </button>
-                  </div>
+      <h5>{results.whyTitle}</h5>
+      {results.whyPoints.length === 1 ? <p>{results.whyPoints[0]}</p> : <CheckList items={results.whyPoints} />}
 
-                  {modalTab === 'overview' ? (
-                    <div className="case-modal__body">
-                      <p className="case-modal__title">{card.modal.overview.title}</p>
-                      {card.modal.overview.paragraphs.map((paragraph) => (
-                        <p className="case-note" key={paragraph}>
-                          {paragraph}
-                        </p>
-                      ))}
-
-                      <p className="case-modal__subtitle">{card.modal.overview.upperTitle}</p>
-                      <p className="case-note">{card.modal.overview.upperDescription}</p>
-                      <ul className="case-modal__list">
-                        {card.modal.overview.upperPoints.map((point) => (
-                          <li key={point}>{point}</li>
-                        ))}
-                      </ul>
-
-                      <p className="case-modal__subtitle">{card.modal.overview.lowerTitle}</p>
-                      <p className="case-note">{card.modal.overview.lowerDescription}</p>
-                      <ul className="case-modal__list">
-                        {card.modal.overview.lowerPoints.map((point) => (
-                          <li key={point}>{point}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : (
-                    <div className="case-modal__body">
-                      <p className="case-modal__title">{card.modal.results.title}</p>
-                      <p className="case-note">{card.modal.results.intro}</p>
-                      <ul className="case-modal__list">
-                        {card.modal.results.points.map((point) => (
-                          <li key={point}>{point}</li>
-                        ))}
-                      </ul>
-                      <p className="case-modal__subtitle">{card.modal.results.whyTitle}</p>
-                      <ul className="case-modal__list">
-                        {card.modal.results.whyPoints.map((point) => (
-                          <li key={point}>{point}</li>
-                        ))}
-                      </ul>
-                      {'chooseUsTitle' in card.modal.results && card.modal.results.chooseUsTitle ? (
-                        <>
-                          <p className="case-modal__subtitle">{card.modal.results.chooseUsTitle}</p>
-                          <ul className="case-modal__list">
-                            {card.modal.results.chooseUsPoints.map((point) => (
-                              <li key={point}>{point}</li>
-                            ))}
-                          </ul>
-                        </>
-                      ) : null}
-                    </div>
-                  )}
-                    </>
-                  )}
-                </div>
-              ))}
-          </div>
-        </div>
+      {'chooseUsTitle' in results && results.chooseUsTitle ? (
+        <>
+          <h5>{results.chooseUsTitle}</h5>
+          <CheckList items={results.chooseUsPoints} />
+        </>
       ) : null}
-    </section>
+    </>
   )
 }
 
+export default function Cases({ t, scrollTo }: CasesProps) {
+  const c = t.cases
+  const cards = c.cards
+  const baseId = useId()
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
+  const thumbsRef = useRef<HTMLDivElement>(null)
+  const touchX = useRef<number | null>(null)
+  const [caseIndex, setCaseIndex] = useState<number | null>(null)
+  const [photo, setPhoto] = useState(0)
+  // Sensitive photos stay blurred until the visitor chooses to see them.
+  const [revealed, setRevealed] = useState<Set<string>>(() => new Set())
+  const toggleReveal = (src: string) =>
+    setRevealed((prev) => {
+      const next = new Set(prev)
+      if (next.has(src)) next.delete(src)
+      else next.add(src)
+      return next
+    })
+
+  const current = caseIndex === null ? null : cards[caseIndex]
+  const photoTotal = current?.images.length ?? 0
+  const isHidden = !!current && current.images[photo].sensitive && !revealed.has(current.images[photo].src)
+
+  const open = (i: number) => {
+    setCaseIndex(i)
+    setPhoto(cards[i].cover)
+    dialogRef.current?.showModal()
+    trackEvent('case_review_open', { case: cards[i].id })
+  }
+
+  const close = () => dialogRef.current?.close()
+
+  const goCase = (delta: number) => {
+    if (caseIndex === null) return
+    const next = (caseIndex + delta + cards.length) % cards.length
+    setCaseIndex(next)
+    setPhoto(0)
+    panelRef.current?.scrollTo({ top: 0 })
+    dialogRef.current?.scrollTo({ top: 0 })
+  }
+
+  const stepPhoto = useCallback(
+    (delta: number) => setPhoto((p) => (photoTotal ? (p + delta + photoTotal) % photoTotal : 0)),
+    [photoTotal],
+  )
+
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') stepPhoto(1)
+      if (e.key === 'ArrowLeft') stepPhoto(-1)
+    }
+    const onClose = () => setCaseIndex(null)
+    dialog.addEventListener('keydown', onKey)
+    dialog.addEventListener('close', onClose)
+    return () => {
+      dialog.removeEventListener('keydown', onKey)
+      dialog.removeEventListener('close', onClose)
+    }
+  }, [stepPhoto])
+
+  // Lock page scroll behind the viewer.
+  useEffect(() => {
+    if (caseIndex === null) return
+    const prev = document.documentElement.style.overflow
+    document.documentElement.style.overflow = 'hidden'
+    return () => {
+      document.documentElement.style.overflow = prev
+    }
+  }, [caseIndex])
+
+  // Keep the active thumbnail in view.
+  useEffect(() => {
+    const thumb = thumbsRef.current?.children[photo] as HTMLElement | undefined
+    thumb?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' })
+  }, [photo, caseIndex])
+
+  const onBook = (e: React.MouseEvent) => {
+    trackEvent('case_review_book', { case: current?.id ?? '' })
+    close()
+    scrollTo('contacto')(e)
+  }
+
+  return (
+    <section className="section cases" id="casos" aria-labelledby={`${baseId}-title`}>
+      <header className="cases__heading">
+        <div>
+          <p className="eyebrow">{c.eyebrow}</p>
+          <h2 id={`${baseId}-title`}>{c.title}</h2>
+        </div>
+        {c.intro ? <p>{c.intro}</p> : null}
+      </header>
+
+      <ul className="cases__collage">
+        {cards.map((card, i) => {
+          const cover = card.images[card.cover].src
+          return (
+            <li key={card.id} className="case-tile">
+              <button
+                type="button"
+                className="case-tile__btn"
+                onClick={() => open(i)}
+                aria-haspopup="dialog"
+                aria-label={`${c.reviewLabel}: ${stripLabel(card.name)}, ${stripLabel(card.treatment)}`}
+              >
+                <img
+                  src={small(cover)}
+                  srcSet={srcSet(cover)}
+                  sizes={i === 0 ? '(max-width: 640px) 100vw, 600px' : '(max-width: 640px) 50vw, (max-width: 1100px) 50vw, 600px'}
+                  alt=""
+                  width={1200}
+                  height={1200}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span className="case-tile__top" aria-hidden="true">
+                  <span className="case-tile__chip case-tile__chip--glass">
+                    <Icon d={ICON.photos} />
+                    {fill(c.photosLabel, { count: card.images.length })}
+                  </span>
+                </span>
+                <span className="case-tile__info" aria-hidden="true">
+                  <span className="case-tile__name">{stripLabel(card.name)}</span>
+                  <span className="case-tile__treatment">{stripLabel(card.treatment)}</span>
+                  <span className="case-tile__cta">
+                    {c.reviewLabel}
+                    <Icon d={ICON.arrow} />
+                  </span>
+                </span>
+              </button>
+            </li>
+          )
+        })}
+      </ul>
+
+      <dialog
+        ref={dialogRef}
+        className="case-review"
+        aria-labelledby={`${baseId}-review-title`}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) close()
+        }}
+      >
+        {current && caseIndex !== null ? (
+          <div className="case-review__shell">
+            <div className="case-review__bar">
+              <span className="case-review__count">{c.eyebrow}</span>
+              <div className="case-review__bar-actions">
+                <button type="button" className="case-review__icon-btn" onClick={() => goCase(-1)} aria-label={c.prevCaseLabel}>
+                  <Icon d={ICON.left} />
+                </button>
+                <button type="button" className="case-review__icon-btn" onClick={() => goCase(1)} aria-label={c.nextCaseLabel}>
+                  <Icon d={ICON.right} />
+                </button>
+                <button type="button" className="case-review__icon-btn" onClick={close} aria-label={c.closeModalLabel}>
+                  <Icon d={ICON.close} />
+                </button>
+              </div>
+            </div>
+
+            <div className="case-review__media">
+              <div
+                className="case-review__stage"
+                onTouchStart={(e) => {
+                  touchX.current = e.touches[0].clientX
+                }}
+                onTouchEnd={(e) => {
+                  if (touchX.current === null) return
+                  const dx = e.changedTouches[0].clientX - touchX.current
+                  if (Math.abs(dx) > 48) stepPhoto(dx < 0 ? 1 : -1)
+                  touchX.current = null
+                }}
+              >
+                <img
+                  className={isHidden ? 'is-blurred' : undefined}
+                  key={current.images[photo].src}
+                  src={current.images[photo].src}
+                  srcSet={srcSet(current.images[photo].src)}
+                  sizes="(max-width: 900px) 100vw, 60vw"
+                  alt={fill(c.imageAlt, { name: stripLabel(current.name), index: photo + 1, total: photoTotal })}
+                  width={1200}
+                  height={1200}
+                />
+                {current.images[photo].sensitive ? (
+                  isHidden ? (
+                    <div className="case-review__sensitive">
+                      <p>{c.sensitiveWarning}</p>
+                      <button type="button" className="btn small case-review__reveal" onClick={() => toggleReveal(current.images[photo].src)}>
+                        {c.showSensitiveLabel}
+                      </button>
+                    </div>
+                  ) : (
+                    <button type="button" className="case-review__hide" onClick={() => toggleReveal(current.images[photo].src)}>
+                      {c.hideSensitiveLabel}
+                    </button>
+                  )
+                ) : null}
+                {photoTotal > 1 ? (
+                  <>
+                    <button type="button" className="case-review__nav case-review__nav--prev" onClick={() => stepPhoto(-1)} aria-label={c.prevSlideLabel}>
+                      <Icon d={ICON.left} />
+                    </button>
+                    <button type="button" className="case-review__nav case-review__nav--next" onClick={() => stepPhoto(1)} aria-label={c.nextSlideLabel}>
+                      <Icon d={ICON.right} />
+                    </button>
+                  </>
+                ) : null}
+                <span className="case-review__photo-count" aria-live="polite">
+                  {photo + 1} / {photoTotal}
+                </span>
+              </div>
+
+              <div className="case-review__thumbs" ref={thumbsRef} role="group" aria-label={fill(c.sliderLabel, { name: stripLabel(current.name) })}>
+                {current.images.map((img, i) => (
+                  <button
+                    key={img.src}
+                    type="button"
+                    className={`case-review__thumb ${i === photo ? 'is-active' : ''}`}
+                    onClick={() => setPhoto(i)}
+                    aria-label={fill(c.openPhotoLabel, { index: i + 1 })}
+                    aria-current={i === photo ? 'true' : undefined}
+                  >
+                    <img
+                      className={img.sensitive && !revealed.has(img.src) ? 'is-blurred' : undefined}
+                      src={small(img.src)}
+                      alt=""
+                      width={600}
+                      height={600}
+                      decoding="async"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="case-review__panel" ref={panelRef}>
+              <h3 id={`${baseId}-review-title`}>{stripLabel(current.name)}</h3>
+              <ul className="case-review__meta">
+                <li>{stripLabel(current.treatment)}</li>
+                <li>{stripLabel(current.location)}</li>
+              </ul>
+              <div className="case-review__text">
+                <CaseStory card={current} />
+              </div>
+              <a className="btn primary case-review__book" href="#contacto" onClick={onBook}>
+                {c.bookLabel}
+                <Icon d={ICON.arrow} />
+              </a>
+            </div>
+          </div>
+        ) : null}
+      </dialog>
+    </section>
+  )
+}
