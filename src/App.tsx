@@ -70,8 +70,8 @@ function App() {
         <div className="site">
           <About t={t} />
           <Services t={t} scrollTo={scrollTo} />
-          <Facility t={t} />
           <Cases t={t} scrollTo={scrollTo} />
+          <Facility t={t} />
           <Insurance t={t} />
           <Contact t={t} emailHref={emailHref} />
         </div>

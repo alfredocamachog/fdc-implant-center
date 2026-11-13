@@ -19,8 +19,8 @@ export const esTranslations = {
     { label: 'Inicio', href: '#inicio' },
     { label: 'Sobre mí', href: '#sobre-mi' },
     { label: 'Servicios', href: '#servicios' },
-    { label: 'Clínica', href: '#instalaciones' },
     { label: 'Casos', href: '#casos' },
+    { label: 'Clínica', href: '#instalaciones' },
     { label: 'Contacto', href: '#contacto' },
   ],
   hero: {
@@ -38,7 +38,7 @@ export const esTranslations = {
     { label: 'Índice de satisfacción anual', value: '98%' },
   ],
   heroPhoto: {
-    src: '/dr-fernando.webp',
+    src: '/hero-dr-fernando.webp',
     alt: 'Dr. Fernando Ari del Corro López, especialista en prostodoncia e implantología oral',
   },
   about: {
@@ -76,7 +76,7 @@ export const esTranslations = {
         items: [
           { title: 'Cirujano Dentista', institution: 'Universidad Autónoma de Nuevo León.', period: '2015-2020' },
           { title: 'Hospital Militar Regional de Especialidades', institution: 'Universidad Autónoma de Nuevo León.', period: '2020-2021' },
-          { title: 'Especialidad en Prostodoncia e Implantología Oral', institution: 'Universidad La Salle Bajío.', period: '2020-2021' },
+          { title: 'Especialidad en Prostodoncia e Implantología Oral', institution: 'Universidad La Salle Bajío.', period: '2022-2025' },
         ],
       },
       coursesAndTalks: {
@@ -207,7 +207,7 @@ export const esTranslations = {
   facility: {
     eyebrow: 'Nuestra clínica',
     title: 'Una clínica pensada en tu comodidad',
-    intro: 'Consultorios modernos, equipo digital y un espacio tranquilo y privado, a minutos de la frontera con Arizona.',
+    intro: 'Consultorios modernos, equipo digital y un espacio tranquilo y privado, a solo 3 minutos de la línea fronteriza de Nogales, Arizona.',
     openLabel: 'Ver foto: {caption}',
     closeLabel: 'Cerrar galería',
     prevLabel: 'Foto anterior',
@@ -308,7 +308,7 @@ export const esTranslations = {
         cover: 0,
         name: 'Paciente: Jose',
         treatment: 'Tratamiento: Rehabilitación completa con implantes',
-        location: 'Ubicación: Nogales, México (a minutos de la frontera con EE. UU.)',
+        location: 'Ubicación: Nogales, México (a solo 3 minutos de la línea fronteriza de Nogales, Arizona)',
         images: [
           { src: '/cases/jose-santos/2.webp', sensitive: false },
           { src: '/cases/jose-santos/3.webp', sensitive: false },
@@ -356,7 +356,7 @@ export const esTranslations = {
               '✔️ Materiales premium (Zirconia y Titanio)',
               '✔️ Tratamiento personalizado por un especialista en implantes',
               '✔️ Ahorro significativo vs. clínicas de EE. UU.',
-              '✔️ Ubicación conveniente en Nogales, México',
+              '✔️ A solo 3 minutos de la línea fronteriza de Nogales, Arizona',
             ],
           },
         },
@@ -366,7 +366,7 @@ export const esTranslations = {
         cover: 2,
         name: 'Paciente: Marite',
         treatment: 'Tratamiento: Rehabilitación completa sobre dientes (carillas y coronas)',
-        location: 'Ubicación: Nogales, México (a minutos de la frontera con EE. UU.)',
+        location: 'Ubicación: Nogales, México (a solo 3 minutos de la línea fronteriza de Nogales, Arizona)',
         images: [
           { src: '/cases/marite/2.webp', sensitive: false },
           { src: '/cases/marite/3.webp', sensitive: false },
@@ -423,7 +423,7 @@ export const esTranslations = {
               'Planeación digital avanzada y alta precisión',
               'Materiales premium por una fracción del costo en EE. UU.',
               'Atención personalizada de alto nivel',
-              'Ubicación fronteriza conveniente (Nogales, México)',
+              'A solo 3 minutos de la línea fronteriza de Nogales, Arizona',
             ],
           },
         },
@@ -433,7 +433,7 @@ export const esTranslations = {
         cover: 0,
         name: 'Paciente: Miguel',
         treatment: 'Tratamiento: Rehabilitación completa sobre dientes (carillas y coronas)',
-        location: 'Ubicación: Nogales, México (a minutos de la frontera con EE. UU.)',
+        location: 'Ubicación: Nogales, México (a solo 3 minutos de la línea fronteriza de Nogales, Arizona)',
         images: [
           { src: '/cases/miguel-padilla/1.webp', sensitive: false },
           { src: '/cases/miguel-padilla/2.webp', sensitive: false },
@@ -494,7 +494,7 @@ export const esTranslations = {
         cover: 0,
         name: 'Paciente: Martha',
         treatment: 'Tratamiento: Prótesis total y removible inferior con coronas',
-        location: 'Ubicación: Nogales, México (a minutos de la frontera con EE. UU.)',
+        location: 'Ubicación: Nogales, México (a solo 3 minutos de la línea fronteriza de Nogales, Arizona)',
         images: [
           { src: '/cases/martha/1.webp', sensitive: false },
           { src: '/cases/martha/2.webp', sensitive: false },
@@ -661,7 +661,7 @@ export const esTranslations = {
     mapTitle: 'Mapa de ubicación de la clínica',
   },
   footer: {
-    about: 'Especialista en prostodoncia e implantología oral. Rehabilitación oral completa planeada desde el resultado final, a minutos de la frontera con Arizona.',
+    about: 'Especialista en prostodoncia e implantología oral. Rehabilitación oral completa planeada desde el resultado final, a solo 3 minutos de la línea fronteriza de Nogales, Arizona.',
     exploreTitle: 'Explorar',
     contactTitle: 'Contacto',
     visitTitle: 'Visítanos',

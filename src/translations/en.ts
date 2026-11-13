@@ -19,8 +19,8 @@ export const enTranslations = {
     { label: 'Home', href: '#inicio' },
     { label: 'About', href: '#sobre-mi' },
     { label: 'Services', href: '#servicios' },
-    { label: 'Facility', href: '#instalaciones' },
     { label: 'Cases', href: '#casos' },
+    { label: 'Facility', href: '#instalaciones' },
     { label: 'Contact', href: '#contacto' },
   ],
   hero: {
@@ -38,7 +38,7 @@ export const enTranslations = {
     { label: 'Annual satisfaction index', value: '98%' },
   ],
   heroPhoto: {
-    src: '/dr-fernando.webp',
+    src: '/hero-dr-fernando.webp',
     alt: 'Dr. Fernando Ari del Corro López, prosthodontics and oral implantology specialist',
   },
   about: {
@@ -76,7 +76,7 @@ export const enTranslations = {
         items: [
           { title: 'Dental Surgeon', institution: 'Autonomous University of Nuevo León.', period: '2015-2020' },
           { title: 'Regional Military Specialty Hospital', institution: 'Autonomous University of Nuevo León.', period: '2020-2021' },
-          { title: 'Specialty in Prosthodontics and Oral Implantology', institution: 'La Salle Bajío University.', period: '2020-2021' },
+          { title: 'Specialty in Prosthodontics and Oral Implantology', institution: 'La Salle Bajío University.', period: '2022-2025' },
         ],
       },
       coursesAndTalks: {
@@ -207,7 +207,7 @@ export const enTranslations = {
   facility: {
     eyebrow: 'Our facility',
     title: 'A clinic designed around your comfort',
-    intro: 'Modern operatories, digital equipment and a calm, private setting, minutes from the Arizona border.',
+    intro: 'Modern operatories, digital equipment and a calm, private setting, just 3 minutes from the Nogales, Arizona border.',
     openLabel: 'View photo: {caption}',
     closeLabel: 'Close gallery',
     prevLabel: 'Previous photo',
@@ -308,7 +308,7 @@ export const enTranslations = {
         cover: 0,
         name: 'Patient: Jose',
         treatment: 'Treatment: Full rehabilitation with implants',
-        location: 'Location: Nogales, Mexico (minutes from the U.S. border)',
+        location: 'Location: Nogales, Mexico (just 3 minutes from the Nogales, Arizona border)',
         images: [
           { src: '/cases/jose-santos/2.webp', sensitive: false },
           { src: '/cases/jose-santos/3.webp', sensitive: false },
@@ -356,7 +356,7 @@ export const enTranslations = {
               '✔️ Premium materials (Zirconia & Titanium)',
               '✔️ Personalized treatment by an implant specialist',
               '✔️ Significant cost savings vs. U.S. clinics',
-              '✔️ Convenient location in Nogales, Mexico',
+              '✔️ Just 3 minutes from the Nogales, Arizona border',
             ],
           },
         },
@@ -366,7 +366,7 @@ export const enTranslations = {
         cover: 2,
         name: 'Patient: Marite',
         treatment: 'Treatment: Full rehabilitation on teeth (veneers and crowns)',
-        location: 'Location: Nogales, Mexico (Minutes from the U.S. Border)',
+        location: 'Location: Nogales, Mexico (just 3 minutes from the Nogales, Arizona border)',
         images: [
           { src: '/cases/marite/2.webp', sensitive: false },
           { src: '/cases/marite/3.webp', sensitive: false },
@@ -423,7 +423,7 @@ export const enTranslations = {
               'Advanced digital planning and precision',
               'Premium materials at a fraction of U.S. cost',
               'Personalized, high-end care',
-              'Convenient border location (Nogales, Mexico)',
+              'Just 3 minutes from the Nogales, Arizona border',
             ],
           },
         },
@@ -433,7 +433,7 @@ export const enTranslations = {
         cover: 0,
         name: 'Patient: Miguel',
         treatment: 'Treatment: Full rehabilitation on teeth (veneers and crowns)',
-        location: 'Location: Nogales, Mexico (Minutes from the U.S. Border)',
+        location: 'Location: Nogales, Mexico (just 3 minutes from the Nogales, Arizona border)',
         images: [
           { src: '/cases/miguel-padilla/1.webp', sensitive: false },
           { src: '/cases/miguel-padilla/2.webp', sensitive: false },
@@ -494,7 +494,7 @@ export const enTranslations = {
         cover: 0,
         name: 'Patient: Martha',
         treatment: 'Treatment: Full and removable lower prosthesis with crowns',
-        location: 'Location: Nogales, Mexico (Minutes from the U.S. Border)',
+        location: 'Location: Nogales, Mexico (just 3 minutes from the Nogales, Arizona border)',
         images: [
           { src: '/cases/martha/1.webp', sensitive: false },
           { src: '/cases/martha/2.webp', sensitive: false },
@@ -660,7 +660,7 @@ export const enTranslations = {
     mapTitle: 'Clinic location map',
   },
   footer: {
-    about: 'Specialist in prosthodontics and oral implantology. Full-mouth rehabilitation planned from the final result, minutes from the Arizona border.',
+    about: 'Specialist in prosthodontics and oral implantology. Full-mouth rehabilitation planned from the final result, just 3 minutes from the Nogales, Arizona border.',
     exploreTitle: 'Explore',
     contactTitle: 'Contact',
     visitTitle: 'Visit us',

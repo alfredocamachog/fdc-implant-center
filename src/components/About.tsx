@@ -45,7 +45,7 @@ export default function About({ t }: { t: Translations }) {
     <section className="section about" id="sobre-mi" aria-labelledby={`${baseId}-title`}>
       <aside className="about__card">
         <div className="about__photo">
-          <img src={t.heroPhoto.src} alt={t.heroPhoto.alt} width={900} height={990} loading="lazy" decoding="async" />
+          <img src={t.heroPhoto.src} alt={t.heroPhoto.alt} width={623} height={642} loading="lazy" decoding="async" />
         </div>
         <div className="about__identity">
           <h3 className="about__name">{general.name}</h3>
