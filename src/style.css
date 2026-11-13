@@ -3849,27 +3849,62 @@ textarea:focus-visible,
   overflow: hidden;
 }
 
+/* Edge fade: white overlays rather than mask-image. Mobile Safari/WebKit drops masked layers that
+ * contain a wide animated strip, which left rows blank or hard-clipped on phones. */
 .ins-row {
   --ins-gap: 3.2rem;
   --ins-speed: 70s;
+  --ins-fade: 9%;
+  position: relative;
   overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
 }
 
+.ins-row::before,
+.ins-row::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: var(--ins-fade);
+  pointer-events: none;
+}
+
+.ins-row::before {
+  left: 0;
+  background: linear-gradient(90deg, #ffffff, rgba(255, 255, 255, 0));
+}
+
+.ins-row::after {
+  right: 0;
+  background: linear-gradient(270deg, #ffffff, rgba(255, 255, 255, 0));
+}
+
+/* translate3d + its own layer: the strip slides on the GPU and is never repainted mid-scroll. */
 .ins-track {
   display: flex;
   width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
   animation: ins-scroll var(--ins-speed) linear infinite;
 }
 
 .ins-row--reverse .ins-track {
-  animation-direction: reverse;
+  transform: translate3d(-50%, 0, 0);
+  animation-name: ins-scroll-reverse;
 }
 
-.ins__marquee:hover .ins-track,
 .ins__marquee.is-paused .ins-track {
   animation-play-state: paused;
+}
+
+/* Hover-pause only with a real pointer: on touch screens :hover sticks after a tap and froze the strip. */
+@media (hover: hover) and (pointer: fine) {
+  .ins__marquee:hover .ins-track {
+    animation-play-state: paused;
+  }
 }
 
 .ins__marquee {
@@ -3936,8 +3971,20 @@ textarea:focus-visible,
 }
 
 @keyframes ins-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
   to {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes ins-scroll-reverse {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -3955,6 +4002,7 @@ textarea:focus-visible,
   .ins-row {
     --ins-gap: 2.2rem;
     --ins-speed: 55s;
+    --ins-fade: 12%;
   }
 
   .ins-logo {

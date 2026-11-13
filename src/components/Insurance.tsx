@@ -11,7 +11,9 @@ const Logo = ({ plan, hidden = false }: { plan: Plan; hidden?: boolean }) => (
       alt={hidden ? '' : plan.name}
       width={plan.width}
       height={plan.height}
-      decoding="async"
+      // Decode up front: async decoding can leave logos blank for a frame while the strip moves.
+      decoding="sync"
+      draggable={false}
     />
   </li>
 )
