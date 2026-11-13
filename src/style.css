@@ -3849,11 +3849,9 @@ textarea:focus-visible,
   overflow: hidden;
 }
 
-/* Edge fade: white overlays rather than mask-image. Mobile Safari/WebKit drops masked layers that
- * contain a wide animated strip, which left rows blank or hard-clipped on phones. */
+/* Edge fade: white overlays rather than mask-image, which mobile WebKit drops on wide content. */
 .ins-row {
   --ins-gap: 3.2rem;
-  --ins-speed: 70s;
   --ins-fade: 9%;
   position: relative;
   overflow: hidden;
@@ -3880,31 +3878,23 @@ textarea:focus-visible,
   background: linear-gradient(270deg, #ffffff, rgba(255, 255, 255, 0));
 }
 
-/* translate3d + its own layer: the strip slides on the GPU and is never repainted mid-scroll. */
+/* A native horizontal scroller moved by Insurance.tsx (no CSS transform animation: see the comment
+ * there on iOS texture limits). The scrollbar is hidden; touch users can still swipe it. */
 .ins-track {
   display: flex;
-  width: max-content;
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
-  animation: ins-scroll var(--ins-speed) linear infinite;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
 
-.ins-row--reverse .ins-track {
-  transform: translate3d(-50%, 0, 0);
-  animation-name: ins-scroll-reverse;
+.ins-track::-webkit-scrollbar {
+  display: none;
 }
 
-.ins__marquee.is-paused .ins-track {
-  animation-play-state: paused;
-}
-
-/* Hover-pause only with a real pointer: on touch screens :hover sticks after a tap and froze the strip. */
-@media (hover: hover) and (pointer: fine) {
-  .ins__marquee:hover .ins-track {
-    animation-play-state: paused;
-  }
+.ins-set {
+  flex: none;
 }
 
 .ins__marquee {
@@ -3970,24 +3960,6 @@ textarea:focus-visible,
   max-width: 190px;
 }
 
-@keyframes ins-scroll {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
-@keyframes ins-scroll-reverse {
-  from {
-    transform: translate3d(-50%, 0, 0);
-  }
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
 @media (max-width: 640px) {
   .ins__heading {
     margin-bottom: 1.4rem;
@@ -4001,7 +3973,6 @@ textarea:focus-visible,
 
   .ins-row {
     --ins-gap: 2.2rem;
-    --ins-speed: 55s;
     --ins-fade: 12%;
   }
 
@@ -4015,9 +3986,3 @@ textarea:focus-visible,
   }
 }
 
-/* Reduced-motion users still get the carousel, just slower, and can stop it with the button. */
-@media (prefers-reduced-motion: reduce) {
-  .ins-row {
-    --ins-speed: 120s;
-  }
-}
