@@ -29,7 +29,6 @@ export const esTranslations = {
     lead: 'Funcionalidad, estética y resultados de alta precisión.',
     primaryCta: 'Agenda una valoración',
     secondaryCta: 'Ver casos reales',
-    highlights: ['Especialista en Prostodoncia e Implantología', 'Ponente EAO · Milán 2024', 'Estancia en la Universidad de Berna'],
     videoPlay: 'Reproducir video de fondo',
     videoPause: 'Pausar video de fondo',
   },

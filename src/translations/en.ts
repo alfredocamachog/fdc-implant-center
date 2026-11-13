@@ -29,7 +29,6 @@ export const enTranslations = {
     lead: 'Functionality, aesthetics, and high-precision results.',
     primaryCta: 'Book a consultation',
     secondaryCta: 'See real cases',
-    highlights: ['Prosthodontics & Implantology Specialist', 'EAO Speaker · Milan 2024', 'University of Bern Fellowship'],
     videoPlay: 'Play background video',
     videoPause: 'Pause background video',
   },
