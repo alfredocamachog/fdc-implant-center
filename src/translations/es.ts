@@ -1,4 +1,5 @@
 ﻿import { SITE_CONFIG } from '../config'
+import type { CourseItem } from './types'
 
 export const esTranslations = {
   brand: {
@@ -15,13 +16,14 @@ export const esTranslations = {
     mainLabel: 'Navegación principal',
     sectionsLabel: 'Secciones del sitio',
   },
+  // `short` es la etiqueta compacta del dock móvil.
   navLinks: [
-    { label: 'Inicio', href: '#inicio' },
-    { label: 'Sobre mí', href: '#sobre-mi' },
-    { label: 'Servicios', href: '#servicios' },
-    { label: 'Casos', href: '#casos' },
-    { label: 'Clínica', href: '#instalaciones' },
-    { label: 'Contacto', href: '#contacto' },
+    { label: 'Inicio', short: 'Inicio', href: '#inicio' },
+    { label: 'Conoce al doctor', short: 'Doctor', href: '#sobre-mi' },
+    { label: 'Tratamientos', short: 'Servicios', href: '#servicios' },
+    { label: 'Antes y después', short: 'Casos', href: '#casos' },
+    { label: 'Seguros dentales', short: 'Seguros', href: '#aseguranzas' },
+    { label: 'Contacto', short: 'Contacto', href: '#contacto' },
   ],
   hero: {
     eyebrow: 'Prostodoncia avanzada',
@@ -43,12 +45,43 @@ export const esTranslations = {
   },
   about: {
     eyebrow: 'Sobre mí',
-    title: 'Planeación protésica, precisión digital',
-    intro:
-      'Cirujano dentista por la Universidad Autónoma de Nuevo León y especialista en Prostodoncia e Implantología Oral por la Universidad La Salle Bajío. He presentado mi trabajo en la Universidad de Berna (Suiza) y en el congreso de la European Association for Osseointegration en Milán, y me he capacitado con Bredent (Alemania) y Zirkonzahn (Italia). Cada rehabilitación se planea desde la prótesis final, con flujos digitales y resultados predecibles.',
+    title: 'Conoce al Dr. Fernando del Corro',
+    subtitle: 'Especialista en Prostodoncia e Implantología Oral',
+    // La sección muestra el primer párrafo; "Leer más" abre la carta completa.
+    letter: {
+      readMore: 'Leer más',
+      readMoreHint: 'Una carta del doctor',
+      close: 'Cerrar',
+      photoAlt: 'El Dr. Fernando del Corro con bata blanca en la clínica',
+      location: 'Prime Dental · Nogales, Sonora, México',
+      experiencesTitle: 'Experiencia internacional',
+      experiences: [
+        { name: 'Universidad de Berna', place: 'Suiza' },
+        { name: 'Zirkonzahn', place: 'Italia' },
+        { name: 'bredent', place: 'Alemania' },
+        { name: 'Congreso EAO', place: 'Europa' },
+      ],
+      paragraphs: [
+        'Obtuve mi título de Cirujano Dentista en la Universidad Autónoma de Nuevo León y cursé una especialidad de tres años en Prostodoncia e Implantología Oral en la Universidad La Salle Bajío, en México.',
+        'A lo largo de mi carrera profesional he tenido la oportunidad de presentar mi trabajo clínico en la Universidad de Berna, en Suiza, y en Zirkonzahn, en Italia, además de participar en un programa de formación profesional en bredent, en Alemania. También he asistido a congresos científicos de reconocimiento internacional, como el Congreso de la European Association for Osseointegration (EAO).',
+        'Mi enfoque clínico combina tecnología avanzada, flujos digitales y una planeación meticulosa del tratamiento. Cada rehabilitación se diseña cuidadosamente pensando en el resultado protésico final, con el objetivo de lograr resultados predecibles, funcionales, estéticos y duraderos.',
+        'Creo que un tratamiento dental exitoso va más allá de restaurar dientes: se trata de ayudar a los pacientes a recuperar la capacidad de comer con comodidad, sonreír con confianza y disfrutar de una mejor calidad de vida.',
+        'Actualmente atiendo pacientes en Prime Dental, en Nogales, Sonora, México, donde brindo atención personalizada enfocada en rehabilitación oral y tratamientos con implantes dentales.',
+      ],
+      // Párrafo que se muestra como cita destacada.
+      quoteIndex: 3,
+      signature: 'Dr. Fernando del Corro',
+    },
     internationalBadge: 'Internacional',
     showAll: 'Ver los {count}',
     showLess: 'Ver menos',
+    work: {
+      current: 'Actual',
+      present: 'Hoy',
+      year: '{count} año',
+      years: '{count} años',
+      kinds: { course: 'Curso', lecture: 'Ponencia', stay: 'Estancia', award: 'Reconocimiento', live: 'En vivo' },
+    },
     facts: {
       education: 'Grados y especialidades',
       courses: 'Cursos y ponencias',
@@ -81,24 +114,54 @@ export const esTranslations = {
       },
       coursesAndTalks: {
         title: 'Cursos y Ponencias',
+        // year: null cuando no se conoce la fecha; esas entradas van después de las fechadas.
         items: [
-          'Masterclass en Peri-Implantitis. Alberto Monje. 2022',
-          'Fotografía Dental Behind the Scenes. Luis Quintero. 2023',
-          'Rehabilitación Oral Adhesiva. Roberto Tello. 2023',
-          'Estancia y ponencia en Universidad de Berna, Suiza. “Prosthetically Directed Bimaxillary Surgical Planning”. 2024',
-          'Estancia en compañía Bredent, Alemania. 2024',
-          'Estancia en compañía Zirkonzahn, Campo Tures, Italia; y ponente con el tema “Prosthetically Directed Bimaxillary Surgical Planning”. The European Association for Osseointegration, Milán 2024',
-          'Ponencia en Asociación Dental Mexicana: “De la Planeación a la Ejecución en Implantes”',
-          'Ponencia en Colegio de Cirujanos Dentistas de Aguascalientes: “De la Planeación a la Ejecución en Implantes”',
-          'Ponencia en el Colegio de Cirujanos Dentistas de Ixtapa-Zihuatanejo: “De la Planeación a la Ejecución en Implantes”',
-          'Live en vivo con el Dr. Roberto Tello mostrando casos de rehabilitación oral adhesiva.',
-          'Cuarto lugar en concurso de carteles de congreso ITI México 2025: “Reconstrucción bimaxilar implantosoportada guiada por flujos digitales”',
-          'Ponencia en congreso AMIC: “De la Planeación a la Ejecución en Implantes”',
-        ],
+          { year: 2022, kind: 'course', title: 'Masterclass en Peri-Implantitis', subtitle: 'Alberto Monje' },
+          { year: 2023, kind: 'course', title: 'Fotografía Dental Behind the Scenes', subtitle: 'Luis Quintero' },
+          { year: 2023, kind: 'course', title: 'Rehabilitación Oral Adhesiva', subtitle: 'Roberto Tello' },
+          {
+            year: 2024,
+            kind: 'stay',
+            international: true,
+            title: 'Universidad de Berna',
+            subtitle: 'Estancia y ponencia',
+            place: 'Berna, Suiza',
+            topic: '“Prosthetically Directed Bimaxillary Surgical Planning”',
+          },
+          { year: 2024, kind: 'stay', international: true, title: 'Bredent', subtitle: 'Estancia', place: 'Alemania' },
+          {
+            year: 2024,
+            kind: 'stay',
+            international: true,
+            title: 'Zirkonzahn · European Association for Osseointegration',
+            subtitle: 'Estancia y ponente',
+            place: 'Campo Tures, Italia · Milán, Italia',
+            topic: '“Prosthetically Directed Bimaxillary Surgical Planning”',
+          },
+          {
+            year: 2025,
+            kind: 'award',
+            title: 'Cuarto lugar, concurso de carteles',
+            subtitle: 'Congreso ITI México 2025',
+            topic: '“Reconstrucción bimaxilar implantosoportada guiada por flujos digitales”',
+          },
+          { year: null, kind: 'lecture', title: 'Asociación Dental Mexicana', subtitle: '“De la Planeación a la Ejecución en Implantes”' },
+          { year: null, kind: 'lecture', title: 'Colegio de Cirujanos Dentistas de Aguascalientes', subtitle: '“De la Planeación a la Ejecución en Implantes”' },
+          { year: null, kind: 'lecture', title: 'Colegio de Cirujanos Dentistas de Ixtapa-Zihuatanejo', subtitle: '“De la Planeación a la Ejecución en Implantes”' },
+          { year: null, kind: 'live', title: 'Live en vivo con el Dr. Roberto Tello', subtitle: 'Casos de rehabilitación oral adhesiva' },
+          { year: null, kind: 'lecture', title: 'Congreso AMIC', subtitle: '“De la Planeación a la Ejecución en Implantes”' },
+        ] as CourseItem[],
       },
       workExperience: {
         title: 'Experiencia Laboral',
         items: [
+          {
+            clinic: 'Prime Dental',
+            role: 'Especialista en Prostodoncia e Implantes',
+            supervisor: '',
+            period: '2026-Actual',
+            location: 'Nogales, Sonora',
+          },
           {
             clinic: 'Dental Advanced',
             role: 'Asistente dental',

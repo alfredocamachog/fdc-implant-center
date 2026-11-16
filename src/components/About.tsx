@@ -1,25 +1,77 @@
 import { useId, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
 import type { Translations } from '../translations'
+import AboutLetter from './AboutLetter'
+import Timeline, { byNewest, parsePeriod, type TimelineEntry } from './Timeline'
 
 type TabKey = 'higherEducation' | 'coursesAndTalks' | 'workExperience'
 
-const TAB_KEYS: TabKey[] = ['higherEducation', 'coursesAndTalks', 'workExperience']
+const TAB_KEYS: TabKey[] = ['workExperience', 'higherEducation', 'coursesAndTalks']
 const COURSES_PREVIEW = 6
-
-const isEuropeanCourse = (item: string) =>
-  /(switzerland|suiza|germany|alemania|italy|italia|bern|berna|milan|mil[aá]n|campo tures|european)/i.test(item)
 
 export default function About({ t }: { t: Translations }) {
   const baseId = useId()
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([])
-  const [activeTab, setActiveTab] = useState<TabKey>('higherEducation')
+  const [activeTab, setActiveTab] = useState<TabKey>('workExperience')
   const [showAllCourses, setShowAllCourses] = useState(false)
 
   const { general, sections, tabs } = t.panel
   const courses = sections.coursesAndTalks.items
-  const visibleCourses = showAllCourses ? courses : courses.slice(0, COURSES_PREVIEW)
-  const internationalCount = courses.filter(isEuropeanCourse).length
+  const internationalCount = courses.filter((course) => course.international).length
+  const { work } = t.about
+
+  const workEntries: TimelineEntry[] = byNewest(
+    sections.workExperience.items.map((job) => {
+      const { start, end, ongoing } = parsePeriod(job.period)
+      return {
+        key: `${job.clinic}-${job.period}`,
+        start,
+        end,
+        endLabel: ongoing ? work.present : undefined,
+        tags: ongoing ? [{ text: work.current }] : undefined,
+        title: job.clinic,
+        subtitle: job.role,
+        details: [
+          { icon: 'pin' as const, text: job.location },
+          ...(job.supervisor ? [{ icon: 'person' as const, text: job.supervisor }] : []),
+        ],
+        // An ongoing role has no final length yet, so it gets no duration bar.
+        years: ongoing ? undefined : Math.max(end - start, 1),
+      }
+    })
+  )
+
+  const educationEntries: TimelineEntry[] = byNewest(
+    sections.higherEducation.items.map((item) => {
+      const { start, end } = parsePeriod(item.period)
+      return {
+        key: `${item.title}-${item.period}`,
+        start,
+        end,
+        title: item.title,
+        subtitle: item.institution.replace(/\.$/, ''),
+        years: Math.max(end - start, 1),
+      }
+    })
+  )
+
+  const courseEntries: TimelineEntry[] = byNewest(
+    courses.map((course) => ({
+      key: `${course.title}-${course.subtitle}`,
+      end: course.year,
+      title: course.title,
+      tags: [
+        { text: work.kinds[course.kind] },
+        ...(course.international ? [{ text: t.about.internationalBadge, tone: 'soft' as const }] : []),
+      ],
+      subtitle: course.subtitle,
+      details: [
+        ...(course.place ? [{ icon: 'pin' as const, text: course.place }] : []),
+        ...(course.topic ? [{ icon: 'topic' as const, text: course.topic }] : []),
+      ],
+    }))
+  )
+  const visibleCourses = showAllCourses ? courseEntries : courseEntries.slice(0, COURSES_PREVIEW)
 
   const facts = [
     { value: sections.higherEducation.items.length, label: t.about.facts.education },
@@ -69,7 +121,7 @@ export default function About({ t }: { t: Translations }) {
       <div className="about__body">
         <p className="eyebrow">{t.about.eyebrow}</p>
         <h2 id={`${baseId}-title`}>{t.about.title}</h2>
-        <p className="about__intro">{t.about.intro}</p>
+        <AboutLetter t={t} />
 
         <div className="about__tabs" role="tablist" aria-label={tabs.ariaLabel}>
           {TAB_KEYS.map((key, index) => {
@@ -97,53 +149,19 @@ export default function About({ t }: { t: Translations }) {
         </div>
 
         <div className="about__panel" role="tabpanel" id={`${baseId}-panel-${activeTab}`} aria-labelledby={`${baseId}-tab-${activeTab}`} tabIndex={0}>
-          {activeTab === 'higherEducation' ? (
-            <ol className="about__timeline">
-              {sections.higherEducation.items.map((item) => (
-                <li key={`${item.title}-${item.period}`}>
-                  <span className="about__period">{item.period}</span>
-                  <p className="about__entry-title">{item.title}</p>
-                  <p className="about__entry-meta">{item.institution}</p>
-                </li>
-              ))}
-            </ol>
-          ) : null}
+          {activeTab === 'workExperience' ? <Timeline entries={workEntries} durations={work} /> : null}
+
+          {activeTab === 'higherEducation' ? <Timeline entries={educationEntries} durations={work} /> : null}
 
           {activeTab === 'coursesAndTalks' ? (
             <>
-              <ul className="about__courses">
-                {visibleCourses.map((item) => {
-                  const international = isEuropeanCourse(item)
-                  return (
-                    <li key={item} className={international ? 'is-international' : ''}>
-                      {international ? <span className="about__badge">{t.about.internationalBadge}</span> : null}
-                      <span>{item}</span>
-                    </li>
-                  )
-                })}
-              </ul>
+              <Timeline entries={visibleCourses} />
               {courses.length > COURSES_PREVIEW ? (
                 <button type="button" className="about__more" aria-expanded={showAllCourses} onClick={() => setShowAllCourses((prev) => !prev)}>
                   {showAllCourses ? t.about.showLess : t.about.showAll.replace('{count}', String(courses.length))}
                 </button>
               ) : null}
             </>
-          ) : null}
-
-          {activeTab === 'workExperience' ? (
-            <ol className="about__timeline">
-              {sections.workExperience.items.map((item) => (
-                <li key={`${item.clinic}-${item.period}`}>
-                  <span className="about__period">{item.period}</span>
-                  <p className="about__entry-title">{item.clinic}</p>
-                  <p className="about__entry-meta">{item.role}</p>
-                  <p className="about__entry-meta">
-                    {item.location}
-                    {item.supervisor ? ` · ${item.supervisor}` : ''}
-                  </p>
-                </li>
-              ))}
-            </ol>
           ) : null}
         </div>
       </div>

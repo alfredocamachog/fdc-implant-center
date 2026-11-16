@@ -12,7 +12,15 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import MobileDock from './components/MobileDock'
 import FloatingCta from './components/FloatingCta'
+import LanguageFab from './components/LanguageFab'
 import './style.css'
+
+// Keeps the address bar clean: section navigation never leaves a #fragment in the URL.
+const clearHash = () => {
+  if (window.location.hash) {
+    window.history.replaceState(null, '', window.location.pathname + window.location.search)
+  }
+}
 
 function App() {
   const [language, setLanguageState] = useState<Language>(getInitialLanguage)
@@ -28,6 +36,19 @@ function App() {
     document.documentElement.lang = language
   }, [language])
 
+  // Shared links with a #section (or the skip link) still land on that section, then the hash is dropped.
+  useEffect(() => {
+    const onHash = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1))
+      if (!id) return
+      document.getElementById(id)?.scrollIntoView()
+      clearHash()
+    }
+    onHash()
+    window.addEventListener('hashchange', onHash)
+    return () => window.removeEventListener('hashchange', onHash)
+  }, [])
+
   const t = translations[language]
   const phoneContacts = SITE_CONFIG.phones.map((phone) => ({
     id: phone.id,
@@ -38,7 +59,7 @@ function App() {
   const emailHref = `mailto:${SITE_CONFIG.email}`
 
   const closeMenu = () => setMenuOpen(false)
-  // Links keep real #anchors (crawlable, open in new tab); JS only adds smooth scroll and moves focus to the section.
+  // Links keep real #anchors (crawlable, open in new tab); JS adds smooth scroll, moves focus to the section and keeps the URL hash-free.
   const scrollTo = (id: string) => (e: React.MouseEvent) => {
     if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
     const target = document.getElementById(id)
@@ -48,7 +69,7 @@ function App() {
     target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' })
     if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1')
     target.focus({ preventScroll: true })
-    window.history.replaceState(null, '', `#${id}`)
+    clearHash()
     closeMenu()
   }
 
@@ -77,6 +98,7 @@ function App() {
         </div>
       </main>
       <Footer t={t} scrollTo={scrollTo} />
+      <LanguageFab language={language} setLanguage={setLanguage} />
       <FloatingCta t={t} language={language} phones={phoneContacts} />
       <MobileDock t={t} scrollTo={scrollTo} />
     </div>

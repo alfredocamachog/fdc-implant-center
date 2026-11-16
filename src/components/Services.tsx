@@ -116,6 +116,19 @@ export default function Services({ t, scrollTo }: ServicesProps) {
         </ul>
       </div>
 
+      <div className="svc-partner">
+        <div className="svc-partner__intro">
+          <span className="svc-partner__badge">{s.partnerTag}</span>
+          <h3 className="svc-partner__title">{s.partnerTitle}</h3>
+          <p className="svc-partner__note">{s.partnerNote}</p>
+        </div>
+        <ul className="svc-partner__list">
+          {s.partnerItems.map((item) => (
+            <ServiceCard key={item.id} item={item} variant="partner" askLabel={s.askLabel} onSelect={onSelect} />
+          ))}
+        </ul>
+      </div>
+
       <div className="svc-brands">
         <div className="svc-brands__copy">
           <p className="svc-brands__eyebrow">{s.brandsEyebrow}</p>
@@ -127,19 +140,6 @@ export default function Services({ t, scrollTo }: ServicesProps) {
             <li key={brand.id} className={`svc-brands__logo svc-brands__logo--${brand.id}`}>
               <img src={brand.src} alt={brand.name} width={brand.width} height={brand.height} loading="lazy" decoding="async" />
             </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="svc-partner">
-        <div className="svc-partner__intro">
-          <span className="svc-partner__badge">{s.partnerTag}</span>
-          <h3 className="svc-partner__title">{s.partnerTitle}</h3>
-          <p className="svc-partner__note">{s.partnerNote}</p>
-        </div>
-        <ul className="svc-partner__list">
-          {s.partnerItems.map((item) => (
-            <ServiceCard key={item.id} item={item} variant="partner" askLabel={s.askLabel} onSelect={onSelect} />
           ))}
         </ul>
       </div>

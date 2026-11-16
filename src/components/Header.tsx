@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { languages, type Language, type Translations } from '../translations'
+import Flag from './Flag'
 
 interface HeaderProps {
   t: Translations
@@ -67,7 +68,7 @@ export default function Header({ t, language, setLanguage, menuOpen, setMenuOpen
                 aria-label={code === 'es' ? 'Español' : 'English'}
                 onClick={() => setLanguage(code)}
               >
-                {code.toUpperCase()}
+                <Flag code={code} />
               </button>
             ))}
           </div>

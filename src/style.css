@@ -152,8 +152,8 @@ img {
 }
 
 .logo__badge {
-  width: 58px;
-  height: 58px;
+  width: 84px;
+  height: 84px;
   border-radius: 12px;
   background: transparent;
   color: var(--on-primary);
@@ -208,18 +208,50 @@ img {
 }
 
 .nav__links {
-  gap: clamp(1.25rem, 2.4vw, 2.25rem);
+  gap: clamp(1.25rem, 2.4vw, 1.75rem);
 }
 
 .nav a {
   position: relative;
   padding: 0.35rem 0;
+  white-space: nowrap;
   text-decoration: none;
   font-weight: 600;
   font-size: 1.08rem;
   letter-spacing: 0.01em;
   color: var(--muted);
   transition: color 0.2s ease;
+}
+
+/* Small laptops: tighten the bar so the six menu items stay on one line. */
+@media (min-width: 901px) and (max-width: 1360px) {
+  .logo__badge {
+    width: 64px;
+    height: 64px;
+  }
+
+  .logo__title {
+    font-size: 1.1rem;
+  }
+
+  .logo__tagline {
+    font-size: 0.7rem;
+  }
+
+  .nav__links {
+    gap: 0.95rem;
+  }
+
+  .nav a {
+    font-size: 0.9rem;
+  }
+}
+
+/* Narrowest desktop widths: the badge alone carries the brand so the menu fits. */
+@media (min-width: 901px) and (max-width: 1100px) {
+  .site-header .logo__text {
+    display: none;
+  }
 }
 
 .nav a::after {
@@ -254,7 +286,7 @@ img {
   flex-wrap: nowrap;
 }
 
-/* Language switch: two plain text codes split by a hairline; the active one is solid, the other faded. */
+/* Language switch: two small flags split by a hairline; the active one is solid, the other faded. */
 .lang-switch {
   display: flex;
   align-items: center;
@@ -276,6 +308,24 @@ img {
   opacity: 0.45;
   cursor: pointer;
   transition: opacity 0.2s ease;
+}
+
+.lang-switch__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lang-switch__btn:not(.is-active) {
+  filter: saturate(0.4);
+}
+
+.flag {
+  display: block;
+  width: 21px;
+  height: 14px;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
 }
 
 .lang-switch__btn + .lang-switch__btn::before {
@@ -1192,7 +1242,7 @@ img {
 .mobile-dock__label {
   font-size: 0.7rem;
   line-height: 1;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
   white-space: nowrap;
 }
 
@@ -1489,15 +1539,15 @@ img {
 }
 
 .about__intro {
-  max-width: 62ch;
-  margin: 0 0 2rem;
+  margin: 0 0 1.1rem;
   font-size: 1.05rem;
 }
 
+/* Tabs, intro and panel share the column's full width so every edge lines up. */
 .about__tabs {
-  display: inline-flex;
+  display: flex;
   gap: 0.25rem;
-  max-width: 100%;
+  width: 100%;
   padding: 0.3rem;
   overflow-x: auto;
   background: var(--surface);
@@ -1511,8 +1561,9 @@ img {
 }
 
 .about__tab {
-  flex: 0 0 auto;
+  flex: 1 1 0;
   padding: 0.6rem 1.15rem;
+  text-align: center;
   border: 0;
   border-radius: 999px;
   background: transparent;
@@ -1544,7 +1595,7 @@ img {
 
 .about__panel {
   min-height: 16rem;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   padding: clamp(1.25rem, 3vw, 2rem);
   background: #fff;
   border: 1px solid var(--border);
@@ -1559,102 +1610,710 @@ img {
   }
 }
 
-.about__timeline {
-  position: relative;
-  margin: 0;
-  padding: 0 0 0 1.75rem;
-  list-style: none;
-}
-
-.about__timeline::before {
-  content: "";
-  position: absolute;
-  top: 0.4rem;
-  bottom: 0.4rem;
-  left: 0.4rem;
-  width: 2px;
-  background: linear-gradient(var(--primary), var(--border));
-}
-
-.about__timeline li {
-  position: relative;
-  padding-bottom: 1.6rem;
-}
-
-.about__timeline li:last-child {
-  padding-bottom: 0;
-}
-
-.about__timeline li::before {
-  content: "";
-  position: absolute;
-  top: 0.3rem;
-  left: -1.75rem;
-  width: 0.9rem;
-  height: 0.9rem;
-  border: 3px solid #fff;
-  border-radius: 50%;
-  background: var(--primary);
-  box-shadow: 0 0 0 1px var(--primary);
-}
-
-.about__period {
-  display: inline-block;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+/* About: specialty line, bio preview and the "Read more" pill that opens the doctor's letter. */
+.about__subtitle {
+  margin: -0.4rem 0 0.9rem;
+  font-size: 1.08rem;
+  font-weight: 600;
   color: #0b6f83;
 }
 
-.about__entry-title {
-  margin: 0.15rem 0 0.2rem;
-  font-size: 1.05rem;
-  font-weight: 700;
+.about__read {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0 0 1.75rem auto;
+  padding: 0.35rem 0.4rem 0.35rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  font: inherit;
+  text-align: left;
   color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(12, 34, 56, 0.06);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.about__entry-meta {
-  margin: 0;
-  font-size: 0.95rem;
+.about__read:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(17, 171, 200, 0.18);
+}
+
+.about__read:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+.about__read-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.about__read-label {
+  font-weight: 700;
+  font-size: 0.98rem;
+}
+
+.about__read-hint {
+  font-size: 0.8rem;
   color: var(--muted);
 }
 
-.about__courses {
+.about__read-arrow {
+  width: 2.2rem;
+  height: 2.2rem;
+  margin-left: 0.6rem;
+  padding: 0.55rem;
+  border-radius: 50%;
+  background: var(--cta);
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.about__read:hover .about__read-arrow {
+  transform: translateX(3px);
+  background: var(--primary);
+}
+
+/* The doctor's letter: portrait beside a scrolling letter. */
+.letter {
+  width: min(1120px, 100vw - 2rem);
+  max-width: none;
+  height: min(780px, 100dvh - 2rem);
+  max-height: none;
+  padding: 0;
+  border: 0;
+  border-radius: 1.5rem;
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+.letter[open] {
+  animation: letter-in 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.letter::backdrop {
+  background: rgba(7, 20, 32, 0.78);
+  backdrop-filter: blur(6px);
+}
+
+@keyframes letter-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.985);
+  }
+}
+
+.letter__sheet {
+  position: relative;
   display: grid;
-  gap: 0.6rem;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  height: 100%;
+}
+
+.letter__portrait {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  background: #0b1f31;
+}
+
+.letter__portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+.letter__portrait figcaption {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 5rem 1.75rem 1.75rem;
+  background: linear-gradient(to top, rgba(7, 24, 40, 0.92), rgba(7, 24, 40, 0.55) 55%, transparent);
+  color: #fff;
+}
+
+.letter__portrait-name {
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.letter__portrait-role {
+  font-size: 0.92rem;
+  color: #7fdcef;
+}
+
+.letter__portrait-place {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  align-self: flex-start;
+  margin-top: 0.6rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  font-size: 0.82rem;
+}
+
+.letter__portrait-place svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.letter__body {
+  overflow-y: auto;
+  padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 3.5rem) clamp(2rem, 4vw, 3rem);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.letter__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  width: 2.6rem;
+  height: 2.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.letter__close:hover {
+  background: var(--cta);
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.letter__close:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.letter__close svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.letter__body .eyebrow {
+  margin: 0;
+}
+
+.letter__title {
+  margin: 0.3rem 0 0.35rem;
+  padding-right: 2.5rem;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.letter__subtitle {
+  margin: 0 0 1.75rem;
+  font-weight: 600;
+  color: #0b6f83;
+}
+
+.letter__text p {
+  margin: 0 0 1.15rem;
+  font-size: 1.04rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+.letter__text .letter__lead {
+  font-size: 1.14rem;
+  color: var(--ink);
+}
+
+.letter__experiences {
+  margin: 0 0 1.4rem;
+}
+
+.letter__text .letter__experiences-title {
+  margin: 0 0 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0b6f83;
+}
+
+.letter__experiences ul {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.about__courses li {
+.letter__experiences li {
   display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  padding: 0.85rem 1rem;
-  border: 1px solid transparent;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--border);
   border-radius: 0.9rem;
   background: var(--bg);
-  line-height: 1.45;
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
-.about__courses li.is-international {
-  border-color: rgba(17, 171, 200, 0.3);
-  background: rgba(17, 171, 200, 0.07);
+.letter__experiences li:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
 }
 
-.about__badge {
-  flex: none;
-  margin-top: 0.1rem;
-  padding: 0.15rem 0.55rem;
-  border: 1px solid rgba(17, 171, 200, 0.45);
-  border-radius: 999px;
+.letter__experiences strong {
+  font-size: 0.88rem;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.letter__experiences span {
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+.letter__quote {
+  position: relative;
+  margin: 1.75rem 0;
+  padding: 1.6rem 1.75rem 1.6rem 3.6rem;
+  border-radius: 1.2rem;
+  background: linear-gradient(135deg, var(--cta), #0e4d6e);
+  box-shadow: 0 18px 36px rgba(23, 62, 95, 0.22);
+}
+
+.letter__quote::before {
+  content: "\201C";
+  position: absolute;
+  top: 0.6rem;
+  left: 1rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--primary);
+}
+
+.letter__text .letter__quote p {
+  margin: 0;
+  font-size: 1.16rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #fff;
+}
+
+.letter__sign {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 2.25rem;
+  padding-top: 2rem;
+}
+
+/* Short centred rule above the lockup, fading out at both ends. */
+.letter__sign::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(14rem, 60%);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  transform: translateX(-50%);
+}
+
+.letter__sign-logo {
+  width: 84px;
+  height: 84px;
+  object-fit: contain;
+}
+
+.letter__sign-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+/* Same type as the header's .logo__title / .logo__tagline. */
+.letter__sign-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.letter__sign-tagline {
+  margin-top: 0.15rem;
+  font-size: 0.88rem;
+  letter-spacing: 0.12rem;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+@media (max-width: 480px) {
+  .letter__sign-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .letter__sign-title {
+    font-size: 1.1rem;
+  }
+
+  .letter__sign-tagline {
+    font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .letter {
+    width: 100vw;
+    height: 100dvh;
+    border-radius: 0;
+    overflow-y: auto;
+  }
+
+  .letter__sheet {
+    display: block;
+    height: auto;
+  }
+
+  .letter__portrait {
+    height: min(58vh, 460px);
+  }
+
+  .letter__body {
+    overflow: visible;
+    padding: 1.75rem 1.25rem 2.5rem;
+  }
+
+  .letter__close {
+    position: fixed;
+    top: max(0.9rem, env(safe-area-inset-top));
+    right: 0.9rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  }
+
+  .letter__experiences ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .letter__quote {
+    padding: 1.4rem 1.25rem 1.4rem 3rem;
+  }
+
+  .letter__quote::before {
+    left: 0.7rem;
+    font-size: 3.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about__read,
+  .about__read-arrow,
+  .letter[open],
+  .letter__close,
+  .letter__experiences li {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Profile timeline (work, education, courses): newest first, each entry a card on a rail that expands for details. */
+.tl {
+  position: relative;
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Rail behind the year column. */
+.tl::before {
+  content: "";
+  position: absolute;
+  top: 1.2rem;
+  bottom: 1.2rem;
+  left: 2.35rem;
+  width: 2px;
+  background: linear-gradient(var(--primary), var(--border));
+}
+
+.tl__item {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
   background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.tl__item:hover {
+  border-color: rgba(17, 171, 200, 0.55);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(12, 34, 56, 0.07);
+}
+
+.tl__item.is-open {
+  border-color: var(--primary);
+  box-shadow: 0 12px 28px rgba(17, 171, 200, 0.14);
+}
+
+.tl__head {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 4.7rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1rem 0.9rem 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+}
+
+.tl__head:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 1rem;
+}
+
+/* Year "node" sits on the rail: end year big, start year small beneath. */
+.tl__node {
+  position: relative;
+  z-index: 1;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 3.4rem;
+  padding: 0.35rem 0.5rem;
+  border: 2px solid var(--border);
+  border-radius: 0.8rem;
+  background: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  line-height: 1.1;
+  color: var(--ink);
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.tl__node-from {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.tl__item.is-open .tl__node {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #fff;
+}
+
+.tl__item.is-open .tl__node-from {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.tl__main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.tl__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.tl__tag {
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(17, 171, 200, 0.12);
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #0b6f83;
+}
+
+.tl__tag--soft {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px rgba(17, 171, 200, 0.45);
+}
+
+.tl__node-icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  margin: 0.2rem 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tl__subtitle {
+  font-size: 0.92rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.tl__chevron {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.25s ease, stroke 0.2s ease;
+}
+
+.tl__item.is-open .tl__chevron {
+  transform: rotate(180deg);
+  stroke: var(--primary);
+}
+
+.tl__body {
+  display: grid;
+  gap: 0.45rem;
+  padding: 0 1rem 1rem 5.7rem;
+  animation: about-fade 0.25s ease;
+}
+
+.tl__body[hidden] {
+  display: none;
+}
+
+.tl__detail {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.tl__detail svg {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Duration bar, relative to the longest role. */
+.tl__span {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.2rem;
+}
+
+.tl__bar {
+  flex: 1;
+  max-width: 14rem;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.tl__bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+  animation: tl-grow 0.6s ease both;
+  transform-origin: left;
+}
+
+@keyframes tl-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+.tl__duration {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0b6f83;
+}
+
+@media (max-width: 640px) {
+  .tl::before {
+    left: 1.95rem;
+  }
+
+  .tl__head {
+    grid-template-columns: 3.9rem minmax(0, 1fr) auto;
+    gap: 0.7rem;
+    padding-right: 0.8rem;
+  }
+
+  .tl__node {
+    min-width: 3rem;
+    font-size: 0.92rem;
+  }
+
+  .tl__body {
+    padding: 0 0.9rem 0.9rem 4.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl__item,
+  .tl__node,
+  .tl__chevron,
+  .tl__body,
+  .tl__bar span {
+    transition: none;
+    animation: none;
+  }
 }
 
 .about__more {
@@ -1671,6 +2330,87 @@ img {
 
 .about__more:hover {
   border-color: var(--ink);
+}
+
+/* Desktop: card and content column always share one height. The card (with the photo at its
+ * natural 10:11 ratio) sets that height; the tab panel fills whatever is left in the content
+ * column and scrolls inside, so switching tabs never changes the section's size. */
+@media (min-width: 901px) {
+  .about {
+    align-items: stretch;
+  }
+
+  .about__card {
+    position: static;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* If the content column ever ends up taller, the facts row stays pinned to the bottom. */
+  .about__facts {
+    margin-top: auto;
+  }
+
+  .about__identity {
+    margin-bottom: 1rem;
+  }
+
+  .about__body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .about {
+    grid-template-columns: minmax(300px, 430px) minmax(0, 1fr);
+  }
+
+  /* Intro and "Read more" share a row: the pill sits at the right, level with the last line. */
+  .about__lead {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .about__lead .about__intro {
+    flex: 1;
+    margin: 0;
+  }
+
+  .about__lead .about__read {
+    flex: none;
+    margin: 0;
+  }
+
+  /* Slightly denser timeline so a full tab fits beside the card. */
+  .about__panel .tl {
+    gap: 0.5rem;
+  }
+
+  .about__panel .tl__head {
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+  }
+
+  .about__panel .tl__node {
+    padding: 0.25rem 0.5rem;
+  }
+
+  .about__panel .tl__body {
+    gap: 0.35rem;
+    padding-bottom: 0.8rem;
+  }
+
+  .about__panel {
+    flex: 1 1 0;
+    min-height: 16rem;
+    margin-top: 0.75rem;
+    padding: 1rem 1.25rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
 }
 
 @media (max-width: 900px) {
@@ -1741,12 +2481,6 @@ img {
   }
 }
 
-@media (max-width: 480px) {
-  .about__courses li {
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .about__panel {
@@ -1761,6 +2495,60 @@ img {
   .floating-cta__panel {
     animation: none;
     transition: none;
+  }
+}
+
+/* Mobile language switch: a round button matching the WhatsApp one, stacked just above it. */
+.language-fab {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .language-fab {
+    position: fixed;
+    z-index: 39; /* below the WhatsApp chooser panel when it opens */
+    right: 1rem;
+    bottom: calc(92px + 53px + 0.75rem + env(safe-area-inset-bottom, 0px));
+    width: 53px;
+    height: 53px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 14px 32px rgba(12, 34, 56, 0.18);
+    cursor: pointer;
+    animation: floating-cta-in 0.4s ease 0.6s both;
+  }
+
+  .language-fab:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+  }
+
+  .language-fab__flag {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 6px 15px rgba(0, 0, 0, 0.18);
+  }
+
+  /* Fill the circle; the flag's 3:2 box is cropped at the sides. */
+  .language-fab .flag {
+    width: 60px;
+    height: 100%;
+    margin-left: -10px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .language-fab {
+    animation: none;
   }
 }
 
@@ -1819,28 +2607,22 @@ textarea:focus-visible,
 
 /* Mobile header: brand centered, nothing else competing for the bar (navigation lives in the dock). */
 @media (max-width: 900px) {
+  /* Brand centred in the bar. */
   .site-header__inner {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0.5rem;
     width: 100%;
-    padding: 0.85rem 1rem;
+    padding: 0.55rem 0.5rem;
   }
 
-  /* Brand on the left, language switch on the right (the only control left in the bar). */
-  .site-header__inner {
-    justify-content: space-between;
-    padding-right: 0.5rem;
+  .site-header .logo {
+    grid-column: 2;
   }
 
+  /* Language moves to the floating round button above WhatsApp. */
   .site-header .header-controls {
-    width: auto;
-    flex-shrink: 0;
-  }
-
-  .lang-switch__btn {
-    min-width: 2rem;
-    padding: 0 0.3rem;
-    font-size: 0.75rem;
+    display: none;
   }
 
   .logo {
@@ -1848,8 +2630,8 @@ textarea:focus-visible,
   }
 
   .logo__badge {
-    width: 40px;
-    height: 40px;
+    width: 72px;
+    height: 72px;
   }
 
   .logo__text {
@@ -3595,8 +4377,8 @@ textarea:focus-visible,
 }
 
 .footer__logo img {
-  width: 58px;
-  height: 58px;
+  width: 92px;
+  height: 92px;
   object-fit: contain;
   filter: brightness(0) invert(1);
 }

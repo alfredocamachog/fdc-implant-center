@@ -76,7 +76,9 @@ export default function Hero({ t, scrollTo }: HeroProps) {
     let waitingForGesture = false
     const shouldPlay = () => inView && document.visibilityState === 'visible'
 
-    const GESTURES = ['pointerdown', 'touchstart', 'scroll', 'keydown'] as const
+    // touchend/click/keydown are real user activations (iOS Safari and Chrome only unlock play()
+    // on those); pointerdown/touchstart/scroll are kept as cheap early attempts.
+    const GESTURES = ['pointerdown', 'touchstart', 'touchend', 'click', 'scroll', 'keydown'] as const
     const onGesture = () => {
       waitingForGesture = false
       GESTURES.forEach((type) => window.removeEventListener(type, onGesture))
@@ -100,34 +102,69 @@ export default function Hero({ t, scrollTo }: HeroProps) {
       else video!.pause()
     }
 
+    // Reload the source and resume where it was (used for decoder freezes and network failures).
+    const reloadAt = (at: number) => {
+      video.addEventListener(
+        'loadedmetadata',
+        () => {
+          if (Number.isFinite(video.duration) && at < video.duration) video.currentTime = at
+          sync()
+        },
+        { once: true },
+      )
+      video.load()
+    }
+
     // Watchdog: if the video should be playing but the clock hasn't moved, kick it.
     let lastTime = -1
     let stuckTicks = 0
+    let bufferingTicks = 0
     const watchdog = window.setInterval(() => {
       if (!shouldPlay() || waitingForGesture) {
         stuckTicks = 0
+        bufferingTicks = 0
         return
       }
       if (video.paused || video.ended) {
         play()
       } else if (video.currentTime === lastTime && video.readyState >= 3) {
-        // Has buffered data but isn't advancing (plain buffering has readyState < 3 and is left
-        // alone): nudge the decoder, then reload the source as a last resort.
+        // Has buffered data but isn't advancing: nudge the decoder, then reload as a last resort.
         stuckTicks += 1
         if (stuckTicks >= 3) {
-          const at = video.currentTime
-          video.addEventListener('loadedmetadata', () => (video.currentTime = at), { once: true })
-          video.load()
+          reloadAt(video.currentTime)
           stuckTicks = 0
         } else {
-          video.currentTime = video.currentTime + 0.05
+          video.currentTime = Math.min(video.currentTime + 0.05, Math.max(video.duration - 0.1, 0))
         }
         play()
+      } else if (video.currentTime === lastTime) {
+        // Waiting for data. Normal buffering resolves on its own; a connection that never
+        // recovers (dropped request, mobile network switch) gets a fresh request after ~12 s.
+        bufferingTicks += 1
+        if (bufferingTicks >= 6) {
+          reloadAt(video.currentTime)
+          bufferingTicks = 0
+        }
       } else {
         stuckTicks = 0
+        bufferingTicks = 0
       }
       lastTime = video.currentTime
     }, 2000)
+
+    // A failed download (e.g. network error mid-file) retries with backoff; the poster stays
+    // visible underneath meanwhile.
+    let errorRetries = 0
+    let errorTimer: number | undefined
+    const onError = () => {
+      if (errorRetries >= 5) return
+      errorRetries += 1
+      const at = video.currentTime || 0
+      errorTimer = window.setTimeout(() => reloadAt(at), 1500 * errorRetries)
+    }
+    const onPlaying = () => {
+      errorRetries = 0
+    }
 
     const onEnded = () => {
       video.currentTime = 0
@@ -146,16 +183,21 @@ export default function Hero({ t, scrollTo }: HeroProps) {
     document.addEventListener('visibilitychange', sync)
     window.addEventListener('pageshow', onPageShow)
     video.addEventListener('ended', onEnded)
+    video.addEventListener('error', onError)
+    video.addEventListener('playing', onPlaying)
     // Data arriving after a stall: resume immediately instead of waiting for the watchdog.
     video.addEventListener('canplay', sync)
     sync()
 
     return () => {
       window.clearInterval(watchdog)
+      if (errorTimer !== undefined) window.clearTimeout(errorTimer)
       observer.disconnect()
       document.removeEventListener('visibilitychange', sync)
       window.removeEventListener('pageshow', onPageShow)
       video.removeEventListener('ended', onEnded)
+      video.removeEventListener('error', onError)
+      video.removeEventListener('playing', onPlaying)
       video.removeEventListener('canplay', sync)
       GESTURES.forEach((type) => window.removeEventListener(type, onGesture))
     }
